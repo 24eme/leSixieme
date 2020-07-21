@@ -15,7 +15,7 @@ def readLinkJson(filename):
         i=i+1
         
     urls.close()
-    print(taburls)
+    return(taburls)
 
 
 readLinkJson('../../eventsLinks.json')
