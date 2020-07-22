@@ -30,30 +30,12 @@ class SpiderSpider(scrapy.Spider):
 
         prix=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
         adresse=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
-<<<<<<< HEAD
 
-=======
-        
-        def format_descrip(tab_descrip):
-            long=len(tab_descrip)
-            description=''
-            for i in range (long):
-                description=description+tab_descrip[i]
-            return description
-        
-        description=format_descrip(description)
-            
-        
->>>>>>> 9adb0a946bb98d59c2015945abf95823c7078a72
         print(titre)
         print(image_url)
         print(date)
         print(heure.replace("CEST",""))
         print(description)
-        print(prix)
+        print(prix.strip())
         print(adresse)
-<<<<<<< HEAD
-=======
         print(type(description))
-        
->>>>>>> 9adb0a946bb98d59c2015945abf95823c7078a72
