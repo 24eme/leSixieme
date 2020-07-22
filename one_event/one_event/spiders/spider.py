@@ -21,7 +21,7 @@ class SpiderSpider(scrapy.Spider):
             description=[]
             for data in select:
                 cont= data.xpath('.//text()').extract();
-                description.append(cont)
+                description=description+['\n']+cont
             return(description)
 
         all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
@@ -31,6 +31,16 @@ class SpiderSpider(scrapy.Spider):
         prix=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
         adresse=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
         
+        def format_descrip(tab_descrip):
+            long=len(tab_descrip)
+            description=''
+            for i in range (long):
+                description=description+tab_descrip[i]
+            return description
+        
+        description=format_descrip(description)
+            
+        
         print(titre)
         print(image_url)
         print(date)
@@ -38,3 +48,5 @@ class SpiderSpider(scrapy.Spider):
         print(description)
         print(prix)
         print(adresse)
+        print(type(description))
+        
