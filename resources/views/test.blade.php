@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,8 +17,6 @@
         width: 100%;
         height: 600px;
     }
-    /* This is new */
-
     button {
         width: 100px;
     }
@@ -27,7 +25,7 @@
 
 <body>
     <!-- This is new -->
-    <div class="btn-group">
+    <!-- <div class="btn-group">
         <button type="button" id="all" class="btn btn-primary">Tout afficher</button>
         <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
         <button type="button" id="bar" class="btn btn-secondary">Bar</button>
@@ -95,7 +93,7 @@
                     this.bindPopup(feature.properties.name).openPopup();
                 });
             }
-        }); 
+        });
         cafes.addTo(map)
         others.addTo(map)
         // The JavaScript below is new
@@ -113,6 +111,46 @@
         });
     });
     </script>
+</body>
+
+</html>  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Leaflet Routing Machine Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <style>
+        .map {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+    var map = L.map('map');
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+L.Routing.control({
+  waypoints: [
+      L.latLng(57.74, 11.94),
+      L.latLng(57.6792, 11.949)
+  ],
+  routeWhileDragging: true
+}).addTo(map);
+    </script>
+
 </body>
 
 </html>
