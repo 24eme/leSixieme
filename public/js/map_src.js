@@ -6,6 +6,8 @@
 //     };
 // };
 //
+var nearest = 600000;
+
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
 });
@@ -16,10 +18,7 @@ var map = L.map('map', {
     layers: mapboxTiles
 });
 
-var Icon = L.icon({
-  iconUrl: '../img/markers/markerSmall.png',
-  iconSize: [45, 45],
-});
+
 var barIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
 markerColor: 'green',
@@ -54,11 +53,10 @@ scops.then(function(data) {
     });
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
-            return feature.properties.category != "Culturel" || "Bar" || "Festival" || "" || "";
+            return feature.properties.category != "Culturel" || "Bar" || "Festival";
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
-              icon: Icon
             }).on('mouseover', function() {
                 this.bindPopup(feature.properties.name + "<hr>").openPopup();
             });
@@ -87,18 +85,17 @@ scops.then(function(data) {
 map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
+  console.log(e.latlng);
     var radius = e.accuracy;
-    L.marker(e.latlng).addTo(map).bindPopup("You are within " + radius + " meters from this point").openPopup();
-    // drawData(e.latlng);
+    L.marker(e.latlng).addTo(map).bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
+    drawData(e.latlng);
+
 //    nearestPoint(e.latlng);
   //  L.circle(e.latlng, radius).addTo(map);
 }
 map.on('locationfound', onLocationFound);
-
-
-
 function onLocationError(e) {
-    alert(e.message);
+    drawData({lat:48.85762877,lng:2.348290390007035});
 }
 map.on('locationerror', onLocationError);
 
@@ -144,44 +141,67 @@ map.on('locationerror', onLocationError);
 // var marker = new L.Marker(userLocation, {icon: Icon}).addTo(map);
 // map.addLayer(marker);
 //
-// //random locations around the world
-// var items = scops.responseJSON.features;
-//
-// //draw all the data on the map
-// function drawData(userLocation) {
-//     var item, o;
-//     //draw markers for all items
-//     for (item in items) {
-//         var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
-//         createPolyLine(loc, userLocation);
-//     }
-// }
-//
-// function createPolyLine(loc1, loc2) {
-//     if (Math.abs(loc1.lng - loc2.lng) > 180) {
-//         loc1 = loc1.wrap(179, -179);
-//     }
-//     var latlongs = [loc1, loc2];
-//
-//     var polyline = new L.Polyline(latlongs, {
-//         color: 'green',
-//         opacity: 1,
-//         weight: 1,
-//         clickable: false
-//     }).addTo(map);
-//
-//     var s = 'About ' + (loc1.distanceTo(loc2) / 1000).toFixed(0) + 'km away from you.</p>';
-//
-//     var marker = L.marker(loc1, {icon: Icon}).addTo(map);
-//     if (marker) {
-//         marker.bindPopup(s);
-//     }
-//
-//  }
- L.Routing.control({
-  waypoints: [
-    L.latLng(57.74, 11.94),
-    L.latLng(57.6792, 11.949)
-  ]
-}).addTo(map);
+//random locations around the world
+//draw all the data on the map
+function drawData(userLocation) {
+    var item, o;
+    //draw markers for all items
+
+   var items = scops.responseJSON.features;
+    for (item in items) {
+        var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
+        createPolyLine(loc, userLocation);
+    }
+    if (nearestP != null){
+       L.Routing.control({
+         createMarker: function() { return null; },
+        waypoints: [
+          L.latLng(nearestP.lat, nearestP.lng),
+          L.latLng(userLocation.lat, userLocation.lng)
+        ]
+      }).addTo(map);
+    }
+}
+
+
+function createPolyLine(loc1, loc2) {
+
+
+    if (Math.abs(loc1.lng - loc2.lng) > 180) {
+        loc1 = loc1.wrap(179, -179);
+    }
+    var latlongs = [loc1, loc2];
+
+    // var polyline = new L.Polyline(latlongs, {
+    //     color: 'blue',
+    //     opacity: 1,
+    //     weight: 0.5,
+    //     clickable: false
+    // }).addTo(map);
+
+    if(loc1.distanceTo(loc2) < nearest){
+      nearest = loc1.distanceTo(loc2);
+      nearestP = loc1;
+    }
+
+    else{
+    }
+
+    var s = '<p>Ce lieu est à ' + (loc1.distanceTo(loc2)).toFixed(0) + ' m de vous.</p>';
+
+
+    var marker = L.marker(loc1).addTo(map);
+    if (marker) {
+        marker.bindPopup(s);
+    }
+
+    // if (nearestP != null){
+    //    L.Routing.control({
+    //     waypoints: [
+    //       L.latLng(nearestP.lat, nearestP.lng),
+    //       L.latLng(loc2.lat, loc2.lng)
+    //     ]
+    //   }).addTo(map);
+    // }
+ }
 // map.locate({setView: true, maxZoom: 16});
