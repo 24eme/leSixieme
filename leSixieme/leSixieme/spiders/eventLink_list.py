@@ -2,7 +2,7 @@ import scrapy
 import json
 import os
 
-filename = 'eventsLinks.json'
+filename = 'eventsLinks.txt'
 
 class IntroSpider(scrapy.Spider):
     name = "eventLink"
@@ -16,24 +16,22 @@ class IntroSpider(scrapy.Spider):
         list_data=[]
         eventLink_list = response.xpath('.//div[@class="eds-event-card-content__content-container eds-l-pad-right-2"]/div[@class="eds-event-card-content__content"]/div[@class="eds-event-card-content__content__principal"]/div[@class="eds-event-card-content__primary-content"]/a/@href').extract()
 
+        print(len(eventLink_list))
         i=0;
         for eventLink in eventLink_list:
-            data={
-                'url' : eventLink_list[i]
-            }
+            data='"url : '+eventLink_list[i]+'"'
             i+=1
             list_data.append(data)
 
 
         # supprime le json s'il existe déjà
 
-        if os.path.exists("eventsLinks.json"):
-            os.remove("eventsLinks.json")
+        if os.path.exists("eventsLinks.txt"):
+            os.remove("eventsLinks.txt")
 
         with open(filename, 'a+') as f:   # Writing data in the file
             for data in list_data :
-                app_json = json.dumps(data)
-                f.write(app_json+"\n")
+                f.write(data+'\n')
 
 
 #pour lancer dans le terminal :  cd leSixieme/leSixieme$ scrapy crawl eventLink
