@@ -3,8 +3,23 @@ import scrapy
 
 class SpiderSpider(scrapy.Spider):
     name = 'one_event'
-    allowed_domains = ['eventbrite.co.uk/e/fashion-masterclass-paris-tickets-110725982394?aff=ebdssbdestsearch']
-    start_urls = ['https://www.eventbrite.co.uk/e/fashion-masterclass-paris-tickets-110725982394?aff=ebdssbdestsearch']
+# =============================================================================
+#     allowed_domains = ['eventbrite.co.uk/e/fashion-masterclass-paris-tickets-110725982394?aff=ebdssbdestsearch']
+#     start_urls = ['https://www.eventbrite.co.uk/e/fashion-masterclass-paris-tickets-110725982394?aff=ebdssbdestsearch']
+# =============================================================================
+    
+    def start_requests(self):
+        url = 'https://www.eventbrite.co.uk/e/fashion-masterclass-paris-tickets-110725982394?aff=ebdssbdestsearch'
+        yield scrapy.Request(url=url, callback=self.parse)
+    
+# =============================================================================
+#     def descrip(select):
+#         description=[]
+#         for data in select:
+#             cont= data.xpath('.//text()').extract();
+#             description.append(cont)
+#         test(description)
+# =============================================================================
 
     def parse(self, response):
         main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
@@ -14,13 +29,16 @@ class SpiderSpider(scrapy.Spider):
         date=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract_first()
         heure=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
 
-        #description=main.css('.structured-content').extract()
         all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
         description=[]
         
         for para in all_para:
             cont= para.xpath('.//text()').extract();
             description.append(cont)
+        
+# =============================================================================
+#         print(descrip(all_para))
+# =============================================================================
         
         prix=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
         adresse=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
@@ -32,4 +50,3 @@ class SpiderSpider(scrapy.Spider):
         print(description)
         print(prix)
         print(adresse)
-        
