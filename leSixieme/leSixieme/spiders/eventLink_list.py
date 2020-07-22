@@ -15,7 +15,7 @@ class IntroSpider(scrapy.Spider):
     def parse(self,response):
         list_data=[]
         eventLink_list = response.xpath('.//div[@class="eds-event-card-content__content-container eds-l-pad-right-2"]/div[@class="eds-event-card-content__content"]/div[@class="eds-event-card-content__content__principal"]/div[@class="eds-event-card-content__primary-content"]/a/@href').extract()
-        i=0;
+        i=0
         for eventLink in eventLink_list:
             data='"url : '+eventLink_list[i]+'"'
             i+=1
