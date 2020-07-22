@@ -1,0 +1,6 @@
+
+pour lancer les scripts python
+
+cd leSixieme/leSixieme/leSixieme scrapy crawl eventLink
+
+cd leSixieme/leSixieme/leSixieme scrapy crawl events
