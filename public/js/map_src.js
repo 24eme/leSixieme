@@ -7,7 +7,7 @@
 // };
 //
 var nearest = 600000;
-
+var nearestP = null;
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
 });
@@ -36,7 +36,7 @@ markerColor: 'red',
 icon: 'coffee'
 });
 
-var scops = $.getJSON('leSixieme/leSixieme/eventGeoJson.json');
+var scops = $.getJSON('js/eventsGeoJson.json');
 scops.then(function(data) {
     var scops = L.geoJson(data);
     var cafes = L.geoJson(data, {
