@@ -12,7 +12,8 @@ npm-debug.log
 yarn-error.log
 /leSixieme/leSixieme/eventsLinks.txt
 /leSixieme/eventsLinks.json
-/leSixieme/leSixieme/event.json
+/leSixieme/leSixieme/events.json
+/leSixieme/leSixieme/eventsGeoJson.json
 event.json
 eventsLinks.txt
 leSixieme/__pycache__/__init__.cpython-38.pyc
