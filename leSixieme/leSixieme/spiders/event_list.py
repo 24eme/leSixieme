@@ -125,7 +125,8 @@ class SpiderSpider(scrapy.Spider):
                 coord.append(lon)
                 coord.append(lat)
             else:
-                coord.append(0,0)
+                coord.append(0)
+                coord.append(0)
             return coord
 
         address_coord_list=[]
