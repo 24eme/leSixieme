@@ -10,4 +10,16 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/leSixieme/leSixieme/eventsLinks.txt
 /leSixieme/eventsLinks.json
+/leSixieme/leSixieme/event.json
+event.json
+eventsLinks.txt
+leSixieme/__pycache__/__init__.cpython-38.pyc
+leSixieme/__pycache__/settings.cpython-38.pyc
+leSixieme/spiders/__pycache__/__init__.cpython-38.pyc
+leSixieme/spiders/__pycache__/eventLink_list.cpython-38.pyc
+leSixieme/spiders/__pycache__/event_list.cpython-38.pyc
+leSixieme/spiders/__pycache__/testPourRecupererUnUrl.cpython-38.pyc
+
+
