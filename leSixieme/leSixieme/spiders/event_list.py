@@ -44,7 +44,7 @@ class SpiderSpider(scrapy.Spider):
         title_list =main.xpath('.//h1[@class="listing-hero-title"]/text()').extract()
         image_url_list=main.xpath('.//picture/@content').extract()
         date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract()
-        heure_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract()
+        heure_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
 
 
         def descrip(select):
@@ -106,30 +106,23 @@ class SpiderSpider(scrapy.Spider):
 
         adresse_list=format_add(adresse_list)
         prix_list=format_list(prix_list)
+        heure_list=format_list(heure_list)
 
-
+        print('------------------------')
+        print(title_list)
+        print(heure_list)
         i=0
         for title in title_list:
-            data={
-                'title' : title_list[i],
-                'image-url' : image_url_list[i],
-                'date' : date_list[i],
-                'heure' : heure_list[i],
-                'prix':prix_list[i],
-                'adresse':adresse_list[i],
-                'description':description_list[i]
-            }
-
             if heure_list[i] is None:
                 heure_list[i]=[]
             else:
                 heure_list[i]=heure_list[i].replace("CEST","")
                 heure_list[i]=format_list(heure_list[i])
 
-            if title_list is None:
-                title_list=[]
+            if title is None:
+                title=[]
             else :
-                title_list=format_list(title_list)
+                title=format_list(title)
 
             if image_url_list[i] is None:
                 image_url_list[i]=[]
@@ -146,6 +139,15 @@ class SpiderSpider(scrapy.Spider):
             else:
                 prix_list[i]=prix_list[i].strip()
                 prix_list[i]=format_list(prix_list[i])
+            data={
+                'title' : title_list[i],
+                'image-url' : image_url_list[i],
+                'date' : date_list[i],
+                'heure' : heure_list[i],
+                'prix':prix_list[i],
+                'adresse':adresse_list[i],
+                'description':description_list[i]
+            }
             i+=1
             list_data.append(data)
 
