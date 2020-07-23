@@ -20,11 +20,11 @@ class SpiderSpider(scrapy.Spider):
 
         def readLinkTxt(filename):
             urls= open(filename)
-            contenu = urls.readlines()
+            content = urls.readlines()
             taburls=[]
             i=0
-            while(i<len(contenu)):
-                u=contenu[i].split()
+            while(i<len(content)):
+                u=content[i].split()
                 taburls.append(u[2][:-1])     #le dernier caractère est " donc je supprime le dernier caractère
                 i=i+1
 
@@ -36,11 +36,6 @@ class SpiderSpider(scrapy.Spider):
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
-
-
-
-
-
     def parse(self, response):
         list_data=[]
 
@@ -48,7 +43,7 @@ class SpiderSpider(scrapy.Spider):
         title_list =main.xpath('.//h1[@class="listing-hero-title"]/text()').extract()
         image_url_list=main.xpath('.//picture/@content').extract_first()
         date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract_first()
-        heure_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
+        hour_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
 
 
         def descrip(select):
@@ -64,8 +59,8 @@ class SpiderSpider(scrapy.Spider):
 
 
 
-        prix_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
-        adresse_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
+        price_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
+        address_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
 
         def format_descrip(tab_descrip):
             long=len(tab_descrip)
@@ -82,8 +77,8 @@ class SpiderSpider(scrapy.Spider):
             found = False
             index=0
             i=0
-            adresse=''
-            adresse_list=[]
+            address=''
+            address_list=[]
             if long!=0:
                 while found==False:
                     if tab_add[i].startswith('\n')==True or i>=long:
@@ -95,22 +90,22 @@ class SpiderSpider(scrapy.Spider):
                         tab_add.pop()
                 long=len(tab_add)
                 for p in range (1,len(tab_add)):
-                    adresse=adresse+tab_add[p]
-                adresse_list.append(adresse)
-                return adresse_list
+                    address=address+tab_add[p]
+                address_list.append(address)
+                return address_list
             else:
                 return tab_add
 
         def format_list(objet):
-            liste=[]
-            liste.append(objet)
-            return liste
+            list_=[]
+            list_.append(objet)
+            return list_
 
         description_list=format_descrip(description_list)
 
-        adresse_list=format_add(adresse_list)
-        prix_list=format_list(prix_list)
-        heure_list=format_list(heure_list)
+        address_list=format_add(address_list)
+        price_list=format_list(price_list)
+        hour_list=format_list(hour_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
 
@@ -129,22 +124,24 @@ class SpiderSpider(scrapy.Spider):
                 lat = result['features'][0]['geometry']['coordinates'][1]
                 coord.append(lon)
                 coord.append(lat)
+            else:
+                coord.append(0,0)
             return coord
 
-        adresse_coord_list=[]
+        address_coord_list=[]
 
 
-        for adresse in adresse_list:
-            coord=coord(adresse)
-            adresse_coord_list.append(coord)
+        for address in address_list:
+            coord=coord(address)
+            address_coord_list.append(coord)
 
 
         i=0
         for title in title_list:
-            if heure_list[i] is None:
-                heure_list[i]=[]
+            if hour_list[i] is None:
+                hour_list[i]=[]
             else:
-                heure_list[i]=heure_list[i].replace("CEST","")
+                hour_list[i]=hour_list[i].replace("CEST","")
 
             if title is None:
                 title=[]
@@ -157,19 +154,19 @@ class SpiderSpider(scrapy.Spider):
             if date_list[i] is None:
                 date_list[i]=[]
 
-            if prix_list[i] is None:
-                prix_list[i]=[]
+            if price_list[i] is None:
+                price_list[i]=[]
             else:
-                prix_list[i]=prix_list[i].strip()
+                price_list[i]=price_list[i].strip()
 
             data={
                 'title' : title_list[i],
                 'image-url' : image_url_list[i],
                 'date' : date_list[i],
-                'heure' : heure_list[i],
-                'prix':prix_list[i],
-                'adresse':adresse_list[i],
-                'coordinates':adresse_coord_list[i],
+                'hour' : hour_list[i],
+                'price':price_list[i],
+                'address':address_list[i],
+                'coordinates':address_coord_list[i],
                 'description':description_list[i]
             }
             i+=1

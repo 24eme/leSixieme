@@ -27,10 +27,9 @@ class IntroSpider(scrapy.Spider):
         list_data = list(set(list_data))
 
 
-        # supprime le json s'il existe déjà
 
         
-        with open(filename, 'a+') as f:   # Writing data in the file
+        with open(filename, 'a+') as f:   
             for data in list_data :
                 f.write(data+'\n')
 

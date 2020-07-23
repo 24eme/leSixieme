@@ -3,10 +3,11 @@
 import json
 
 tabFestival = ['Festival'];
+tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P'];
 tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
 tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
 
-with open('geo.json', 'r', encoding="utf8", errors='ignore') as f:
+with open('geo.json', 'r') as f:
     data = json.load(f)
 
 # strng = 'Apéro Frenchies';
@@ -19,27 +20,33 @@ with open('geo.json', 'r', encoding="utf8", errors='ignore') as f:
 for item in range(len(data['features'])):
 
     description = data['features'][item]['properties']['title']
-    print(description)
+
     for word in tabLoisirs:
         if word in description:
-            data['features'][item]['properties']['lat'] += 'Loisirs'
+            data['features'][item]['properties']['title'] += 'Loisirs'
+            print(data['features'][item]['properties']['title'])
 
     for word in tabCulturel:
         if word in description:
-            data['features'][item]['properties']['lat'] += 'Culturel'
+            data['features'][item]['properties']['title'] += 'Culturel'
+            print(data['features'][item]['properties']['title'])
+    for word in tabALpha:
+        if word in description:
+            data['features'][item]['properties']['title'] += 'Loisirs'
+            print(data['features'][item]['properties']['title'])
 
     for word in tabFestival:
         if word in description:
-            data['features'][item]['properties']['lat'] += 'Festival'
-
+            data['features'][item]['properties']['title'] += 'Festival'
+            print(data['features'][item]['properties']['title'])
 # for item in range(len(data['features'])):
 #
 #     description = data['features'][item]['properties']['name']
 #
-#     for word in tabALpha:
-#         if word in description:
-#             data['features'][item]['properties']['name'] += 'Loisirs'
-#             print(data)
+    # for word in tabALpha:
+    #     if word in description:
+    #         data['features'][item]['properties']['name'] += 'Loisirs'
+    #         print(data)
 # with open('new.json','a+') as f:
 #     json.dump(data,f)
 
