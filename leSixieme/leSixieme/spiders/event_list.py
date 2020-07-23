@@ -167,7 +167,8 @@ class SpiderSpider(scrapy.Spider):
                 'price':price_list[i],
                 'address':address_list[i],
                 'coordinates':address_coord_list[i],
-                'description':description_list[i]
+                'description':description_list[i],
+                'category':"cs"
             }
             i+=1
             list_data.append(data)
