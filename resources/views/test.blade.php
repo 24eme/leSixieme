@@ -175,7 +175,8 @@
     icon: 'coffee'
     });
 
-    var scops = $.getJSON('{{ asset("js/scops.json") }}'); 
+    var scops = $.getJSON('{{ asset("js/scops.json") }}');
+
     scops.then(function(data) {
         var scops = L.geoJson(data);
                 var cafes = L.geoJson(data, {
