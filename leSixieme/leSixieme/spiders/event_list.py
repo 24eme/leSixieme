@@ -36,11 +36,6 @@ class SpiderSpider(scrapy.Spider):
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
-
-
-
-
-
     def parse(self, response):
         list_data=[]
 
@@ -129,6 +124,8 @@ class SpiderSpider(scrapy.Spider):
                 lat = result['features'][0]['geometry']['coordinates'][1]
                 coord.append(lon)
                 coord.append(lat)
+            else:
+                coord.append(0,0)
             return coord
 
         adresse_coord_list=[]
