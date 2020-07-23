@@ -108,9 +108,6 @@ class SpiderSpider(scrapy.Spider):
         prix_list=format_list(prix_list)
         heure_list=format_list(heure_list)
 
-        print('------------------------')
-        print(title_list)
-        print(heure_list)
         i=0
         for title in title_list:
             if heure_list[i] is None:
