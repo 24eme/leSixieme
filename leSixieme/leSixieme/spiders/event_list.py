@@ -1,13 +1,17 @@
 import scrapy
 import json
 import os
+import requests
 
-filename='event.json'
+filename='events.json'
 
-if os.path.exists("event.json"):
-    os.remove("event.json")
+if os.path.exists("events.json"):
+    os.remove("events.json")
 
-filename = "event.json"
+# if os.path.exists("eventsGeoJson.json"):
+#     os.remove("eventsGeoJson.json")
+
+
 
 class SpiderSpider(scrapy.Spider):
     name = 'events'
@@ -109,7 +113,31 @@ class SpiderSpider(scrapy.Spider):
         heure_list=format_list(heure_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
-        
+
+        def coord(address):
+            coord=[]
+            tabAddress = address.split(' ')
+            if len(tabAddress)>1:
+                add=''
+                for i in tabAddress:
+                    add=add+'+'+i
+                add=add.strip('+')
+                req='https://api-adresse.data.gouv.fr/search/?q='+add
+                response = requests.get(req)
+                result= response.json()
+                lon = result['features'][0]['geometry']['coordinates'][0]
+                lat = result['features'][0]['geometry']['coordinates'][1]
+                coord.append(lon)
+                coord.append(lat)
+            return coord
+
+        adresse_coord_list=[]
+
+
+        for adresse in adresse_list:
+            coord=coord(adresse)
+            adresse_coord_list.append(coord)
+
 
         i=0
         for title in title_list:
@@ -117,9 +145,6 @@ class SpiderSpider(scrapy.Spider):
                 heure_list[i]=[]
             else:
                 heure_list[i]=heure_list[i].replace("CEST","")
-# =============================================================================
-#                 heure_list[i]=format_list(heure_list[i])
-# =============================================================================
 
             if title is None:
                 title=[]
@@ -128,25 +153,15 @@ class SpiderSpider(scrapy.Spider):
 
             if image_url_list[i] is None:
                 image_url_list[i]=[]
-# =============================================================================
-#             else :
-#                 image_url_list[i]=format_list(image_url_list[i])
-# 
-# =============================================================================
+
             if date_list[i] is None:
                 date_list[i]=[]
-# =============================================================================
-#             else :
-#                 date_list[i]=format_list(date_list[i])
-# =============================================================================
 
             if prix_list[i] is None:
                 prix_list[i]=[]
             else:
                 prix_list[i]=prix_list[i].strip()
-# =============================================================================
-#                 prix_list[i]=format_list(prix_list[i])
-# =============================================================================
+
             data={
                 'title' : title_list[i],
                 'image-url' : image_url_list[i],
@@ -154,15 +169,38 @@ class SpiderSpider(scrapy.Spider):
                 'heure' : heure_list[i],
                 'prix':prix_list[i],
                 'adresse':adresse_list[i],
+                'coordinates':adresse_coord_list[i],
                 'description':description_list[i]
             }
             i+=1
             list_data.append(data)
 
-
         with open(filename, 'a+') as f:   # Writing data in the file
             for data in list_data :
                 app_json = json.dumps(data)
                 f.write(app_json+"\n")
+
+        ##construction du geojson grace au json créer juste au-dessus
+
+        data = [json.loads(line) for line in open('events.json', 'r')]
+
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+            {
+                "type": "Feature",
+                "properties" : d,
+                "geometry" : {
+                    "type": "Point",
+                    "coordinates": d['coordinates'],
+                    },
+
+             } for d in data
+             ]
+        }
+        output = open("eventsGeoJson.json","w")
+
+        json.dump(geojson,output,indent=4)
+
 
 #fin hono
