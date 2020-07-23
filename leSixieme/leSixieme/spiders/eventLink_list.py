@@ -4,13 +4,13 @@ import os
 
 filename = 'eventsLinks.txt'
 
-if os.path.exists("eventsLinks.txt"):
-    os.remove("eventsLinks.txt")
 
 class IntroSpider(scrapy.Spider):
     name = "eventLink"
-
+    
     def start_requests(self):
+        if os.path.exists("eventsLinks.txt"):
+            os.remove("eventsLinks.txt")
         urls = ['https://www.eventbrite.fr/d/france--paris/paris/?page={x}'.format(x=x) for x in range(1, 6)]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -29,6 +29,7 @@ class IntroSpider(scrapy.Spider):
 
         # supprime le json s'il existe déjà
 
+        
         with open(filename, 'a+') as f:   # Writing data in the file
             for data in list_data :
                 f.write(data+'\n')
