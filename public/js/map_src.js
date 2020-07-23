@@ -109,8 +109,17 @@ function drawData(userLocation) {
           L.latLng(userLocation.lat, userLocation.lng)
         ]
       }).addTo(map);
+
+      var s = '<p>Ce lieu est à ' + (nearestP.distanceTo(userLocation)).toFixed(0) + ' m de vous.</p>';
+      var marker = L.marker(nearestP).addTo(map);
+
+      if (marker) {
+          marker.bindPopup(s);
+      }
+
     }
 }
+
 function createPolyLine(loc1, loc2) {
     if (Math.abs(loc1.lng - loc2.lng) > 180) {
         loc1 = loc1.wrap(179, -179);
@@ -121,9 +130,7 @@ function createPolyLine(loc1, loc2) {
       nearest = loc1.distanceTo(loc2);
       nearestP = loc1;
     }
-    var s = '<p>Ce lieu est à ' + (loc1.distanceTo(loc2)).toFixed(0) + ' m de vous.</p>';
-  //  var marker = L.marker(loc1).addTo(map);
-    if (marker) {
-        marker.bindPopup(s);
-    }
+
+
+
  }
