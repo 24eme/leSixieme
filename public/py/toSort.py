@@ -3,11 +3,10 @@
 import json
 
 tabFestival = ['Festival'];
-tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P'];
 tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
 tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
 
-with open('geo.json', 'r') as f:
+with open('geo.json', 'r', encoding="utf8", errors='ignore') as f:
     data = json.load(f)
 
 # strng = 'Apéro Frenchies';
@@ -19,11 +18,12 @@ with open('geo.json', 'r') as f:
 
 for item in range(len(data['features'])):
 
-    description = data['features'][item]['properties']['name']
+    description = data['features'][item]['properties']['title']
+    print(description)
     for word in tabLoisirs:
         if word in description:
             data['features'][item]['properties']['lat'] += 'Loisirs'
-            
+
     for word in tabCulturel:
         if word in description:
             data['features'][item]['properties']['lat'] += 'Culturel'
@@ -32,14 +32,14 @@ for item in range(len(data['features'])):
         if word in description:
             data['features'][item]['properties']['lat'] += 'Festival'
 
-for item in range(len(data['features'])):
-
-    description = data['features'][item]['properties']['name']
-
-    for word in tabALpha:
-        if word in description:
-            data['features'][item]['properties']['name'] += 'Loisirs'
-            print(data)
+# for item in range(len(data['features'])):
+#
+#     description = data['features'][item]['properties']['name']
+#
+#     for word in tabALpha:
+#         if word in description:
+#             data['features'][item]['properties']['name'] += 'Loisirs'
+#             print(data)
 # with open('new.json','a+') as f:
 #     json.dump(data,f)
 

@@ -18,6 +18,24 @@ var map = L.map('map', {
     layers: mapboxTiles
 });
 
+var scops = [
+  {
+    "type": "Feature",
+    "properties": {
+      "name": "A Light in the Attic",
+      "long": "\u00a351.77",
+      "lat": "../media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg",
+      "url": "a-light-in-the-attic_1000/index.html"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        "\u00a351.77",
+        "../media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg"
+      ]
+    }
+  }];
+
 
 var barIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
