@@ -42,8 +42,8 @@ class SpiderSpider(scrapy.Spider):
 
         main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
         title_list =main.xpath('.//h1[@class="listing-hero-title"]/text()').extract()
-        image_url_list=main.xpath('.//picture/@content').extract()
-        date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract()
+        image_url_list=main.xpath('.//picture/@content').extract_first()
+        date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract_first()
         heure_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
 
 
@@ -107,6 +107,9 @@ class SpiderSpider(scrapy.Spider):
         adresse_list=format_add(adresse_list)
         prix_list=format_list(prix_list)
         heure_list=format_list(heure_list)
+        date_list=format_list(date_list)
+        image_url_list=format_list(image_url_list)
+        
 
         i=0
         for title in title_list:
@@ -114,7 +117,9 @@ class SpiderSpider(scrapy.Spider):
                 heure_list[i]=[]
             else:
                 heure_list[i]=heure_list[i].replace("CEST","")
-                heure_list[i]=format_list(heure_list[i])
+# =============================================================================
+#                 heure_list[i]=format_list(heure_list[i])
+# =============================================================================
 
             if title is None:
                 title=[]
@@ -123,19 +128,25 @@ class SpiderSpider(scrapy.Spider):
 
             if image_url_list[i] is None:
                 image_url_list[i]=[]
-            else :
-                image_url_list[i]=format_list(image_url_list[i])
-
+# =============================================================================
+#             else :
+#                 image_url_list[i]=format_list(image_url_list[i])
+# 
+# =============================================================================
             if date_list[i] is None:
                 date_list[i]=[]
-            else :
-                date_list[i]=format_list(date_list[i])
+# =============================================================================
+#             else :
+#                 date_list[i]=format_list(date_list[i])
+# =============================================================================
 
             if prix_list[i] is None:
                 prix_list[i]=[]
             else:
                 prix_list[i]=prix_list[i].strip()
-                prix_list[i]=format_list(prix_list[i])
+# =============================================================================
+#                 prix_list[i]=format_list(prix_list[i])
+# =============================================================================
             data={
                 'title' : title_list[i],
                 'image-url' : image_url_list[i],
