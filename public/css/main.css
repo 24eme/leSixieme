@@ -38,8 +38,8 @@ select,option{
   width: 100%;
 }
 .leaflet-popup-content-wrapper{
-  width: 300px;
-  height: 200px;
+  width: 400px;
+  height: 500px;
   padding: 1em;
   background-color: rgba(240,240,240,0.7);
 }

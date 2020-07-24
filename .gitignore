@@ -15,6 +15,8 @@ yarn-error.log
 /leSixieme/leSixieme/events.json
 /leSixieme/leSixieme/eventsGeoJson.json
 event.json
+events.json
+eventsGeoJson.json
 eventsLinks.txt
 leSixieme/__pycache__/__init__.cpython-38.pyc
 leSixieme/__pycache__/settings.cpython-38.pyc
