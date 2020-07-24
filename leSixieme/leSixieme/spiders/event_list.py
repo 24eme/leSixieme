@@ -164,7 +164,7 @@ class SpiderSpider(scrapy.Spider):
 
             data={
                 'title' : title_list[i],
-                'image-url' : image_url_list[i],
+                'image' : image_url_list[i],
                 'date' : date_list[i],
                 'hour' : hour_list[i],
                 'price':price_list[i],
@@ -199,7 +199,7 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
-        
+
 
         for d in data:
             print(d['date'])
@@ -208,11 +208,10 @@ class SpiderSpider(scrapy.Spider):
             # print(d['address'])
 
 
-        
-        output = open("eventsGeoJson.json","w")
+
+        output = open("../../public/js/eventsGeoJson.json","w")
 
         json.dump(geojson,output,indent=4)
-
 
 #fin hono
 #
@@ -221,7 +220,7 @@ class SpiderSpider(scrapy.Spider):
 # tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
 # tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
 #
-# with open('eventsGeoJson.json'), 'r') as f:
+# with open('../../public/js/eventsGeoJson.json', 'r') as f:
 #     data = json.load(f)
 #
 # for item in range(len(data['features'])):
@@ -243,5 +242,5 @@ class SpiderSpider(scrapy.Spider):
 #         if word in description:
 #             data['features'][item]['properties']['category'] = 'Festival'
 #             print(data['features'][item]['properties']['title'])
-# with open('.\js\eventsGeoJson.json', 'w') as f:
+# with open('../../public/js/eventsGeoJson.json', 'w') as f:
 #     json.dump(data, f,indent=4)
