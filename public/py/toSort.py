@@ -7,7 +7,7 @@ tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P'];
 tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
 tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
 
-with open('../js/eventsGeoJson.json', 'r') as f:
+with open('../public/js/eventsGeoJson.json', 'r') as f:
     data = json.load(f)
 
 # strng = 'Apéro Frenchies';
