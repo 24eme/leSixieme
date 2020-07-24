@@ -102,8 +102,8 @@ class SpiderSpider(scrapy.Spider):
             list_=[]
             list_.append(objet)
             return list_
-        
-        
+
+
         def format_price(price):
             if price is None:
                 price=price
@@ -251,7 +251,7 @@ class SpiderSpider(scrapy.Spider):
 
 
 
-        output = open("../public/js/eventsGeoJson.json","w")
+        output = open("../../public/js/eventsGeoJson.json","w")
 
         json.dump(geojson,output,indent=4)
 
