@@ -47,8 +47,10 @@ scops.then(function(data) {
             return L.marker(latlng, {
                 icon: culturelIcon
             }).on('mouseover', function() {
-                this.bindPopup(feature.properties.name).openPopup();
+                // this.bindPopup(feature.properties.name).openPopup();
+                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.description+ "").openPopup();
             });
+            // <img src="{{ asset("img/markers/educatif.png") }}"  border="0" alt="" width="200px" height="" />
         }
     });
     var others = L.geoJson(data, {
@@ -58,7 +60,9 @@ scops.then(function(data) {
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
             }).on('mouseover', function() {
-                this.bindPopup(feature.properties.name + "<hr>").openPopup();
+                // this.bindPopup(feature.properties.name + "<hr>").openPopup();
+                 this.bindPopup(feature.properties.title + "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.description).openPopup();
+
             });
         }
     });
