@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import scrapy
 import json
 import os
@@ -168,7 +170,7 @@ class SpiderSpider(scrapy.Spider):
                 'address':address_list[i],
                 'coordinates':address_coord_list[i],
                 'description':description_list[i],
-                'category':"cs"
+                'category':""
             }
             i+=1
             list_data.append(data)
@@ -202,3 +204,33 @@ class SpiderSpider(scrapy.Spider):
 
 
 #fin hono
+#
+# tabFestival = ['Festival'];
+# tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P'];
+# tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
+# tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
+#
+# with open('eventsGeoJson.json'), 'r') as f:
+#     data = json.load(f)
+#
+# for item in range(len(data['features'])):
+#
+#     description = data['features'][item]['properties']['description']
+#
+#     for word in tabLoisirs:
+#         if word in description:
+#             data['features'][item]['properties']['category'] = 'Loisirs'
+#             print(data['features'][item]['properties']['title'])
+#
+#     for word in tabCulturel:
+#         if word in description:
+#             data['features'][item]['properties']['category'] = 'Culturel'
+#             print('Culturel:')
+#             print(data['features'][item]['properties']['title'])
+#
+#     for word in tabFestival:
+#         if word in description:
+#             data['features'][item]['properties']['category'] = 'Festival'
+#             print(data['features'][item]['properties']['title'])
+# with open('.\js\eventsGeoJson.json', 'w') as f:
+#     json.dump(data, f,indent=4)

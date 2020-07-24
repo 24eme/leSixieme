@@ -91,7 +91,7 @@ function onLocationFound(e) {
 }
 map.on('locationfound', onLocationFound);
 
-function onLocationError(e) {drawData({lat:48.85762877,lng:2.348290390007035});}
+function onLocationError(e) {}
 map.on('locationerror', onLocationError);
 
 function drawData(userLocation) {
