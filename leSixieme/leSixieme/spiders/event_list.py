@@ -125,7 +125,8 @@ class SpiderSpider(scrapy.Spider):
                 coord.append(lon)
                 coord.append(lat)
             else:
-                coord.append(0,0)
+                coord.append(0)
+                coord.append(0)
             return coord
 
         address_coord_list=[]
@@ -167,7 +168,8 @@ class SpiderSpider(scrapy.Spider):
                 'price':price_list[i],
                 'address':address_list[i],
                 'coordinates':address_coord_list[i],
-                'description':description_list[i]
+                'description':description_list[i],
+                'category':"cs"
             }
             i+=1
             list_data.append(data)
@@ -195,6 +197,16 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
+        
+
+        for d in data:
+            print(d['date'])
+            # print(d['price'])
+            # print(d['hour'])
+            # print(d['address'])
+
+
+        
         output = open("eventsGeoJson.json","w")
 
         json.dump(geojson,output,indent=4)

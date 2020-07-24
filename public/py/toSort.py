@@ -7,7 +7,7 @@ tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P'];
 tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
 tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
 
-with open('geo.json', 'r') as f:
+with open('../js/eventsGeoJson.json', 'r') as f:
     data = json.load(f)
 
 # strng = 'Apéro Frenchies';
@@ -19,25 +19,22 @@ with open('geo.json', 'r') as f:
 
 for item in range(len(data['features'])):
 
-    description = data['features'][item]['properties']['title']
+    description = data['features'][item]['properties']['description']
 
     for word in tabLoisirs:
         if word in description:
-            data['features'][item]['properties']['title'] += 'Loisirs'
+            data['features'][item]['properties']['category'] = 'Loisirs'
             print(data['features'][item]['properties']['title'])
 
     for word in tabCulturel:
         if word in description:
-            data['features'][item]['properties']['title'] += 'Culturel'
-            print(data['features'][item]['properties']['title'])
-    for word in tabALpha:
-        if word in description:
-            data['features'][item]['properties']['title'] += 'Loisirs'
+            data['features'][item]['properties']['category'] = 'Culturel'
+            print('Culturel:')
             print(data['features'][item]['properties']['title'])
 
     for word in tabFestival:
         if word in description:
-            data['features'][item]['properties']['title'] += 'Festival'
+            data['features'][item]['properties']['category'] = 'Festival'
             print(data['features'][item]['properties']['title'])
 # for item in range(len(data['features'])):
 #
@@ -60,5 +57,5 @@ for item in range(len(data['features'])):
 #         feat ['properties'][properties_list[i][0]]=properties_list[i][1]
 
 # #Write result to a new file
-with open('new.geojson', 'w') as f:
+with open('../js/eventsGeoJson.json', 'w') as f:
     json.dump(data, f,indent=4)
