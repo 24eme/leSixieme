@@ -207,9 +207,36 @@ class SpiderSpider(scrapy.Spider):
             arr=give_arrondissement(address)
             arrondissement_list.append(arr)
         # give_arrondissement('30 Rue du 4 septembre 75012 Paris')
-
-
 #FIN HONO
+
+#Hono
+        def give_category(description):
+            tabFestival = ['Festival']
+            tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P']
+            tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference']
+            tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée']
+
+            for word in tabCulturel:
+                if word in description:
+                    cat = 'Culturel'
+                    return cat
+            for word in tabLoisirs:
+                if word in description:
+                    cat= 'Loisirs'
+                    return cat
+
+            for word in tabFestival:
+                if word in description:
+                    cat = 'Festival'
+                    return cat
+
+##Attention aux catégories null
+
+        category_list=[]
+        for description in description_list:
+            cat=give_category(description)
+            category_list.append(cat)
+
         i=0
         for title in title_list:
             if hour_list[i] is None:
@@ -238,8 +265,9 @@ class SpiderSpider(scrapy.Spider):
                 'arrondissement':arrondissement_list[i],
                 'coordinates':address_coord_list[i],
                 'description':description_list[i],
-                'category':""
+                'category':category_list[i]
             }
+            # print(category_list[i])
             i+=1
             list_data.append(data)
 
