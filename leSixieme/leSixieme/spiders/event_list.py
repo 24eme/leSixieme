@@ -55,7 +55,7 @@ class SpiderSpider(scrapy.Spider):
 
         all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
         description_list=(descrip(all_para))
-        
+
         price_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
         address_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
 
@@ -65,7 +65,7 @@ class SpiderSpider(scrapy.Spider):
             description=''
             for i in range (long):
                 description=description+tab_descrip[i]
-            description_list.append(description)
+            description_list.append(description[0:100])
             return description_list
 
 
@@ -192,8 +192,8 @@ class SpiderSpider(scrapy.Spider):
                 price=price+char
             price=price.split(' ')
             return price
-        
-        
+
+
         def convert_price(price):
             if price is None or price[0] is None:
                 return price
@@ -268,7 +268,7 @@ class SpiderSpider(scrapy.Spider):
                 return price
             else:
                 return price
-                
+
 
 
 
