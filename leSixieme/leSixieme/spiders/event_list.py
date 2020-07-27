@@ -4,11 +4,8 @@ import scrapy
 import json
 import os
 import requests
-<<<<<<< Updated upstream
 import datetime
-=======
 from currency_converter import CurrencyConverter
->>>>>>> Stashed changes
 
 filename='events.json'
 
@@ -302,9 +299,7 @@ class SpiderSpider(scrapy.Spider):
         hour_list=format_list(hour_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
-<<<<<<< Updated upstream
         # url_list=format_list(url_list)
->>>>>>> Stashed changes
 
         def coord(address):
             coord=[]
@@ -440,14 +435,12 @@ class SpiderSpider(scrapy.Spider):
         }
 
 
-<<<<<<< Updated upstream
+
         # for d in data:
             # print(d['date'])
 
-=======
         for d in data:
             #print(d['date'])
->>>>>>> Stashed changes
             #print(d['title'])
             print(d['price'])
             # print(d['hour'])
