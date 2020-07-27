@@ -10,11 +10,6 @@ filename='events.json'
 if os.path.exists("events.json"):
     os.remove("events.json")
 
-# if os.path.exists("eventsGeoJson.json"):
-#     os.remove("eventsGeoJson.json")
-
-
-
 class SpiderSpider(scrapy.Spider):
     name = 'events'
 
@@ -271,12 +266,12 @@ class SpiderSpider(scrapy.Spider):
             i+=1
             list_data.append(data)
 
-        with open(filename, 'a+') as f:   # Writing data in the file
+        with open(filename, 'a+') as f:
             for data in list_data :
                 app_json = json.dumps(data)
                 f.write(app_json+"\n")
 
-        ##construction du geojson grace au json créer juste au-dessus
+        ##construction du geojson grâce au json créer juste au-dessus
 
         data = [json.loads(line) for line in open('events.json', 'r')]
 
@@ -296,10 +291,10 @@ class SpiderSpider(scrapy.Spider):
         }
 
 
-        for d in data:
+        # for d in data:
             #print(d['date'])
             #print(d['title'])
-            print(d['price'])
+            # print(d['price'])
             # print(d['hour'])
             # print(d['address'])
 
@@ -310,33 +305,3 @@ class SpiderSpider(scrapy.Spider):
         json.dump(geojson,output,indent=4)
 
 #fin hono
-#
-# tabFestival = ['Festival'];
-# tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P'];
-# tabCulturel = ['Culture','Monuments','culturelles','culturel','culturels','conference'];
-# tabLoisirs = ['réalité virtuelle','Loisirs','humour','Apéro','Apéros','fête','rire','artistes','artiste','soirée'];
-#
-# with open('../../public/js/eventsGeoJson.json', 'r') as f:
-#     data = json.load(f)
-#
-# for item in range(len(data['features'])):
-#
-#     description = data['features'][item]['properties']['description']
-#
-#     for word in tabLoisirs:
-#         if word in description:
-#             data['features'][item]['properties']['category'] = 'Loisirs'
-#             print(data['features'][item]['properties']['title'])
-#
-#     for word in tabCulturel:
-#         if word in description:
-#             data['features'][item]['properties']['category'] = 'Culturel'
-#             print('Culturel:')
-#             print(data['features'][item]['properties']['title'])
-#
-#     for word in tabFestival:
-#         if word in description:
-#             data['features'][item]['properties']['category'] = 'Festival'
-#             print(data['features'][item]['properties']['title'])
-# with open('../../public/js/eventsGeoJson.json', 'w') as f:
-#     json.dump(data, f,indent=4)
