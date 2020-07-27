@@ -46,9 +46,9 @@ scops.then(function(data) {
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
                 icon: culturelIcon
-            }).on('mouseover', function() {
-                // this.bindPopup(feature.properties.name).openPopup();
-                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.address + "<hr>"+ "<img src="+feature.properties.image+">"+ "<hr>"+feature.properties.description).openPopup();
+            }).on('click', function() {
+              
+                  this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description + "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
             });
 
         }
@@ -59,12 +59,9 @@ scops.then(function(data) {
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
-            }).on('mouseover', function() {
-                // this.bindPopup(feature.properties.name + "<hr>").openPopup();
-                 this.bindPopup(feature.properties.title + "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.address + "<hr>"+  "<img src="+feature.properties.image+">"
-               + "<hr>"+feature.properties.description).openPopup();
-    // <img src="feature.properties.image">" + "</a>"
-    // "<a href=feature.properties.image>"
+            }).on('click', function() {
+                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+
 
             });
         }
