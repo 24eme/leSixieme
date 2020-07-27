@@ -103,10 +103,57 @@ class SpiderSpider(scrapy.Spider):
             list_.append(objet)
             return list_
 
-        description_list=format_descrip(description_list)
 
+        def format_price(price):
+            if price is None:
+                price=price
+            else:
+                price=price.strip()
+            if price=='Gratuit' or price=='Free':
+                price=price
+            else:
+                price=price.split()
+                if len(price)==1:
+                    if price[0][0]=='€' or price[0][0]=='$' or price[0][0]=='R$' or price[0][0]=='£':
+                        money=price[0][0]
+                        price[0]=price[0][1:]
+                        price.insert(0,money)
+                    elif price[0][-1]=='€' or price[0][-1]=='$' or price[0][-1]=='R$' or price[0][-1]=='£':
+                        money=price[0][-1]
+                        price[0]=price[0][:-1]
+                        price.insert(0,money)
+                elif len(price)==2:
+                    if price[1]=='€' or price[1]=='$' or price[1]=='R$' or price[1]=='£':
+                        price[0], price[1] = price[1], price[0]
+                elif len(price)==3:
+                    ind=price.index('–')
+                    if price[0][0]=='€' or price[0][0]=='$' or price[0][0]=='R$' or price[0][0]=='£':
+                        money=price[0][0]
+                        price[0]=price[0][1:]
+                        price[ind+1]=price[ind+1][1:]
+                        price.insert(0,money)
+                        price.insert(ind+1,money)
+                    elif price[0][-1]=='€' or price[0][-1]=='$' or price[0][-1]=='R$' or price[0][-1]=='£':
+                        money=price[0][-1]
+                        price[0]=price[0][:-1]
+                        price[ind+1]=price[ind+1][:-1]
+                        price.insert(0,money)
+                        price.insert(ind+1,money)
+                elif len(price)==5:
+                    ind=price.index('–')
+                    if price[1]=='€' or price[1]=='$' or price[1]=='R$' or price[1]=='£':
+                        price[0], price[1] = price[1], price[0]
+                        price[ind+1], price[ind+2] = price[ind+1], price[ind+2]
+            price_temp=price
+            price=''
+            for char in price_temp:
+                price=price+char
+            price=price.split(' ')
+            return price
+
+        description_list=format_descrip(description_list)
         address_list=format_add(address_list)
-        price_list=format_list(price_list)
+        price_list=format_price(price_list)
         hour_list=format_list(hour_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
@@ -157,11 +204,6 @@ class SpiderSpider(scrapy.Spider):
             if date_list[i] is None:
                 date_list[i]=[]
 
-            if price_list[i] is None:
-                price_list[i]=[]
-            else:
-                price_list[i]=price_list[i].strip()
-
             data={
                 'title' : title_list[i],
                 'image' : image_url_list[i],
@@ -202,8 +244,8 @@ class SpiderSpider(scrapy.Spider):
 
 
         for d in data:
-            print(d['date'])
-            # print(d['price'])
+            #print(d['date'])
+            print(d['price'])
             # print(d['hour'])
             # print(d['address'])
 

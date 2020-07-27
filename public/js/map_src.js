@@ -48,9 +48,9 @@ scops.then(function(data) {
                 icon: culturelIcon
             }).on('mouseover', function() {
                 // this.bindPopup(feature.properties.name).openPopup();
-                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.description+ "").openPopup();
+                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.address + "<hr>"+ "<img src="+feature.properties.image+">"+ "<hr>"+feature.properties.description).openPopup();
             });
-            // <img src="{{ asset("img/markers/educatif.png") }}"  border="0" alt="" width="200px" height="" />
+
         }
     });
     var others = L.geoJson(data, {
@@ -61,7 +61,10 @@ scops.then(function(data) {
             return L.marker(latlng, {
             }).on('mouseover', function() {
                 // this.bindPopup(feature.properties.name + "<hr>").openPopup();
-                 this.bindPopup(feature.properties.title + "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.description).openPopup();
+                 this.bindPopup(feature.properties.title + "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour + "<hr>"+feature.properties.address + "<hr>"+  "<img src="+feature.properties.image+">"
+               + "<hr>"+feature.properties.description).openPopup();
+    // <img src="feature.properties.image">" + "</a>"
+    // "<a href=feature.properties.image>"
 
             });
         }
