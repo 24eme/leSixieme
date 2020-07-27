@@ -33,7 +33,7 @@ class SpiderSpider(scrapy.Spider):
             urls.close()
             return(taburls)
 
-        taburls=readLinkTxt('../eventsLinks.txt')
+        taburls=readLinkTxt('eventsLinks.txt')
 
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -191,7 +191,25 @@ class SpiderSpider(scrapy.Spider):
             coord=coord(address)
             address_coord_list.append(coord)
 
+#HONO
+        def give_arrondissement(address):
+            tabaddress=address.split()
+            if len(tabaddress)<2:
+                return '0'
+            if len(tabaddress[-2])!=5:
+                return '0'
+            if tabaddress[-2][0]!='7'and tabaddress[-2][1]!='5':
+                return '0'
+            arrondissement=tabaddress[-2][3]+tabaddress[-2][4]
+            return arrondissement
+        arrondissement_list=[]
+        for address in address_list:
+            arr=give_arrondissement(address)
+            arrondissement_list.append(arr)
+        # give_arrondissement('30 Rue du 4 septembre 75012 Paris')
 
+
+#FIN HONO
         i=0
         for title in title_list:
             if hour_list[i] is None:
@@ -217,6 +235,7 @@ class SpiderSpider(scrapy.Spider):
                 'hour' : hour_list[i],
                 'price':price_list[i],
                 'address':address_list[i],
+                'arrondissement':arrondissement_list[i],
                 'coordinates':address_coord_list[i],
                 'description':description_list[i],
                 'category':""
