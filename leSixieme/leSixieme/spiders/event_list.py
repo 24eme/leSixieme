@@ -98,7 +98,7 @@ class SpiderSpider(scrapy.Spider):
             list_=[]
             list_.append(objet)
             return list_
-
+#Hono
         def getDay(date):
             tabdays=['01','1','02','2','03','3','04','4''05','5','06','6','07','7',
             '08','8','09','9','10','11','12','13','14','15','16','17','18','19',
@@ -133,7 +133,6 @@ class SpiderSpider(scrapy.Spider):
                 return '00'
 
         def format_date(date):
-
             if date is None:
                 return '00/00/0000'
             elif date=='Multiple Dates' or date=='Dates multiples':
@@ -141,7 +140,7 @@ class SpiderSpider(scrapy.Spider):
             else:
                 d=getDay(date)+'/'+getMonth(date)+'/'+getYear(date)
                 return d
-
+#Fin HONo
         def format_price(price):
             if price is None:
                 price=price
