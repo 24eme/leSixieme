@@ -95,7 +95,9 @@ function onLocationFound(e) {
 }
 map.on('locationfound', onLocationFound);
 
-function onLocationError(e) {}
+function onLocationError(e) {
+   map.setView([48.853, 2.333], 13);
+}
 map.on('locationerror', onLocationError);
 
 function drawData(userLocation) {
@@ -129,10 +131,11 @@ function createPolyLine(loc1, loc2) {
         loc1 = loc1.wrap(179, -179);
     }
     var latlongs = [loc1, loc2];
-
     if(loc1.distanceTo(loc2) < nearest){
       nearest = loc1.distanceTo(loc2);
+
       nearestP = loc1;
+    //  var marker = L.marker(loc1,{icon:cafeIcon}).addTo(map);
     }
 
 
