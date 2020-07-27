@@ -17,7 +17,6 @@ nav,ul{
 }
 li{
   list-style-type: none;
-  display: inline-block;
 }
 input{
   padding: .5em;
@@ -33,16 +32,102 @@ select,option{
   border:none;
   padding: 10px;
 }
+button:active{
+  background-color: red;
+}
+.nav-item {
+  display: inline-block;
+}
 #map{
+  display: inline-block;
   height: 80%;
-  width: 100%;
+  width: 60%;
+}
+.leaflet-routing-container{
+  height: 20px;
+  width: 20px;
+  opacity: 0.5s;
+  transition: all 0.3s ease; 
+  overflow:hidden;
+}
+.leaflet-routing-container:hover{
+  height: auto;
+  width: 300px;
+  opacity: 1;
 }
 .leaflet-popup-content-wrapper{
-  width: 400px;
-  height: 500px;
+  width: 300px;
+  height: 300px;
   padding: 1em;
   background-color: rgba(240,240,240,0.7);
 }
 .leaflet-popup-tip{
   visibility: hidden;
+}
+.nav_events{
+  width: 430px;
+  height: 80%;
+  overflow: scroll;
+  display: inline-block;
+  margin-top: 10px;
+  /* margin-left: 100px; */
+}
+.event_item{
+
+}
+.event_wrapper{
+
+  text-align:center;
+  height: 100px;
+  width: 400px;
+  background-color: white;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 10px 10px 41px 0px rgba(237,237,237,1);
+  -moz-box-shadow: 10px 10px 41px 0px rgba(237,237,237,1);
+  box-shadow: 10px 10px 41px 0px rgba(237,237,237,1);
+}
+
+.event_wrapper > img,p,span{
+  display: inline-block;
+}
+.event_wrapper h2 {
+  font-size: 1em;
+}
+.event_img{
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+.event_date{
+  color: black;
+  font-weight: bold;
+}
+.detail{
+  color: #E8E8E8;
+  opacity: 0.4;
+  margin: auto;
+}
+
+
+/* .active{
+  background-color: red !important;
+} */
+.marker-cluster-small {
+background-color: rgba(218, 94, 94, 0.6);
+}
+.marker-cluster-small div {
+background-color: rgba(226, 36, 36, 0.6);
+}
+.marker-cluster-medium {
+background-color: rgba(241, 211, 87, 0.6);
+}
+.marker-cluster-medium div {
+background-color: rgba(240, 194, 12, 0.6);
+}
+
+.marker-cluster-large {
+background-color: rgba(253, 156, 115, 0.6);
+}
+.marker-cluster-large div {
+background-color: rgba(241, 128, 23, 0.6);
 }
