@@ -4,6 +4,7 @@ import scrapy
 import json
 import os
 import requests
+import datetime
 
 filename='events.json'
 
@@ -98,6 +99,48 @@ class SpiderSpider(scrapy.Spider):
             list_.append(objet)
             return list_
 
+        def getDay(date):
+            tabdays=['01','1','02','2','03','3','04','4''05','5','06','6','07','7',
+            '08','8','09','9','10','11','12','13','14','15','16','17','18','19',
+            '20','21','22','23','24','25','26','27','28','29','30','31']
+            for d in tabdays:
+                if d in date:
+                    if (len(d))==1:
+                        return ('0'+d)
+                    return d
+            return '00'
+
+        def getMonth(date):
+            dicomonth={'janvier': '01','Janvier':'01','janv':'01','février': '02','Février': '02','mars': '03','Mars': '03','avril': '04','Avril': '04','mai': '05','Mai': '05','juin': '06',
+            'Juin': '06','juillet': '07','Juillet': '07','juil':'07','août': '08','Août': '08','septembre': '09','Septembre': '09','Sep':'12',
+            'octobre': '10','Octobre': '10','novembre': '11','Novembre': '11','décembre': '12','Décembre': '12','Dec':'12',
+            'January': '01', 'Feb': '02','March': '03','Mar':'03','April': '04','May': '05','June': '06'
+            ,'July': '07','August': '08','Aug':'08','September': '09','sept':'09','setembro':'09','October': '10','outubro':'09','November': '11','December': '12','déc':'12'}
+            for m in dicomonth:
+                if m in date:
+                    return dicomonth[m]
+            return '00'
+
+        def getYear(date):
+            today=datetime.date.today()
+            if str(today.year) in date:
+                return str(today.year)
+            elif str(today.year+1) in date:
+                return str(today.year+1)
+            elif str(today.year+2) in date:
+                return str(today.year+2)
+            else:
+                return '00'
+
+        def format_date(date):
+
+            if date is None:
+                return '00/00/0000'
+            elif date=='Multiple Dates' or date=='Dates multiples':
+                return '00/00/0000'
+            else:
+                d=getDay(date)+'/'+getMonth(date)+'/'+getYear(date)
+                return d
 
         def format_price(price):
             if price is None:
@@ -152,6 +195,8 @@ class SpiderSpider(scrapy.Spider):
             price=price.split(' ')
             return price
 
+
+
         description_list=format_descrip(description_list)
         address_list=format_add(address_list)
         price_list=format_price(price_list)
@@ -197,6 +242,7 @@ class SpiderSpider(scrapy.Spider):
                 return '0'
             arrondissement=tabaddress[-2][3]+tabaddress[-2][4]
             return arrondissement
+
         arrondissement_list=[]
         for address in address_list:
             arr=give_arrondissement(address)
@@ -253,7 +299,7 @@ class SpiderSpider(scrapy.Spider):
             data={
                 'title' : title_list[i],
                 'image' : image_url_list[i],
-                'date' : date_list[i],
+                'date' : format_date(date_list[i]),
                 'hour' : hour_list[i],
                 'price':price_list[i],
                 'address':address_list[i],
@@ -291,8 +337,9 @@ class SpiderSpider(scrapy.Spider):
         }
 
 
-        # for d in data:
-            #print(d['date'])
+        for d in data:
+            print(d['date'])
+
             #print(d['title'])
             # print(d['price'])
             # print(d['hour'])
