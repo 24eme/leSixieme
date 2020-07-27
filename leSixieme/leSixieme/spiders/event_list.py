@@ -33,7 +33,7 @@ class SpiderSpider(scrapy.Spider):
             urls.close()
             return(taburls)
 
-        taburls=readLinkTxt('../eventsLinks.txt')
+        taburls=readLinkTxt('eventsLinks.txt')
 
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -304,8 +304,6 @@ class SpiderSpider(scrapy.Spider):
         image_url_list=format_list(image_url_list)
 <<<<<<< Updated upstream
         # url_list=format_list(url_list)
-=======
-        #print(price_list)
 >>>>>>> Stashed changes
 
         def coord(address):
