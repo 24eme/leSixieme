@@ -36,30 +36,13 @@ class SpiderSpider(scrapy.Spider):
 
     def parse(self, response):
         list_data=[]
-
+        url_list=response.request.url
         main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
         title_list =main.xpath('.//h1[@class="listing-hero-title"]/text()').extract()
         image_url_list=main.xpath('.//picture/@content').extract_first()
         date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract_first()
         hour_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
 
-        # def readLinkTxt(filename):
-        #     urls= open(filename)
-        #     content = urls.readlines()
-        #     taburls=[]
-        #     i=0
-        #     while(i<len(content)):
-        #         u=content[i].split()
-        #         taburls.append(u[2][:-1])     #le dernier caractère est " donc je supprime le dernier caractère
-        #         i=i+1
-        #
-        #     urls.close()
-        #     return(taburls)
-        #
-        # taburls=readLinkTxt('eventsLinks.txt')
-        # url_list=[]
-        # for url in taburls:
-        #     url_list.append(url)
 
         def descrip(select):
             description=[]
@@ -69,11 +52,8 @@ class SpiderSpider(scrapy.Spider):
             return(description)
 
         all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
-
         description_list=(descrip(all_para))
-
-
-
+        
         price_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
         address_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
 
@@ -219,7 +199,7 @@ class SpiderSpider(scrapy.Spider):
         hour_list=format_list(hour_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
-        # url_list=format_list(url_list)
+        url_list=format_list(url_list)
 
         def coord(address):
             coord=[]
@@ -314,7 +294,7 @@ class SpiderSpider(scrapy.Spider):
                 date_list[i]=[]
 
             data={
-                # 'url':url_list[i],
+                'url':url_list[i],
                 'title' : title_list[i],
                 'image' : image_url_list[i],
                 'date' : format_date(date_list[i]),
@@ -326,7 +306,6 @@ class SpiderSpider(scrapy.Spider):
                 'description':description_list[i],
                 'category':category_list[i]
             }
-            # print(category_list[i])
             i+=1
             list_data.append(data)
 
