@@ -4,7 +4,11 @@ import scrapy
 import json
 import os
 import requests
+<<<<<<< Updated upstream
 import datetime
+=======
+from currency_converter import CurrencyConverter
+>>>>>>> Stashed changes
 
 filename='events.json'
 
@@ -29,12 +33,13 @@ class SpiderSpider(scrapy.Spider):
             urls.close()
             return(taburls)
 
-        taburls=readLinkTxt('eventsLinks.txt')
+        taburls=readLinkTxt('../eventsLinks.txt')
 
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
+        c=CurrencyConverter()
         list_data=[]
 
         main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
@@ -210,16 +215,98 @@ class SpiderSpider(scrapy.Spider):
                 price=price+char
             price=price.split(' ')
             return price
+        
+        
+        def convert_price(price):
+            if price is None or price[0] is None:
+                return price
+            elif price[0]=='Gratuit' or price[0]=='Free':
+                return price
+            elif len(price[0])>0 and (price[0][0]=='$' or price[0][0]=='R' or price[0][0]=='£'):
+                if '–' in price[0]:
+                        price[0]=price[0].split('–')
+                        found=False
+                        ind=0
+                        i=0
+                        while found==False:
+                          if price[0][0][i] in ['0','1','2','3','4','5','6','7','8','9']:
+                              ind=i
+                              found=True
+                          i+=1
+                        money=price[0][0][:ind]
+                        for j in range (len(price[0])):
+                            price[0][j]=price[0][j][ind:]
+                            if ',' in price[0][j]:
+                                price[0][j]=price[0][j].replace(",",".")
+                        if money=='$':
+                            for k in range (len(price[0])):
+                                price[0][k]=c.convert(price[0][k],'USD','EUR')
+                                price[0][k]='€'+str(price[0][k])
+                                point=price[0][k].index('.')
+                                price[0][k]=price[0][k][:point+3]
+                        elif money=='£':
+                            for k in range (len(price[0])):
+                                price[0][k]=c.convert(price[0][k],'GBP','EUR')
+                                price[0][k]='€'+str(price[0][k])
+                                point=price[0][k].index('.')
+                                price[0][k]=price[0][k][:point+3]
+                        elif money=='R$':
+                            for k in range (len(price[0])):
+                                price[0][k]=c.convert(price[0][k],'BRL','EUR')
+                                price[0][k]='€'+str(price[0][k])
+                                point=price[0][k].index('.')
+                                price[0][k]=price[0][k][:point+3]
+                        price[0].insert(1,'–')
+                        price_temp=price[0]
+                        price[0]=''
+                        for l in range(len(price_temp)):
+                            price[0]+=price_temp[l]
+                else:
+                    found=False
+                    ind=0
+                    i=0
+                    while found==False:
+                        if price[0][i] in ['0','1','2','3','4','5','6','7','8','9']:
+                            ind=i
+                            found=True
+                        i+=1
+                    money=price[0][:ind]
+                    price[0]=price[0][ind:]
+                    if money=='$':
+                        price[0]=c.convert(price[0],'USD','EUR')
+                        price[0]='€'+str(price[0])
+                        point=price[0].index('.')
+                        price[0]=price[0][:point+3]
+                    elif money=='£':
+                        price[0]=c.convert(price[0],'GBP','EUR')
+                        price[0]='€'+str(price[0])
+                        point=price[0].index('.')
+                        price[0]=price[0][:point+3]
+                    elif money=='R$':
+                        price[0]=c.convert(price[0],'BRL','EUR')
+                        price[0]='€'+str(price[0])
+                        point=price[0].index('.')
+                        price[0]=price[0][:point+3]
+                price[0]+=' (Prix indicatif)'
+                return price
+            else:
+                return price
+                
 
 
 
         description_list=format_descrip(description_list)
         address_list=format_add(address_list)
         price_list=format_price(price_list)
+        price_list=convert_price(price_list)
         hour_list=format_list(hour_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
+<<<<<<< Updated upstream
         # url_list=format_list(url_list)
+=======
+        #print(price_list)
+>>>>>>> Stashed changes
 
         def coord(address):
             coord=[]
@@ -355,11 +442,16 @@ class SpiderSpider(scrapy.Spider):
         }
 
 
+<<<<<<< Updated upstream
         # for d in data:
             # print(d['date'])
 
+=======
+        for d in data:
+            #print(d['date'])
+>>>>>>> Stashed changes
             #print(d['title'])
-            # print(d['price'])
+            print(d['price'])
             # print(d['hour'])
             # print(d['address'])
 
