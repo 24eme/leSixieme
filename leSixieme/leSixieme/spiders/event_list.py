@@ -33,7 +33,7 @@ class SpiderSpider(scrapy.Spider):
             urls.close()
             return(taburls)
 
-        taburls=readLinkTxt('eventsLinks.txt')
+        taburls=readLinkTxt('../eventsLinks.txt')
 
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -107,6 +107,7 @@ class SpiderSpider(scrapy.Spider):
         def format_price(price):
             if price is None:
                 price=price
+                return price
             else:
                 price=price.strip()
             if price=='Gratuit' or price=='Free':
@@ -126,24 +127,29 @@ class SpiderSpider(scrapy.Spider):
                     if price[1]=='€' or price[1]=='$' or price[1]=='R$' or price[1]=='£':
                         price[0], price[1] = price[1], price[0]
                 elif len(price)==3:
-                    ind=price.index('–')
-                    if price[0][0]=='€' or price[0][0]=='$' or price[0][0]=='R$' or price[0][0]=='£':
-                        money=price[0][0]
-                        price[0]=price[0][1:]
-                        price[ind+1]=price[ind+1][1:]
-                        price.insert(0,money)
-                        price.insert(ind+1,money)
-                    elif price[0][-1]=='€' or price[0][-1]=='$' or price[0][-1]=='R$' or price[0][-1]=='£':
-                        money=price[0][-1]
-                        price[0]=price[0][:-1]
-                        price[ind+1]=price[ind+1][:-1]
-                        price.insert(0,money)
-                        price.insert(ind+1,money)
+                    if '–' in price:
+                        ind=price.index('–')
+                        if price[0][-1]=='€' or price[0][-1]=='$' or price[0][-1]=='R$' or price[0][-1]=='£':
+                            money=price[0][-1]
+                            price[0]=price[0][:-1]
+                            price[ind+1]=price[ind+1][:-1]
+                            price.insert(0,money)
+                            price.insert(ind+1,money)
+                    else:
+                        if price[0]=='€' or price[0]=='$' or price[0]=='R$' or price[0]=='£':
+                            price[2]=price[1]+price[2]
+                            price.pop(1)
+                        elif price[-1]=='€' or price[-1]=='$' or price[-1]=='R$' or price[-1]=='£':
+                            price[0]=price[0]+price[1]
+                            price.pop(1)
+                            money=price[-1]
+                            price.pop(-1)
+                            price.insert(0,money)
                 elif len(price)==5:
                     ind=price.index('–')
                     if price[1]=='€' or price[1]=='$' or price[1]=='R$' or price[1]=='£':
                         price[0], price[1] = price[1], price[0]
-                        price[ind+1], price[ind+2] = price[ind+1], price[ind+2]
+                        price[ind+1], price[ind+2] = price[ind+2], price[ind+1]
             price_temp=price
             price=''
             for char in price_temp:
@@ -245,6 +251,7 @@ class SpiderSpider(scrapy.Spider):
 
         for d in data:
             #print(d['date'])
+            #print(d['title'])
             print(d['price'])
             # print(d['hour'])
             # print(d['address'])
