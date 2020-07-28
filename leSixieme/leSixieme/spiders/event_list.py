@@ -99,9 +99,9 @@ class SpiderSpider(scrapy.Spider):
             return list_
 #Hono
         def getDay(date):
-            tabdays=['01','1','02','2','03','3','04','4''05','5','06','6','07','7',
-            '08','8','09','9','10','11','12','13','14','15','16','17','18','19',
-            '20','21','22','23','24','25','26','27','28','29','30','31']
+            tabdays=['01','02','03','04','05','06','07',
+            '08','09','10','11','12','13','14','15','16','17','18','19',
+            '20','21','22','23','24','25','26','27','28','29','30','31','1','2','3','4','5','6','7','8','9']
             for d in tabdays:
                 if d in date:
                     if (len(d))==1:
@@ -137,7 +137,13 @@ class SpiderSpider(scrapy.Spider):
             elif date=='Multiple Dates' or date=='Dates multiples':
                 return '00/00/0000'
             else:
-                d=getDay(date)+'/'+getMonth(date)+'/'+getYear(date)
+                year=getYear(date)
+                date=date.replace(year,'')
+                month=getMonth(date)
+                date=date.replace(month,'')
+                day=getDay(date)
+                date=date.replace(day,'')
+                d=day+'/'+month+'/'+year
                 return d
 #Fin HONo
         def format_price(price):
