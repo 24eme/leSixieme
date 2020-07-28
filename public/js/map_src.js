@@ -179,8 +179,10 @@ events.then(function(data) {
         map.addLayer(culturel)
         map.addLayer(festival)
         map.addLayer(others)
+        map.addLayer(arrondissement)
+        map.addLayer(not_arrondissement)
     });
-    document.getElementById("arrondissement").addEventListener("keyup", function(event) {
+    document.getElementById("arrondissement").addEventListener("keyup", function(event) {   //ne s'execute qu'une fois
         // alert(input.value);
         map.addLayer(arrondissement)
         map.removeLayer(not_arrondissement)
