@@ -7,7 +7,8 @@
     <li class="nav-item"><label for="">Secteur :</label><select class="" name=""><option id="culture" value="Culture">Culture</option><option id="fete" value="Informatique">Fete</option></select></li>
     <li class="nav-item"><label for="">Arrondisement :</label><input type="text" id="arrondissement" placeholder="09"></li>
     <li class="nav-item"><label for="">Date de début: </label><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
-    <li class="nav-item"><label for="">Date de fin: </label><input type="date" id="end" name="trip-start" value="2020-07-28"></li>
+    <li class="nav-item"><label for="">Date de fin: </label><input type="date" id="end" name="trip-end" value="2020-07-28"></li>
+    <li class="nav-item"><label for=""></label> <button type="button" id="filtreDate" class="btn btn-primary active">Filtrer</button></li>
 
   </ul>
 </nav>
@@ -16,7 +17,7 @@
     <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
     <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
     <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
-    <button type="button" id="familial" class="btn btn-secondary">Familial</button>
+    <!-- <button type="button" id="familial" class="btn btn-secondary">Familial</button> -->
     <button type="button" id="others" class="btn btn-secondary">Autres</button>
 </div>
 <div class="btn-group">
