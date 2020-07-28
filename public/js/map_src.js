@@ -124,7 +124,7 @@ events.then(function(data) {
     var input_date_end = document.getElementById("end");
     var date = L.geoJson(data, {
         filter: function(feature, layer) {
-            return feature.properties.date >= input_date_start.value 
+            return feature.properties.date >=input_date_start.value
             // && feature.properties.date <=input_date_end.value
         },
         pointToLayer: function(feature, latlng) {
