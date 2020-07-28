@@ -78,30 +78,6 @@ events.then(function(data) {
             });
         }
     });
-    var input = document.getElementById("arrondissement");
-
-    var arrondissement = L.geoJson(data, {
-        filter: function(feature, layer) {
-            return feature.properties.arrondissement == input.value;
-        },
-        pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
-            }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-            });
-        }
-    });
-    var not_arrondissement = L.geoJson(data, {
-        filter: function(feature, layer) {
-            return feature.properties.arrondissement != input.value;
-        },
-        pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
-            }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-            });
-        }
-    });
 
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
@@ -117,6 +93,44 @@ events.then(function(data) {
         }
     });
 
+
+
+    var arrondissement = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.arrondissement == document.getElementById("arrondissement").value;
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+            });
+        }
+    });
+    var not_arrondissement = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.arrondissement != document.getElementById("arrondissement").value;
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+            });
+        }
+    });
+
+    var input_date_start = document.getElementById("start");
+    var input_date_end = document.getElementById("end");
+    var date = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.arrondissement >= input_date_start.value && feature.properties.arrondissement <=input_date_end.value
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+            });
+        }
+    });
 
     map.fitBounds(events.getBounds(), {
         padding: [50, 50]
@@ -166,7 +180,7 @@ events.then(function(data) {
         map.addLayer(festival)
         map.addLayer(others)
     });
-    input.addEventListener("keyup", function(event) {
+    document.getElementById("arrondissement").addEventListener("keyup", function(event) {
         // alert(input.value);
         map.addLayer(arrondissement)
         map.removeLayer(not_arrondissement)
@@ -175,6 +189,14 @@ events.then(function(data) {
         map.removeLayer(festival)
         map.removeLayer(others)
         // alert('hello');
+      });
+      $('arrondissement-but').click(function(){
+        map.addLayer(arrondissement)
+        map.removeLayer(not_arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
       });
 });
 
