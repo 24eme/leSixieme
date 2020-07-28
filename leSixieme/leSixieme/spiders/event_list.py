@@ -30,8 +30,9 @@ class SpiderSpider(scrapy.Spider):
             urls.close()
             return(taburls)
 
-        taburls=readLinkTxt('../eventsLinks.txt')
-
+        # taburls=readLinkTxt('../eventsLinks.txt') pour Lou
+        taburls=readLinkTxt('eventsLinks.txt')
+        
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
@@ -65,7 +66,7 @@ class SpiderSpider(scrapy.Spider):
             description=''
             for i in range (long):
                 description=description+tab_descrip[i]
-            description_list.append(description[0:100])
+            description_list.append(description)
             return description_list
 
 
@@ -400,6 +401,7 @@ class SpiderSpider(scrapy.Spider):
                 'description':description_list[i],
                 'category':category_list[i]
             }
+            print(category_list[i])
             i+=1
             list_data.append(data)
 
