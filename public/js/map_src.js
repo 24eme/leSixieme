@@ -154,6 +154,7 @@ events.then(function(data) {
         map.removeLayer(culturel)
         map.removeLayer(arrondissement)
         map.removeLayer(not_arrondissement)
+        map.removeLayer(date)
     });
     $("#culturel").click(function() {
         map.addLayer(culturel)
@@ -162,6 +163,7 @@ events.then(function(data) {
         map.removeLayer(others)
         map.removeLayer(arrondissement)
         map.removeLayer(not_arrondissement)
+        map.removeLayer(date)
     });
     $("#loisirs").click(function() {
         map.addLayer(loisirs)
@@ -170,6 +172,7 @@ events.then(function(data) {
         map.removeLayer(others)
         map.removeLayer(arrondissement)
         map.removeLayer(not_arrondissement)
+        map.removeLayer(date)
     });
     $("#festival").click(function() {
         map.addLayer(festival)
@@ -178,6 +181,7 @@ events.then(function(data) {
         map.removeLayer(others)
         map.removeLayer(arrondissement)
         map.removeLayer(not_arrondissement)
+        map.removeLayer(date)
     });
 
     $("#all").click(function() {
@@ -187,6 +191,7 @@ events.then(function(data) {
         map.addLayer(others)
         map.addLayer(arrondissement)
         map.addLayer(not_arrondissement)
+        map.addLayer(date)
     });
     document.getElementById("arrondissement").addEventListener("keyup", function(event) {   //ne s'execute qu'une fois
         // alert(input.value);
