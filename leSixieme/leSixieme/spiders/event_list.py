@@ -30,7 +30,7 @@ class SpiderSpider(scrapy.Spider):
             urls.close()
             return(taburls)
 
-        taburls=readLinkTxt('eventsLinks.txt')
+        taburls=readLinkTxt('../eventsLinks.txt')
 
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -208,6 +208,12 @@ class SpiderSpider(scrapy.Spider):
             elif price[0]=='Gratuit' or price[0]=='Free':
                 return price
             elif len(price[0])>0 and (price[0][0]=='$' or price[0][0]=='R' or price[0][0]=='£'):
+                if ',' in price[0]:
+                    price[0]=price[0].split('.')
+                    temp=price[0]
+                    price[0]=''
+                    for nb in temp:
+                        price[0]+=nb
                 if '–' in price[0]:
                         price[0]=price[0].split('–')
                         found=False
@@ -430,7 +436,7 @@ class SpiderSpider(scrapy.Spider):
             #print(d['date'])
             #print(d['title'])
             print(d['price'])
-            # print(d['hour'])
+            #print(d['hour'])
             # print(d['address'])
 
 
