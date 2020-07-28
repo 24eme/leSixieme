@@ -20,7 +20,7 @@ var map = L.map('map', {
 
 var festivalIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
-markerColor: 'green',
+markerColor: 'black',
 icon: 'glass'
 });
 
@@ -32,35 +32,63 @@ icon: 'comments'
 
 var loisirsIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
-markerColor: 'red',
+markerColor: 'green',
 icon: 'coffee'
 });
 
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
-    var loisirs = L.geoJson(data, {
+    var culturel= L.geoJson(data, {
         filter: function(feature, layer) {
-            return feature.properties.category == "Culturel"
-             // && feature.properties.category == "Festival"
+            return feature.properties.category == "Culturel";
+
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
                 icon: culturelIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description + "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
             });
         }
     });
+    var loisirs = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.category == "Loisirs";
+
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+                icon: loisirsIcon
+          }).on('click', function() {
+              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description + "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+            });
+        }
+    });
+    var festival = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.category == "Festival";
+
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+                icon: festivalIcon
+          }).on('click', function() {
+              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description + "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+            });
+        }
+    });
+
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.category != "Culturel" || "Loisirs" || "Festival";
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
-
+    // <img src="feature.properties.image">" + "</a>"
+    // "<a href=feature.properties.image>"
             }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
             });
         }
     });
@@ -68,23 +96,50 @@ events.then(function(data) {
         padding: [50, 50]
     });
     loisirs.addTo(map)
+    festival.addTo(map)
+    culturel.addTo(map)
     others.addTo(map)
     // The JavaScript below is new
     $("#others").click(function() {
         map.addLayer(others)
         map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(culturel)
     });
     $("#culturel").click(function() {
-        map.addLayer(loisirs)
+        map.addLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
         map.removeLayer(others)
     });
+    $("#loisirs").click(function() {
+        map.addLayer(loisirs)
+        map.removeLayer(culturel)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+    });
+    $("#festival").click(function() {
+        map.addLayer(festival)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(others)
+    });
+
     $("#all").click(function() {
         map.addLayer(loisirs)
+        map.addLayer(culturel)
+        map.addLayer(festival)
         map.addLayer(others)
     });
 });
 
+
+
+
 map.locate({setView: true, maxZoom: 40});
+
+
+
 
 function onLocationFound(e) {
     var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
@@ -93,10 +148,18 @@ function onLocationFound(e) {
 }
 map.on('locationfound', onLocationFound);
 
+
+
+
+
+
 function onLocationError(e) {
    map.setView([48.853, 2.333], 13);
 }
 map.on('locationerror', onLocationError);
+
+
+
 
 function drawData(userLocation) {
    var item, o;
@@ -124,6 +187,8 @@ function drawData(userLocation) {
     }
 }
 
+
+
 function createPolyLine(loc1, loc2) {
     if (Math.abs(loc1.lng - loc2.lng) > 180) {
         loc1 = loc1.wrap(179, -179);
@@ -136,21 +201,20 @@ function createPolyLine(loc1, loc2) {
     //  var marker = L.marker(loc1,{icon:loisirsIcon}).addTo(map);
     }
  }
-<<<<<<< HEAD
 
 
 
 var input = document.getElementById("arrondissement");
 // alert(input);
 input.addEventListener("keyup", function(event) {
-    alert(input.value);
+    // alert(input.value);
     var events = $.getJSON('js/eventsGeoJson.json');
     events.then(function(data) {
         var events = L.geoJson(data);
         alert(events);
         var others = L.geoJson(data, {
             filter: function(feature, layer) {
-                return feature.properties.arrondissement != input.value;
+                return feature.properties.arrondissement != "09";
             }
         });
         // alert(others);
@@ -159,16 +223,3 @@ input.addEventListener("keyup", function(event) {
         map.removeLayer(others)
 });
 });
-=======
- function search_arrondissement() {
-     //See notes about 'which' and 'key'
-     // alert('hello');
-
-        var events = L.geoJson(data, {
-            filter: function(feature, layer) {
-                return feature.properties.arrondissement == getElementById('arrondissement');
-            }
-              });
-      // alert();
- }
->>>>>>> ac472d64d5473b7a0093a4432d98e7328382ef7f
