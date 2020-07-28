@@ -284,14 +284,58 @@ class SpiderSpider(scrapy.Spider):
             else:
                 return price
 
-
+        def format_hour(hour):
+            if hour is None:
+                hour_form=[]
+                hour_form.append(hour)
+                return hour_form
+            else:
+                hour=hour.split()
+                hour_form=[]
+                for i in range(len(hour)):
+                        if ':' in hour[i] or hour[i]=='PM':
+                           hour_form.append(hour[i])
+                for wrd in hour_form:
+                    if not wrd[0] in ['0','1','2','3','4','5','6','7','8','9'] and not wrd=='PM':
+                        hour_form.pop(hour_form.index(wrd))
+                if 'PM' in hour_form:
+                    if len(hour_form)==2:
+                        ind=hour_form[0].index(':')
+                        h=hour_form[0][:ind]
+                        hour_form[0]=hour_form[0][ind:]
+                        h=str(int(h)+12)
+                        hour_form[0]=h+hour_form[0]
+                        hour_form.pop(-1)
+                    elif len(hour_form)==4:
+                        ind1=hour_form[0].index(':')
+                        ind2=hour_form[2].index(':')
+                        h1=hour_form[0][:ind1]
+                        h2=hour_form[2][:ind2]
+                        hour_form[0]=hour_form[0][ind1:]
+                        hour_form[2]=hour_form[2][ind2:]
+                        h1=str(int(h1)+12)
+                        h2=str(int(h2)+12)
+                        hour_form[0]=h1+hour_form[0]
+                        hour_form[2]=h2+hour_form[2]
+                        hour_form.pop(1)
+                        hour_form.pop(-1)
+                        hour_form.insert(1,'–')
+                elif len(hour_form)==2:
+                   hour_form.insert(1,'–')
+                hour_temp=hour_form
+                hour_form=''
+                for tim in hour_temp:
+                    hour_form+=tim
+                hour_form=hour_form.split()
+                return hour_form
+            return hour_form
 
 
         description_list=format_descrip(description_list)
         address_list=format_add(address_list)
         price_list=format_price(price_list)
         price_list=convert_price(price_list)
-        hour_list=format_list(hour_list)
+        hour_list=format_hour(hour_list)
         date_list=format_list(date_list)
         image_url_list=format_list(image_url_list)
         url_list=format_list(url_list)
@@ -372,11 +416,6 @@ class SpiderSpider(scrapy.Spider):
 
         i=0
         for title in title_list:
-            if hour_list[i] is None:
-                hour_list[i]=[]
-            else:
-                hour_list[i]=hour_list[i].replace("CEST","")
-
             if title is None:
                 title=[]
             else :
@@ -401,7 +440,7 @@ class SpiderSpider(scrapy.Spider):
                 'description':description_list[i],
                 'category':category_list[i]
             }
-            print(category_list[i])
+            #print(category_list[i])
             i+=1
             list_data.append(data)
 
@@ -437,8 +476,8 @@ class SpiderSpider(scrapy.Spider):
         for d in data:
             #print(d['date'])
             #print(d['title'])
-            print(d['price'])
-            #print(d['hour'])
+            #print(d['price'])
+            print(d['hour'])
             # print(d['address'])
 
 
