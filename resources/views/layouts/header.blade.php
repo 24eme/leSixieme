@@ -2,9 +2,13 @@
 
 <nav class="navbar navbar-light bg-light">
   <ul class="">
+
     <li class="nav-item"><label for="">Nom :</label><input type="text" name="name_search" value="Recherche par nom"></li>
     <li class="nav-item"><label for="">Secteur :</label><select class="" name=""><option id="culture" value="Culture">Culture</option><option id="fete" value="Informatique">Fete</option></select></li>
     <li class="nav-item"><label for="">Arrondisement :</label><input type="text" id="arrondissement" placeholder="09"></li>
+    <li class="nav-item"><label for="">Date de début: </label><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
+    <li class="nav-item"><label for="">Date de fin: </label><input type="date" id="end" name="trip-start" value="2020-07-28"></li>
+
   </ul>
 </nav>
 <div class="btn-group">
