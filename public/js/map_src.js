@@ -238,27 +238,3 @@ function createPolyLine(loc1, loc2) {
     //  var marker = L.marker(loc1,{icon:loisirsIcon}).addTo(map);
     }
  }
-
-
-
-// var input = document.getElementById("arrondissement");
-// // alert(input);
-// input.addEventListener("keyup", function(event) {
-//     alert(input.value);
-//
-//     var events = $.getJSON('js/eventsGeoJson.json');
-//     events.then(function(data) {
-//         var events = L.geoJson(data);
-//         // alert(events);
-//         var others = L.geoJson(data, {
-//             filter: function(feature, layer) {
-//                 return feature.properties.arrondissement != input.value;
-//             }
-//         });
-//         // alert(others);
-//
-//         // others.addTo(map)
-//
-//
-// });
-// });
