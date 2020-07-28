@@ -203,27 +203,23 @@ function createPolyLine(loc1, loc2) {
  }
 
 
- function search_arrondissement() {
-     //See notes about 'which' and 'key'
-     // alert('hello');
-     // var events = $.getJSON('js/eventsGeoJson.json');
-     // events.then(function(data) {
-     //       var arrondissement = L.geoJson(data, {
-     //           filter: function(feature, layer) {
-     //               return feature.properties.category == "09";
-     //           },
-     //           pointToLayer: function(feature, latlng) {
-     //               return L.marker(latlng, {
-     //               }).on('click', function() {
-     //                  this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-     //               });
-     //           }
-     //       });
-     //        });
-        // var events = L.geoJson(data, {
-        //     filter: function(feature, layer) {
-        //         return feature.properties.arrondissement == getElementById('arrondissement');
-        //     }
-        //       });
-      // alert();
- }
+
+var input = document.getElementById("arrondissement");
+// alert(input);
+input.addEventListener("keyup", function(event) {
+    alert(input.value);
+    var events = $.getJSON('js/eventsGeoJson.json');
+    events.then(function(data) {
+        var events = L.geoJson(data);
+        alert(events);
+        var others = L.geoJson(data, {
+            filter: function(feature, layer) {
+                return feature.properties.arrondissement != input.value;
+            }
+        });
+        // alert(others);
+
+        // others.addTo(map)
+        map.removeLayer(others)
+});
+});
