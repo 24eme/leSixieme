@@ -111,7 +111,7 @@ class SpiderSpider(scrapy.Spider):
 
         def getMonth(date):
             dicomonth={'janvier': '01','Janvier':'01','janv':'01','février': '02','Février': '02','mars': '03','Mars': '03','avril': '04','Avril': '04','mai': '05','Mai': '05','juin': '06',
-            'Juin': '06','juillet': '07','Juillet': '07','juil':'07','août': '08','Août': '08','septembre': '09','Septembre': '09','Sep':'12',
+            'Juin': '06','juillet': '07','Juillet': '07','juil':'07','août': '08','Août': '08','septembre': '09','Septembre': '09','Sep':'09',
             'octobre': '10','Octobre': '10','novembre': '11','Novembre': '11','décembre': '12','Décembre': '12','Dec':'12',
             'January': '01', 'Feb': '02','March': '03','Mar':'03','April': '04','May': '05','June': '06'
             ,'July': '07','August': '08','Aug':'08','September': '09','sept':'09','setembro':'09','October': '10','outubro':'09','November': '11','December': '12','déc':'12'}
@@ -129,7 +129,7 @@ class SpiderSpider(scrapy.Spider):
             elif str(today.year+2) in date:
                 return str(today.year+2)
             else:
-                return '00'
+                return '0000'
 
         def format_date(date):
             if date is None:
@@ -137,14 +137,16 @@ class SpiderSpider(scrapy.Spider):
             elif date=='Multiple Dates' or date=='Dates multiples':
                 return '00/00/0000'
             else:
-                year=getYear(date)
-                date=date.replace(year,'')
-                month=getMonth(date)
-                date=date.replace(month,'')
-                day=getDay(date)
-                date=date.replace(day,'')
-                d=day+'/'+month+'/'+year
-                return d
+                if type(date)==str:
+                    year=getYear(date)
+                    date=date.replace(year,'')
+                    month=getMonth(date)
+                    date=date.replace(month,'')
+                    day=getDay(date)
+                    date=date.replace(day,'')
+                    d=day+'/'+month+'/'+year
+                    return d
+                return '00/00/0000'
 #Fin HONo
         def format_price(price):
             if price is None:
