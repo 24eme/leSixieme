@@ -13,8 +13,8 @@
   </ul>
 </nav>
 <div class="btn-group">
-    <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
-    <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
+    <button onclick="category()"type="button" id="all" class="btn btn-primary active">Tout afficher</button>
+    <button type="button"  id="culturel" class="btn btn-secondary">Culturels</button>
     <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
     <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
     <!-- <button type="button" id="familial" class="btn btn-secondary">Familial</button> -->
