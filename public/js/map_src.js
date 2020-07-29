@@ -81,7 +81,7 @@ events.then(function(data) {
 
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
-            return feature.properties.category != "Culturel" || "Loisirs" || "Festival";
+            return (feature.properties.category != "Culturel" || "Loisirs" || "Festival") && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
@@ -106,17 +106,17 @@ events.then(function(data) {
             });
         }
     });
-    var not_arrondissement = L.geoJson(data, {
-        filter: function(feature, layer) {
-            return feature.properties.arrondissement != document.getElementById("arrondissement").value;
-        },
-        pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
-            }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-            });
-        }
-    });
+    // var not_arrondissement = L.geoJson(data, {
+    //     filter: function(feature, layer) {
+    //         return feature.properties.arrondissement != document.getElementById("arrondissement").value;
+    //     },
+    //     pointToLayer: function(feature, latlng) {
+    //         return L.marker(latlng, {
+    //         }).on('click', function() {
+    //            this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+    //         });
+    //     }
+    // });
 
 
 //hono essai pour les dates
@@ -153,7 +153,7 @@ events.then(function(data) {
         map.removeLayer(festival)
         map.removeLayer(culturel)
         map.removeLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
+        // map.removeLayer(not_arrondissement)
         map.removeLayer(date)
     });
     $("#culturel").click(function() {
@@ -162,7 +162,7 @@ events.then(function(data) {
         map.removeLayer(festival)
         map.removeLayer(others)
         map.removeLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
+        // map.removeLayer(not_arrondissement)
         map.removeLayer(date)
     });
     $("#loisirs").click(function() {
@@ -171,7 +171,7 @@ events.then(function(data) {
         map.removeLayer(festival)
         map.removeLayer(others)
         map.removeLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
+        // map.removeLayer(not_arrondissement)
         map.removeLayer(date)
     });
     $("#festival").click(function() {
@@ -180,7 +180,7 @@ events.then(function(data) {
         map.removeLayer(loisirs)
         map.removeLayer(others)
         map.removeLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
+        // map.removeLayer(not_arrondissement)
         map.removeLayer(date)
     });
 
@@ -190,23 +190,24 @@ events.then(function(data) {
         map.addLayer(festival)
         map.addLayer(others)
         map.addLayer(arrondissement)
-        map.addLayer(not_arrondissement)
+        // map.addLayer(not_arrondissement)
         map.addLayer(date)
     });
     document.getElementById("arrondissement").addEventListener("keyup", function(event) {   //ne s'execute qu'une fois
         // alert(input.value);
         map.addLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
+        // map.removeLayer(not_arrondissement)
         map.removeLayer(culturel)
         map.removeLayer(loisirs)
         map.removeLayer(festival)
         map.removeLayer(others)
+        map.removeLayer(date)
         // alert('hello');
       });
       $('#filtreDate').click(function(){
         // alert(date);
         map.addLayer(date)
-        map.removeLayer(not_arrondissement)
+        // map.removeLayer(not_arrondissement)
         map.removeLayer(arrondissement)
         map.removeLayer(culturel)
         map.removeLayer(loisirs)
