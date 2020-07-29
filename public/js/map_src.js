@@ -6,6 +6,7 @@
 //     };
 // };
 //
+
 var nearest = 600000;
 var nearestP = null;
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -81,7 +82,7 @@ events.then(function(data) {
 
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
-            return (feature.properties.category != "Culturel" || "Loisirs" || "Festival") && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
+            return feature.properties.category != "Loisirs" && feature.properties.category != "Culturel" && feature.properties.category != "Festival" && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
@@ -92,8 +93,6 @@ events.then(function(data) {
             });
         }
     });
-
-
 
     var arrondissement = L.geoJson(data, {
         filter: function(feature, layer) {
@@ -145,8 +144,8 @@ events.then(function(data) {
     culturel.addTo(map)
     arrondissement.addTo(map)
     others.addTo(map)
-    date.addTo(map)
-    // The JavaScript below is new
+    //    a ne pas mettre au debut sinon doublon ?
+//    date.addTo(map)
     $("#others").click(function() {
         map.addLayer(others)
         map.removeLayer(loisirs)
@@ -194,7 +193,6 @@ events.then(function(data) {
         map.addLayer(date)
     });
     document.getElementById("arrondissement").addEventListener("keyup", function(event) {   //ne s'execute qu'une fois
-        // alert(input.value);
         map.addLayer(arrondissement)
         // map.removeLayer(not_arrondissement)
         map.removeLayer(culturel)
@@ -205,7 +203,6 @@ events.then(function(data) {
         // alert('hello');
       });
       $('#filtreDate').click(function(){
-        // alert(date);
         map.addLayer(date)
         // map.removeLayer(not_arrondissement)
         map.removeLayer(arrondissement)
