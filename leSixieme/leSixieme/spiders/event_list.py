@@ -427,29 +427,31 @@ class SpiderSpider(scrapy.Spider):
             if date_list[i] is None:
                 date_list[i]=[]
 
-            data={
-                'url':url_list[i],
-                'title' : title_list[i],
-                'image' : image_url_list[i],
-                'date' : format_date(date_list[i]),
-                'hour' : hour_list[i],
-                'price':price_list[i],
-                'address':address_list[i],
-                'arrondissement':arrondissement_list[i],
-                'coordinates':address_coord_list[i],
-                'description':description_list[i],
-                'category':category_list[i]
-            }
-            #print(category_list[i])
-            i+=1
-            list_data.append(data)
+            
+            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='':
+                data={
+                    'url':url_list[i],
+                    'title' : title_list[i],
+                    'image' : image_url_list[i],
+                    'date' : format_date(date_list[i]),
+                    'hour' : hour_list[i],
+                    'price':price_list[i],
+                    'address':address_list[i],
+                    'arrondissement':arrondissement_list[i],
+                    'coordinates':address_coord_list[i],
+                    'description':description_list[i],
+                    'category':category_list[i]
+                }
+                #print(category_list[i])
+                i+=1
+                list_data.append(data)
 
         with open(filename, 'a+') as f:
             for data in list_data :
                 app_json = json.dumps(data)
                 f.write(app_json+"\n")
 
-        ##construction du geojson grâce au json créer juste au-dessus
+        ##construction du geojson grâce au json créé juste au-dessus
 
         data = [json.loads(line) for line in open('events.json', 'r')]
 
@@ -473,11 +475,11 @@ class SpiderSpider(scrapy.Spider):
         # for d in data:
             # print(d['date'])
 
-        for d in data:
+        #for d in data:
             #print(d['date'])
             #print(d['title'])
             #print(d['price'])
-            print(d['hour'])
+            #print(d['hour'])
             # print(d['address'])
 
 
