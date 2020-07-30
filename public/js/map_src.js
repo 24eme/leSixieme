@@ -1,3 +1,5 @@
+
+
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
@@ -181,17 +183,17 @@ events.then(function(data) {
             return marker
         }
     });
-    // var not_arrondissement = L.geoJson(data, {
-    //     filter: function(feature, layer) {
-    //         return feature.properties.arrondissement != document.getElementById("arrondissement").value;
-    //     },
-    //     pointToLayer: function(feature, latlng) {
-    //         return L.marker(latlng, {
-    //         }).on('click', function() {
-    //            this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-    //         });
-    //     }
-    // });
+    var not_arrondissement = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.arrondissement != document.getElementById("arrondissement").value;
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+            });
+        }
+    });
 
 
 //hono essai pour les dates
@@ -270,9 +272,9 @@ events.then(function(data) {
         // map.addLayer(not_arrondissement)
         map.addLayer(date)
     });
-    document.getElementById("arrondissement").addEventListener("keyup", function(event) {   //ne s'execute qu'une fois
+    document.getElementById("arrondissement").addEventListener("keypress", function(event) {   //ne s'execute qu'une fois
         map.addLayer(arrondissement)
-        // map.removeLayer(not_arrondissement)
+        map.removeLayer(not_arrondissement)
         map.removeLayer(culturel)
         map.removeLayer(loisirs)
         map.removeLayer(festival)
