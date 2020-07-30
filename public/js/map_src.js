@@ -256,7 +256,7 @@ events.then(function(data) {
         map.removeLayer(festival)
         map.removeLayer(others)
         map.removeLayer(date)
-        alert(document.getElementById("arrondissement").value);
+        // alert(document.getElementById("arrondissement").value);
       });
       $('#filtreDate').click(function(){
         map.addLayer(date)
