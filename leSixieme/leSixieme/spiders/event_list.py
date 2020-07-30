@@ -32,7 +32,12 @@ class SpiderSpider(scrapy.Spider):
 
         # taburls=readLinkTxt('../eventsLinks.txt') pour Lou
         taburls=readLinkTxt('eventsLinks.txt')
+<<<<<<< HEAD
 
+=======
+
+
+>>>>>>> e1403122582d003d08219d6a7e79d2bd907302ae
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
@@ -427,10 +432,7 @@ class SpiderSpider(scrapy.Spider):
             if date_list[i] is None:
                 date_list[i]=[]
 
-            #print(i)
-
-            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='':
-                # index=0
+            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='' and str(address_coord_list[0][0]).startswith('2') and str(address_coord_list[0][1]).startswith('48'):
                 data={
                     'url':url_list[i],
                     'title' : title_list[i],
@@ -458,13 +460,14 @@ class SpiderSpider(scrapy.Spider):
         ##construction du geojson grâce au json créé juste au-dessus
 
         data = [json.loads(line) for line in open('events.json', 'r')]
-        id=0
         geojson = {
             "type": "FeatureCollection",
             "features": [
             {
                 "type": "Feature",
-                "properties" :{**{"id":data.index(d)},**d},
+
+                "properties" : {**{'id':data.index(d)},**d},
+
                 "geometry" : {
                     "type": "Point",
                     "coordinates": d['coordinates'],
