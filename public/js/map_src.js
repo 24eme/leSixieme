@@ -9,17 +9,39 @@
 // };
 //
 var tab1km = [];
+var tabMarkersRemoved = [];
 var tab2km = [];
 var tab3km = [];
 var tab4km = [];
 var tab5km = [];
 var tab6km = [];
 var tab7km = [];
-
 var markersTab = [];
 
-var markers = [];
+var eiffelTower = L.icon({
+    iconUrl: 'img/eiffelTower.png',
+    iconSize: [50, 50],
+});
+var arcDeTriomphe = L.icon({
+    iconUrl: 'img/arcDeTriomphe.png',
+    iconSize: [50, 50],
+});
+var louvre = L.icon({
+    iconUrl: 'img/louvre.png',
+    iconSize: [50, 50],
+});
+var montmartre = L.icon({
+    iconUrl: 'img/montmartre.png',
+    iconSize: [50, 50],
+});
+var cathedrale = L.icon({
+    iconUrl: 'img/cathedrale.png',
+    iconSize: [50, 50],
+});
 
+
+
+var markers = [];
 var nearest = 600000;
 var nearestP = null;
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -49,6 +71,8 @@ prefix: 'fa',
 markerColor: 'green',
 icon: 'coffee'
 });
+
+
 
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
@@ -267,31 +291,98 @@ events.then(function(data) {
         map.removeLayer(festival)
         map.removeLayer(others)
       });
-      $('#clear').click(function(){
+      // $('#clear').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //
+      // });
+      $('#btn_1km').click(function(){
         map.removeLayer(date)
         map.removeLayer(arrondissement)
         map.removeLayer(culturel)
         map.removeLayer(loisirs)
         map.removeLayer(festival)
         map.removeLayer(others)
-
+        clear();
+        for (var i = 0; i < tab1km.length; i++) {
+          var marker = L.marker(tab1km[i],{icon:festivalIcon}).addTo(map);
+          tabMarkersRemoved.push(marker);
+        };
       });
-      // $('#btn_1km').click(function(){
-      //   alert('ici');
-      //   var marker = L.marker([51.5, -0.09])
-      //   console.log(marker)
-      //   for (var i = 0; i < tab1km.length; i++) {
-      //     console.log(tab1km[i]);
-      //
-      //     tab1km[i].addTo(map);
-      //   };
-      //
-      // });
+      $('#btn_2km').click(function(){
+        map.removeLayer(date)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        clear();
+        for (var i = 0; i < tab2km.length; i++) {
+          var marker = L.marker(tab2km[i],{icon:festivalIcon}).addTo(map);
+          tabMarkersRemoved.push(marker);
+        };
+      });
+
+      $('#btn_3km').click(function(){
+        map.removeLayer(date)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        clear();
+        for (var i = 0; i < tab3km.length; i++) {
+          var marker = L.marker(tab3km[i],{icon:festivalIcon}).addTo(map);
+          tabMarkersRemoved.push(marker);
+        };
+      });
+
+      $('#btn_4km').click(function(){
+        map.removeLayer(date)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        clear();
+        for (var i = 0; i < tab4km.length; i++) {
+          var marker = L.marker(tab4km[i],{icon:festivalIcon}).addTo(map);
+          tabMarkersRemoved.push(marker);
+        };
+      });
+      $('#btn_5km').click(function(){
+        map.removeLayer(date)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        clear();
+        for (var i = 0; i < tab5km.length; i++) {
+          var marker = L.marker(tab5km[i],{icon:festivalIcon}).addTo(map);
+          tabMarkersRemoved.push(marker);
+        };
+      });
+      $('#btn_6km').click(function(){
+        map.removeLayer(date)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        clear();
+        for (var i = 0; i < tab6km.length; i++) {
+          var marker = L.marker(tab6km[i],{icon:festivalIcon}).addTo(map);
+          tabMarkersRemoved.push(marker);
+        };
+      });
 
 
 });
-
-
 
 
 map.locate({setView: true, maxZoom: 40});
@@ -302,6 +393,11 @@ map.locate({setView: true, maxZoom: 40});
 function onLocationFound(e) {
     var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
     L.marker(e.latlng).addTo(map)
+    L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
+    L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
+    L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
+    L.marker([48.8868058,2.3430153],{icon:montmartre}).addTo(map);
+    L.marker([48.8529371,2.3500501],{icon:cathedrale}).addTo(map);
     //.bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
     drawData(e.latlng);
 }
@@ -440,3 +536,9 @@ function createPolyLine(loc1, loc2) {
           }
         })
      };
+     function clear(){
+
+       for (var i = 0; i < tabMarkersRemoved.length; i++) {
+         map.removeLayer(tabMarkersRemoved[i])
+       }
+     }
