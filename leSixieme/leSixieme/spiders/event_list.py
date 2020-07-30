@@ -476,7 +476,7 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
-        id=id+1
+        #id=id+1
 
 
 
