@@ -283,6 +283,7 @@ events.then(function(data) {
         clusters.addLayer(not_arrondissement)
         clusters.addLayer(date)
     });
+<<<<<<< HEAD
 
     document.getElementById("arrondissement").addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -296,6 +297,17 @@ events.then(function(data) {
         clusters.removeLayer(date)
         alert(document.getElementById("arrondissement").value);
         };
+=======
+    document.getElementById("arrondissement").addEventListener("keypress", function(event) {   //ne s'execute qu'une fois
+        map.addLayer(arrondissement)
+        map.removeLayer(not_arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        map.removeLayer(date)
+        // alert(document.getElementById("arrondissement").value);
+>>>>>>> 580c18d5b16ca9e9a31ffb93c9edf61e8a92f44c
       });
       $('#filtreDate').click(function(){
         clusters.addLayer(date)
