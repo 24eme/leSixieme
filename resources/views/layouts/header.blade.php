@@ -18,9 +18,7 @@
     <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
     <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
     <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
-    <button type="button" id="familial" class="btn btn-secondary">Familial</button>
     <button type="button" id="others" class="btn btn-secondary">Autres</button>
-    <button type="button" id="clear" class="btn btn-secondary">CLEAR</button>
 
 </div>
 <div class="btn-group">
