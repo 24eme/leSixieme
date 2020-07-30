@@ -68,7 +68,7 @@ button:active{
 .nav_events{
   width: 430px;
   height: 80%;
-  overflow: scroll;
+  overflow-y: scroll;
   display: inline-block;
   margin-top: 10px;
   vertical-align: middle;

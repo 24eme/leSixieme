@@ -1,5 +1,4 @@
 
-
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
@@ -17,6 +16,21 @@ var tab5km = [];
 var tab6km = [];
 var tab7km = [];
 var markersTab = [];
+
+var clusters = L.markerClusterGroup();
+
+var markers = [];
+var nearest = 600000;
+var nearestP = null;
+var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
+});
+
+var map = L.map('map', {
+    center: [48.853, 2.333],
+    zoom: 9,
+    layers: mapboxTiles
+});
 
 var eiffelTower = L.icon({
     iconUrl: 'img/eiffelTower.png',
@@ -38,22 +52,6 @@ var cathedrale = L.icon({
     iconUrl: 'img/cathedrale.png',
     iconSize: [50, 50],
 });
-
-
-
-var markers = [];
-var nearest = 600000;
-var nearestP = null;
-var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
-});
-
-var map = L.map('map', {
-    center: [48.853, 2.333],
-    zoom: 9,
-    layers: mapboxTiles
-});
-
 var festivalIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
 markerColor: 'black',
@@ -83,96 +81,98 @@ events.then(function(data) {
 
         },
         pointToLayer: function(feature, latlng) {
-          id = markersTab.length - 1;
-
             var marker = L.marker(latlng, {
                 icon: culturelIcon
           }).on('click', function() {
 
              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
-            marker._id = id;
+            marker._id = feature.properties.id;
             markersTab.push(marker)
             return marker
 
         }
     });
+    clusters.addLayer(all);
+    map.addLayer(clusters);
+
     var culturel= L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.category == "Culturel";
 
         },
         pointToLayer: function(feature, latlng) {
-          id = markersTab.length - 1;
-
             var marker = L.marker(latlng, {
                 icon: culturelIcon
           }).on('click', function() {
              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
-            marker._id = id;
+            marker._id = feature.properties.id;
             markersTab.push(marker)
             return marker
         }
     });
+//    var clusters = L.markerClusterGroup();
+    clusters.addLayer(culturel);
+//    map.addLayer(clusters);
+
     var loisirs = L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.category == "Loisirs";
 
         },
         pointToLayer: function(feature, latlng) {
-          id = markersTab.length - 1;
-
             var marker = L.marker(latlng, {
                 icon: loisirsIcon
           }).on('click', function() {
              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
-            marker._id = id;
+            marker._id = feature.properties.id;
             markersTab.push(marker)
             return marker
         }
     });
+    clusters.addLayer(loisirs);
+//    map.addLayer(clusters);
+
     var festival = L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.category == "Festival";
 
         },
         pointToLayer: function(feature, latlng) {
-          id = markersTab.length - 1;
-
             var marker = L.marker(latlng, {
                 icon: festivalIcon
           }).on('click', function() {
                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
-            marker._id = id;
+            marker._id = feature.properties.id;
             markersTab.push(marker)
             return marker
         }
     });
+    clusters.addLayer(festival);
 
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.category != "Loisirs" && feature.properties.category != "Culturel" && feature.properties.category != "Festival" && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
         },
         pointToLayer: function(feature, latlng) {
-          id = markersTab.length - 1;
-
             var marker = L.marker(latlng, {
     // <img src="feature.properties.image">" + "</a>"
     // "<a href=feature.properties.image>"
             }).on('click', function() {
                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
-            marker._id = id;
+            marker._id = feature.properties.id;
             markersTab.push(marker)
             return marker
         }
     });
+    clusters.addLayer(others);
 
     var arrondissement = L.geoJson(data, {
-        filter: function(feature, layer) {
+        filter: function(feature, layer) { 
             return feature.properties.arrondissement == document.getElementById("arrondissement").value;
         },
         pointToLayer: function(feature, latlng) {
@@ -180,20 +180,28 @@ events.then(function(data) {
             }).on('click', function() {
                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
+            marker._id = feature.properties.id;
+            markersTab.push(marker)
             return marker
         }
     });
+        clusters.addLayer(arrondissement);
+
     var not_arrondissement = L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.arrondissement != document.getElementById("arrondissement").value;
         },
         pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
+            var marker = L.marker(latlng, {
             }).on('click', function() {
                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
             });
+            marker._id = feature.properties.id;
+            markersTab.push(marker)
+            return marker
         }
     });
+      //  clusters.addLayer(not_arrondissement);
 
 
 //hono essai pour les dates
@@ -209,9 +217,12 @@ events.then(function(data) {
             }).on('click', function() {
                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
+            marker._id = feature.properties.id;
+            markersTab.push(marker)
             return marker
         }
     });
+//    clusters.addLayer(date);
 //fin essai dates
 
 
@@ -219,94 +230,89 @@ events.then(function(data) {
         padding: [50, 50]
     });
 
-    loisirs.addTo(map)
-    festival.addTo(map)
-    culturel.addTo(map)
-   arrondissement.addTo(map)
-    others.addTo(map)
+   //  loisirs.addTo(map)
+   //  festival.addTo(map)
+   //  culturel.addTo(map)
+   // arrondissement.addTo(map)
+   //  others.addTo(map)
     //    a ne pas mettre au debut sinon doublon ! car aucune date n'est entre il prend les memes
 //    date.addTo(map)
     $("#others").click(function() {
-        map.addLayer(others)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(culturel)
-        map.removeLayer(arrondissement)
-        // map.removeLayer(not_arrondissement)
-        map.removeLayer(date)
+        clusters.addLayer(others)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(not_arrondissement)
+        clusters.removeLayer(date)
     });
     $("#culturel").click(function() {
-        map.addLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
-        map.removeLayer(arrondissement)
-        // map.removeLayer(not_arrondissement)
-        map.removeLayer(date)
+        clusters.addLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(not_arrondissement)
+        clusters.removeLayer(date)
     });
     $("#loisirs").click(function() {
-        map.addLayer(loisirs)
-        map.removeLayer(culturel)
-        map.removeLayer(festival)
-        map.removeLayer(others)
-        map.removeLayer(arrondissement)
+        clusters.addLayer(loisirs)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
+        clusters.removeLayer(arrondissement)
         // map.removeLayer(not_arrondissement)
         map.removeLayer(date)
     });
     $("#festival").click(function() {
-        map.addLayer(festival)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(others)
-        map.removeLayer(arrondissement)
-        // map.removeLayer(not_arrondissement)
-        map.removeLayer(date)
+        clusters.addLayer(festival)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(others)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(not_arrondissement)
+        clusters.removeLayer(date)
     });
 
     $("#all").click(function() {
-        map.addLayer(loisirs)
-        map.addLayer(culturel)
-        map.addLayer(festival)
-        map.addLayer(others)
-        map.addLayer(arrondissement)
-        // map.addLayer(not_arrondissement)
-        map.addLayer(date)
+        clusters.addLayer(loisirs)
+        clusters.addLayer(culturel)
+        clusters.addLayer(festival)
+        clusters.addLayer(others)
+        clusters.addLayer(arrondissement)
+        clusters.addLayer(not_arrondissement)
+        clusters.addLayer(date)
     });
-    document.getElementById("arrondissement").addEventListener("keypress", function(event) {   //ne s'execute qu'une fois
-        map.addLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
-        map.removeLayer(date)
+
+    document.getElementById("arrondissement").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+        event.preventDefault();
+        clusters.addLayer(arrondissement)
+        clusters.removeLayer(not_arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
+        clusters.removeLayer(date)
         alert(document.getElementById("arrondissement").value);
+        };
       });
       $('#filtreDate').click(function(){
-        map.addLayer(date)
-        // map.removeLayer(not_arrondissement)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.addLayer(date)
+        clusters.removeLayer(not_arrondissement)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
       });
-      // $('#clear').click(function(){
-      //   map.removeLayer(date)
-      //   map.removeLayer(arrondissement)
-      //   map.removeLayer(culturel)
-      //   map.removeLayer(loisirs)
-      //   map.removeLayer(festival)
-      //   map.removeLayer(others)
-      //
-      // });
       $('#btn_1km').click(function(){
-        map.removeLayer(date)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.removeLayer(date)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
         clear();
         for (var i = 0; i < tab1km.length; i++) {
           var marker = L.marker(tab1km[i],{icon:festivalIcon}).addTo(map);
@@ -314,12 +320,12 @@ events.then(function(data) {
         };
       });
       $('#btn_2km').click(function(){
-        map.removeLayer(date)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.removeLayer(date)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
         clear();
         for (var i = 0; i < tab2km.length; i++) {
           var marker = L.marker(tab2km[i],{icon:festivalIcon}).addTo(map);
@@ -328,12 +334,12 @@ events.then(function(data) {
       });
 
       $('#btn_3km').click(function(){
-        map.removeLayer(date)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.removeLayer(date)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
         clear();
         for (var i = 0; i < tab3km.length; i++) {
           var marker = L.marker(tab3km[i],{icon:festivalIcon}).addTo(map);
@@ -342,12 +348,12 @@ events.then(function(data) {
       });
 
       $('#btn_4km').click(function(){
-        map.removeLayer(date)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.removeLayer(date)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
         clear();
         for (var i = 0; i < tab4km.length; i++) {
           var marker = L.marker(tab4km[i],{icon:festivalIcon}).addTo(map);
@@ -355,12 +361,12 @@ events.then(function(data) {
         };
       });
       $('#btn_5km').click(function(){
-        map.removeLayer(date)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.removeLayer(date)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
         clear();
         for (var i = 0; i < tab5km.length; i++) {
           var marker = L.marker(tab5km[i],{icon:festivalIcon}).addTo(map);
@@ -368,18 +374,231 @@ events.then(function(data) {
         };
       });
       $('#btn_6km').click(function(){
-        map.removeLayer(date)
-        map.removeLayer(arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
+        clusters.removeLayer(date)
+        clusters.removeLayer(arrondissement)
+        clusters.removeLayer(culturel)
+        clusters.removeLayer(loisirs)
+        clusters.removeLayer(festival)
+        clusters.removeLayer(others)
         clear();
         for (var i = 0; i < tab6km.length; i++) {
           var marker = L.marker(tab6km[i],{icon:festivalIcon}).addTo(map);
           tabMarkersRemoved.push(marker);
         };
       });
+
+
+
+    //
+    // $("#others").click(function() {
+    //     map.addLayer(others)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(arrondissement)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(date)
+    // });
+    // $("#culturel").click(function() {
+    //     map.addLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //     map.removeLayer(arrondissement)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(date)
+    // });
+    // $("#loisirs").click(function() {
+    //     map.addLayer(loisirs)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //     map.removeLayer(arrondissement)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(date)
+    // });
+    // $("#festival").click(function() {
+    //     map.addLayer(festival)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(others)
+    //     map.removeLayer(arrondissement)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(date)
+    // });
+    //
+    // $("#all").click(function() {
+    //     map.addLayer(loisirs)
+    //     map.addLayer(culturel)
+    //     map.addLayer(festival)
+    //     map.addLayer(others)
+    //     map.addLayer(arrondissement)
+    //     // map.addLayer(not_arrondissement)
+    //     map.addLayer(date)
+    // });
+    //
+    // document.getElementById("arrondissement").addEventListener("keyup", function(event) {
+    //     if (event.keyCode === 13) {
+    //     event.preventDefault();
+    //     map.addLayer(arrondissement)
+    //     map.removeLayer(not_arrondissement)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //     map.removeLayer(date)
+    //     alert(document.getElementById("arrondissement").value);
+    //     };
+    //   });
+    //   $('#filtreDate').click(function(){
+    //     map.addLayer(date)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(arrondissement)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //   });
+    // $("#loisirs").click(function() {
+    //     map.addLayer(loisirs)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //     map.removeLayer(arrondissement)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(date)
+    // });
+    // $("#festival").click(function() {
+    //     map.addLayer(festival)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(others)
+    //     map.removeLayer(arrondissement)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(date)
+    // });
+    //
+    // $("#all").click(function() {
+    //     map.addLayer(loisirs)
+    //     map.addLayer(culturel)
+    //     map.addLayer(festival)
+    //     map.addLayer(others)
+    //     map.addLayer(arrondissement)
+    //     // map.addLayer(not_arrondissement)
+    //     map.addLayer(date)
+    // });
+    //
+    // document.getElementById("arrondissement").addEventListener("keyup", function(event) {
+    //     if (event.keyCode === 13) {
+    //     event.preventDefault();
+    //     map.addLayer(arrondissement)
+    //     map.removeLayer(not_arrondissement)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //     map.removeLayer(date)
+    //     alert(document.getElementById("arrondissement").value);
+    //     };
+    //   });
+    //   $('#filtreDate').click(function(){
+    //     map.addLayer(date)
+    //     // map.removeLayer(not_arrondissement)
+    //     map.removeLayer(arrondissement)
+    //     map.removeLayer(culturel)
+    //     map.removeLayer(loisirs)
+    //     map.removeLayer(festival)
+    //     map.removeLayer(others)
+    //   });
+    //   // $('#clear').click(function(){
+    //   //   map.removeLayer(date)
+    //   //   map.removeLayer(arrondissement)
+    //   //   map.removeLayer(culturel)
+    //   //   map.removeLayer(loisirs)
+    //   //   map.removeLayer(festival)
+    //   //   map.removeLayer(others)
+    //   //
+    //   // });
+      // $('#btn_1km').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //   clear();
+      //   for (var i = 0; i < tab1km.length; i++) {
+      //     var marker = L.marker(tab1km[i],{icon:festivalIcon}).addTo(map);
+      //     tabMarkersRemoved.push(marker);
+      //   };
+      // });
+      // $('#btn_2km').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //   clear();
+      //   for (var i = 0; i < tab2km.length; i++) {
+      //     var marker = L.marker(tab2km[i],{icon:festivalIcon}).addTo(map);
+      //     tabMarkersRemoved.push(marker);
+      //   };
+      // });
+      //
+      // $('#btn_3km').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //   clear();
+      //   for (var i = 0; i < tab3km.length; i++) {
+      //     var marker = L.marker(tab3km[i],{icon:festivalIcon}).addTo(map);
+      //     tabMarkersRemoved.push(marker);
+      //   };
+      // });
+      //
+      // $('#btn_4km').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //   clear();
+      //   for (var i = 0; i < tab4km.length; i++) {
+      //     var marker = L.marker(tab4km[i],{icon:festivalIcon}).addTo(map);
+      //     tabMarkersRemoved.push(marker);
+      //   };
+      // });
+      // $('#btn_5km').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //   clear();
+      //   for (var i = 0; i < tab5km.length; i++) {
+      //     var marker = L.marker(tab5km[i],{icon:festivalIcon}).addTo(map);
+      //     tabMarkersRemoved.push(marker);
+      //   };
+      // });
+      // $('#btn_6km').click(function(){
+      //   map.removeLayer(date)
+      //   map.removeLayer(arrondissement)
+      //   map.removeLayer(culturel)
+      //   map.removeLayer(loisirs)
+      //   map.removeLayer(festival)
+      //   map.removeLayer(others)
+      //   clear();
+      //   for (var i = 0; i < tab6km.length; i++) {
+      //     var marker = L.marker(tab6km[i],{icon:festivalIcon}).addTo(map);
+      //     tabMarkersRemoved.push(marker);
+      //   };
+      // });
 
 
 });
@@ -511,7 +730,7 @@ function createPolyLine(loc1, loc2) {
                    + '</p>'
                    // +'<button onclick="openMarker('+ id +')">'
                    // + 'Voir plus</button>'
-                   + '<a class="detail" href="#" onclick="openMarker('+i+');">Voir plus</a>'
+                   + '<a class="detail" href="#" onclick="openMarker('+item[i].properties.id+');">Voir plus</a>'
                    +'</div></li>')
                  }
                  // $ul.append('<li style="color:black">' + item[i]['properties']['title'] + '-' + item['class'] +'</li>')
@@ -520,19 +739,11 @@ function createPolyLine(loc1, loc2) {
          });
      });
 
-     console.log(markersTab);
 
      function openMarker(id){
         markersTab.forEach(function(marker) {
-          // marker.fire('click')
-        marker.fireEvent('click', {latlng:marker._latlng});
           if (marker._id == id){
-               marker.fireEvent('click', {latlng:marker._latlng});
-             //marker.bindPopup('Your message').addTo(map).openPopup();
-           //marker.fireEvent("click");
-           //console.log(marker._latlng)
-     // markers.fire('click');
-           //  markers.fire('click', marker);
+               marker.fireEvent('click');
           }
         })
      };
@@ -542,3 +753,6 @@ function createPolyLine(loc1, loc2) {
          map.removeLayer(tabMarkersRemoved[i])
        }
      }
+
+
+     map.addLayer(clusters);
