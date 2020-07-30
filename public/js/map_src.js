@@ -1,3 +1,5 @@
+
+
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
@@ -725,17 +727,13 @@ function createPolyLine(loc1, loc2) {
                      '<li onclick=""><div class="event_wrapper">'
                    + '<img class="event_img" src="'
                    + item[i].properties.image + '" alt="event_img">'
-                   + '<p class="event_date">'
-                   + item[i].properties.price + '</p>'
-                   + '<h2>' + item[i].properties.title + '</h2>'
-                   + '<p class="detail">' + item[i].properties.price
+                   + '<p class="event_date"><a href="#" onclick="openMarker('+item[i].properties.id+');">'
+                   + item[i].properties.title + '</a></p>'
+                   + '<h2>' + item[i].properties.price + '</h2>'
+                   + '<p>750' + item[i].properties.arrondissement
                    + '</p>'
-                   // +'<button onclick="openMarker('+ id +')">'
-                   // + 'Voir plus</button>'
-                   + '<a class="detail" href="#" onclick="openMarker('+item[i].properties.id+');">Voir plus</a>'
                    +'</div></li>')
                  }
-                 // $ul.append('<li style="color:black">' + item[i]['properties']['title'] + '-' + item['class'] +'</li>')
                }
              });
          });
@@ -758,5 +756,3 @@ function createPolyLine(loc1, loc2) {
 
 
      map.addLayer(clusters);
-
-       	
