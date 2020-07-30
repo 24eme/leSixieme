@@ -1,6 +1,3 @@
-
-
-
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
@@ -34,6 +31,10 @@ var map = L.map('map', {
     layers: mapboxTiles
 });
 
+var mylocation = L.icon({
+    iconUrl: 'img/markers/location.png',
+    iconSize: [30, 30],
+});
 var eiffelTower = L.icon({
     iconUrl: 'img/eiffelTower.png',
     iconSize: [50, 50],
@@ -175,7 +176,6 @@ events.then(function(data) {
 
     var arrondissement = L.geoJson(data, {
         filter: function(feature, layer) {
-            // alert()
             return feature.properties.arrondissement == document.getElementById("arrondissement").value;
         },
         pointToLayer: function(feature, latlng) {
@@ -290,15 +290,13 @@ events.then(function(data) {
     document.getElementById("arrondissement").addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
         event.preventDefault();
-        clusters.removeLayer(arrondissement)
-        clusters.removeLayer(not_arrondissement)
         clusters.addLayer(arrondissement)
+        clusters.removeLayer(not_arrondissement)
         clusters.removeLayer(culturel)
         clusters.removeLayer(loisirs)
         clusters.removeLayer(festival)
         clusters.removeLayer(others)
         clusters.removeLayer(date)
-        alert(document.getElementById("arrondissement").value);
         };
       });
       $('#filtreDate').click(function(){
@@ -615,7 +613,7 @@ map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
     var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
-    L.marker(e.latlng).addTo(map)
+    L.marker(e.latlng,{icon:mylocation}).addTo(map)
     L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
     L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
     L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
@@ -747,7 +745,7 @@ function createPolyLine(loc1, loc2) {
      function openMarker(id){
         markersTab.forEach(function(marker) {
           if (marker._id == id){
-               marker.fire('click');
+               marker.fireEvent('click');
           }
         })
      };
@@ -760,3 +758,5 @@ function createPolyLine(loc1, loc2) {
 
 
      map.addLayer(clusters);
+
+       	
