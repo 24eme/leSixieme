@@ -12,12 +12,62 @@
 
   </ul>
 </nav>
-<div class="btn-group">
+
+<div class="btn-group floating-group">
     <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
     <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
     <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
     <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
-    <!-- <button type="button" id="familial" class="btn btn-secondary">Familial</button> -->
+    <button type="button" id="familial" class="btn btn-secondary">Familial</button>
+    <button type="button" id="others" class="btn btn-secondary">Autres</button>
+    <button type="button" id="clear" class="btn btn-secondary">CLEAR</button>
+
+</div>
+<div class="btn-group">
+    <button type="button" id="btn_1km" class="btn active">< 1 km</button>
+    <button type="button" id="btn_2km" class="btn">< 2 km</button>
+    <button type="button" id="btn_3km" class="btn">< 3 km</button>
+    <button type="button" id="btn_4km" class="btn">< 4 km</button>
+    <button type="button" id="btn_5km" class="btn">< 5 km</button>
+    <button type="button" id="btn_6km" class="btn">< 6 km</button>
+</div>
+
+<!--
+<ul>
+  <div class="dropdown">
+    <li class="btn dropdown-toggle" data-toggle="dropdown">Par secteur :</li>
+    <div class="dropdown-menu">
+        <button type="button" id="all" class="dropdown-item btn btn-primary active">Tout afficher</button>
+        <button type="button" id="culturel" class="dropdown-item btn btn-secondary">Culturels</button>
+        <button type="button" id="loisirs" class="dropdown-item btn btn-secondary">Loisirs</button>
+        <button type="button" id="festival" class="dropdown-item btn btn-secondary">Festivals</button>
+        <button type="button" id="others" class="dropdown-item btn btn-secondary">Autres</button>
+    </div>
+  </div>
+  <div class="dropdown">
+    <li class="btn dropdown-toggle" data-toggle="dropdown">Par distance :</li>
+    <div class="dropdown-menu">
+      <button type="button" id="btn_1km active" class="dropdown-item btn">< 1 km</button>
+      <button type="button" id="btn_2km" class="dropdown-item btn">< 2 km</button>
+      <button type="button" id="btn_3km" class="dropdown-item btn">< 3 km</button>
+      <button type="button" id="btn_4km" class="dropdown-item btn">< 4 km</button>
+      <button type="button" id="btn_5km" class="dropdown-item btn">< 5 km</button>
+      <button type="button" id="btn_6km" class="dropdown-item btn">< 6 km</button>
+    </div>
+  </div>
+</ul> -->
+
+  <!-- <li >Par secteur :</li>
+  <li>Par distance:</li>
+</ul>
+<button class="btn" type="button" name="button"><span><i class="fas fa-list-ul"></i></span></button>
+
+<div class="btn-group floating-group">
+    <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
+    <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
+    <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
+    <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
+    <button type="button" id="familial" class="btn btn-secondary">Familial</button>
     <button type="button" id="others" class="btn btn-secondary">Autres</button>
 </div>
 <div class="btn-group">
@@ -27,6 +77,6 @@
     <button type="button" id="btn_4km" class="btn">< 4 km</button>
     <button type="button" id="btn_5km" class="btn">< 5 km</button>
     <button type="button" id="btn_6km" class="btn">< 6 km</button>
-</div>
+</div> -->
 
 </header>
