@@ -1,4 +1,6 @@
 
+
+
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
@@ -172,7 +174,8 @@ events.then(function(data) {
     clusters.addLayer(others);
 
     var arrondissement = L.geoJson(data, {
-        filter: function(feature, layer) { 
+        filter: function(feature, layer) {
+            // alert()
             return feature.properties.arrondissement == document.getElementById("arrondissement").value;
         },
         pointToLayer: function(feature, latlng) {
@@ -185,7 +188,7 @@ events.then(function(data) {
             return marker
         }
     });
-        clusters.addLayer(arrondissement);
+    //    clusters.addLayer(arrondissement);
 
     var not_arrondissement = L.geoJson(data, {
         filter: function(feature, layer) {
@@ -241,10 +244,10 @@ events.then(function(data) {
         clusters.addLayer(others)
         clusters.removeLayer(loisirs)
         clusters.removeLayer(festival)
-        clusters.removeLayer(others)
-        clusters.removeLayer(arrondissement)
-        clusters.removeLayer(not_arrondissement)
-        clusters.removeLayer(date)
+        clusters.removeLayer(culturel)
+        //clusters.removeLayer(arrondissement)
+      //  clusters.removeLayer(not_arrondissement)
+    //    clusters.removeLayer(date)
     });
     $("#culturel").click(function() {
         clusters.addLayer(culturel)
@@ -252,7 +255,7 @@ events.then(function(data) {
         clusters.removeLayer(festival)
         clusters.removeLayer(others)
         clusters.removeLayer(arrondissement)
-        clusters.removeLayer(not_arrondissement)
+      //  clusters.removeLayer(not_arrondissement)
         clusters.removeLayer(date)
     });
     $("#loisirs").click(function() {
@@ -270,7 +273,7 @@ events.then(function(data) {
         clusters.removeLayer(loisirs)
         clusters.removeLayer(others)
         clusters.removeLayer(arrondissement)
-        clusters.removeLayer(not_arrondissement)
+    //    clusters.removeLayer(not_arrondissement)
         clusters.removeLayer(date)
     });
 
@@ -279,17 +282,17 @@ events.then(function(data) {
         clusters.addLayer(culturel)
         clusters.addLayer(festival)
         clusters.addLayer(others)
-        clusters.addLayer(arrondissement)
-        clusters.addLayer(not_arrondissement)
-        clusters.addLayer(date)
+    //    clusters.addLayer(arrondissement)
+  //      clusters.addLayer(not_arrondissement)
+    //    clusters.addLayer(date)
     });
-<<<<<<< HEAD
 
     document.getElementById("arrondissement").addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
         event.preventDefault();
-        clusters.addLayer(arrondissement)
+        clusters.removeLayer(arrondissement)
         clusters.removeLayer(not_arrondissement)
+        clusters.addLayer(arrondissement)
         clusters.removeLayer(culturel)
         clusters.removeLayer(loisirs)
         clusters.removeLayer(festival)
@@ -297,17 +300,6 @@ events.then(function(data) {
         clusters.removeLayer(date)
         alert(document.getElementById("arrondissement").value);
         };
-=======
-    document.getElementById("arrondissement").addEventListener("keypress", function(event) {   //ne s'execute qu'une fois
-        map.addLayer(arrondissement)
-        map.removeLayer(not_arrondissement)
-        map.removeLayer(culturel)
-        map.removeLayer(loisirs)
-        map.removeLayer(festival)
-        map.removeLayer(others)
-        map.removeLayer(date)
-        // alert(document.getElementById("arrondissement").value);
->>>>>>> 580c18d5b16ca9e9a31ffb93c9edf61e8a92f44c
       });
       $('#filtreDate').click(function(){
         clusters.addLayer(date)
@@ -755,7 +747,7 @@ function createPolyLine(loc1, loc2) {
      function openMarker(id){
         markersTab.forEach(function(marker) {
           if (marker._id == id){
-               marker.fireEvent('click');
+               marker.fire('click');
           }
         })
      };

@@ -32,8 +32,12 @@ class SpiderSpider(scrapy.Spider):
 
         # taburls=readLinkTxt('../eventsLinks.txt') pour Lou
         taburls=readLinkTxt('eventsLinks.txt')
-        
-        
+<<<<<<< HEAD
+
+=======
+
+
+>>>>>>> e1403122582d003d08219d6a7e79d2bd907302ae
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
@@ -427,7 +431,7 @@ class SpiderSpider(scrapy.Spider):
 
             if date_list[i] is None:
                 date_list[i]=[]
-            
+
             if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='' and str(address_coord_list[0][0]).startswith('2') and str(address_coord_list[0][1]).startswith('48'):
                 data={
                     'url':url_list[i],
@@ -440,9 +444,11 @@ class SpiderSpider(scrapy.Spider):
                     'arrondissement':arrondissement_list[i],
                     'coordinates':address_coord_list[i],
                     'description':description_list[i],
-                    'category':category_list[i]
+                    'category':category_list[i],
                 }
                 #print(category_list[i])
+                #index=index+1
+                #print(url_list.index(url_list[i]))
                 i+=1
                 list_data.append(data)
 
@@ -459,7 +465,9 @@ class SpiderSpider(scrapy.Spider):
             "features": [
             {
                 "type": "Feature",
+
                 "properties" : {**{'id':data.index(d)},**d},
+
                 "geometry" : {
                     "type": "Point",
                     "coordinates": d['coordinates'],
@@ -468,6 +476,7 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
+        id=id+1
 
 
 
