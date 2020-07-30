@@ -1,3 +1,5 @@
+
+
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
@@ -6,6 +8,18 @@
 //     };
 // };
 //
+var tab1km = [];
+var tab2km = [];
+var tab3km = [];
+var tab4km = [];
+var tab5km = [];
+var tab6km = [];
+var tab7km = [];
+
+var markersTab = [];
+
+var markers = [];
+
 var nearest = 600000;
 var nearestP = null;
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -36,22 +50,45 @@ markerColor: 'green',
 icon: 'coffee'
 });
 
-function category(){
-  // alert('hello');
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
+    var all= L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.category == "all";
+
+        },
+        pointToLayer: function(feature, latlng) {
+          id = markersTab.length - 1;
+
+            var marker = L.marker(latlng, {
+                icon: culturelIcon
+          }).on('click', function() {
+
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+            });
+            marker._id = id;
+            markersTab.push(marker)
+            return marker
+
+        }
+    });
     var culturel= L.geoJson(data, {
         filter: function(feature, layer) {
             return feature.properties.category == "Culturel";
 
         },
         pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
+          id = markersTab.length - 1;
+
+            var marker = L.marker(latlng, {
                 icon: culturelIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
+            marker._id = id;
+            markersTab.push(marker)
+            return marker
         }
     });
     var loisirs = L.geoJson(data, {
@@ -60,11 +97,16 @@ events.then(function(data) {
 
         },
         pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
+          id = markersTab.length - 1;
+
+            var marker = L.marker(latlng, {
                 icon: loisirsIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
+            marker._id = id;
+            markersTab.push(marker)
+            return marker
         }
     });
     var festival = L.geoJson(data, {
@@ -73,109 +115,119 @@ events.then(function(data) {
 
         },
         pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
+          id = markersTab.length - 1;
+
+            var marker = L.marker(latlng, {
                 icon: festivalIcon
           }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
+            marker._id = id;
+            markersTab.push(marker)
+            return marker
         }
     });
 
     var others = L.geoJson(data, {
         filter: function(feature, layer) {
-            return (feature.properties.category != "Culturel" || "Loisirs" || "Festival")
-             // && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
+            return feature.properties.category != "Loisirs" && feature.properties.category != "Culturel" && feature.properties.category != "Festival" && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
         },
         pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
+          id = markersTab.length - 1;
+
+            var marker = L.marker(latlng, {
     // <img src="feature.properties.image">" + "</a>"
     // "<a href=feature.properties.image>"
             }).on('click', function() {
-                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
+                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+            });
+            marker._id = id;
+            markersTab.push(marker)
+            return marker
+        }
+    });
+
+    var arrondissement = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.arrondissement == document.getElementById("arrondissement").value;
+        },
+        pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+            });
+            return marker
+        }
+    });
+    var not_arrondissement = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.arrondissement != document.getElementById("arrondissement").value;
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
             });
         }
     });
 
 
-
-    // var arrondissement = L.geoJson(data, {
-    //     filter: function(feature, layer) {
-    //         return feature.properties.arrondissement == document.getElementById("arrondissement").value;
-    //     },
-    //     pointToLayer: function(feature, latlng) {
-    //         return L.marker(latlng, {
-    //         }).on('click', function() {
-    //            this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-    //         });
-    //     }
-    // });
-    // var not_arrondissement = L.geoJson(data, {
-    //     filter: function(feature, layer) {
-    //         return feature.properties.arrondissement != document.getElementById("arrondissement").value;
-    //     },
-    //     pointToLayer: function(feature, latlng) {
-    //         return L.marker(latlng, {
-    //         }).on('click', function() {
-    //            this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-    //         });
-    //     }
-    // });
-
-
-// //hono essai pour les dates
-//     var input_date_start = document.getElementById("start");
-//     var input_date_end = document.getElementById("end");
-//     var date = L.geoJson(data, {
-//         filter: function(feature, layer) {
-//             return feature.properties.date >=input_date_start.value
-//             // && feature.properties.date <=input_date_end.value
-//         },
-//         pointToLayer: function(feature, latlng) {
-//             return L.marker(latlng, {
-//             }).on('click', function() {
-//                 this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-//             });
-//         }
-//     });
-// //fin essai dates
+//hono essai pour les dates
+    var input_date_start = document.getElementById("start");
+    var input_date_end = document.getElementById("end");
+    var date = L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.date >=input_date_start.value
+            // && feature.properties.date <=input_date_end.value
+        },
+        pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {
+            }).on('click', function() {
+                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+            });
+            return marker
+        }
+    });
+//fin essai dates
 
 
     map.fitBounds(events.getBounds(), {
         padding: [50, 50]
     });
+
     loisirs.addTo(map)
     festival.addTo(map)
     culturel.addTo(map)
-    // arrondissement.addTo(map)
+   arrondissement.addTo(map)
     others.addTo(map)
-    // date.addTo(map)
-    // The JavaScript below is new
+    //    a ne pas mettre au debut sinon doublon ! car aucune date n'est entre il prend les memes
+//    date.addTo(map)
     $("#others").click(function() {
         map.addLayer(others)
         map.removeLayer(loisirs)
         map.removeLayer(festival)
         map.removeLayer(culturel)
-        // map.removeLayer(arrondissement)
+        map.removeLayer(arrondissement)
         // map.removeLayer(not_arrondissement)
-        // map.removeLayer(date)
+        map.removeLayer(date)
     });
     $("#culturel").click(function() {
         map.addLayer(culturel)
         map.removeLayer(loisirs)
         map.removeLayer(festival)
         map.removeLayer(others)
-        // map.removeLayer(arrondissement)
+        map.removeLayer(arrondissement)
         // map.removeLayer(not_arrondissement)
-        // map.removeLayer(date)
+        map.removeLayer(date)
     });
     $("#loisirs").click(function() {
         map.addLayer(loisirs)
         map.removeLayer(culturel)
         map.removeLayer(festival)
         map.removeLayer(others)
-        // map.removeLayer(arrondissement)
+        map.removeLayer(arrondissement)
         // map.removeLayer(not_arrondissement)
-        // map.removeLayer(date)
+        map.removeLayer(date)
     });
     $("#festival").click(function() {
         map.addLayer(festival)
@@ -184,7 +236,7 @@ events.then(function(data) {
         map.removeLayer(others)
         map.removeLayer(arrondissement)
         // map.removeLayer(not_arrondissement)
-        // map.removeLayer(date)
+        map.removeLayer(date)
     });
 
     $("#all").click(function() {
@@ -192,30 +244,48 @@ events.then(function(data) {
         map.addLayer(culturel)
         map.addLayer(festival)
         map.addLayer(others)
-        // map.addLayer(arrondissement)
+        map.addLayer(arrondissement)
         // map.addLayer(not_arrondissement)
-        // map.addLayer(date)
+        map.addLayer(date)
     });
-    // document.getElementById("arrondissement").addEventListener("keyup", function(event) {   //ne s'execute qu'une fois
-    //     // alert(input.value);
-    //     map.addLayer(arrondissement)
-    //     // map.removeLayer(not_arrondissement)
-    //     map.removeLayer(culturel)
-    //     map.removeLayer(loisirs)
-    //     map.removeLayer(festival)
-    //     map.removeLayer(others)
-    //     map.removeLayer(date)
-    //     // alert('hello');
-    //   });
-      // $('#filtreDate').click(function(){
-      //   // alert(date);
-      //   map.addLayer(date)
-      //   // map.removeLayer(not_arrondissement)
-      //   map.removeLayer(arrondissement)
-      //   map.removeLayer(culturel)
-      //   map.removeLayer(loisirs)
-      //   map.removeLayer(festival)
-      //   map.removeLayer(others)
+    document.getElementById("arrondissement").addEventListener("keypress", function(event) {   //ne s'execute qu'une fois
+        map.addLayer(arrondissement)
+        map.removeLayer(not_arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+        map.removeLayer(date)
+        alert(document.getElementById("arrondissement").value);
+      });
+      $('#filtreDate').click(function(){
+        map.addLayer(date)
+        // map.removeLayer(not_arrondissement)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+      });
+      $('#clear').click(function(){
+        map.removeLayer(date)
+        map.removeLayer(arrondissement)
+        map.removeLayer(culturel)
+        map.removeLayer(loisirs)
+        map.removeLayer(festival)
+        map.removeLayer(others)
+
+      });
+      // $('#btn_1km').click(function(){
+      //   alert('ici');
+      //   var marker = L.marker([51.5, -0.09])
+      //   console.log(marker)
+      //   for (var i = 0; i < tab1km.length; i++) {
+      //     console.log(tab1km[i]);
+      //
+      //     tab1km[i].addTo(map);
+      //   };
+      //
       // });
 
 
@@ -231,7 +301,8 @@ map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
     var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
-    L.marker(e.latlng).addTo(map).bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
+    L.marker(e.latlng).addTo(map)
+    //.bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
     drawData(e.latlng);
 }
 map.on('locationfound', onLocationFound);
@@ -268,9 +339,9 @@ function drawData(userLocation) {
       var s = '<p>Ce lieu est à ' + (nearestP.distanceTo(userLocation)).toFixed(0) + ' m de vous.</p>';
       var marker = L.marker(nearestP).addTo(map);
 
-      if (marker) {
-          marker.bindPopup(s);
-      }
+      // if (marker) {
+      //     marker.bindPopup(s);
+      // }
 
     }
 }
@@ -288,52 +359,84 @@ function createPolyLine(loc1, loc2) {
       nearestP = loc1;
     //  var marker = L.marker(loc1,{icon:loisirsIcon}).addTo(map);
     }
+//    console.log(loc1.distanceTo(loc2).toFixed(0));
+    if(loc1.distanceTo(loc2).toFixed(0) > 0 && loc1.distanceTo(loc2).toFixed(0) <= 1000 ){
+      tab1km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 1000 && loc1.distanceTo(loc2).toFixed(0) <= 2000 ){
+      tab2km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 2000 && loc1.distanceTo(loc2).toFixed(0) <= 3000 ){
+      tab3km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 3000 && loc1.distanceTo(loc2).toFixed(0) <= 4000 ){
+      tab4km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 4000 && loc1.distanceTo(loc2).toFixed(0) <= 5000 ){
+      tab5km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 5000 && loc1.distanceTo(loc2).toFixed(0) <= 6000 ){
+      tab6km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 6000){
+      tab7km.push(loc1);
+    }
+    // console.log('here')
+    // console.log(tab1km.length)
+    // console.log(tab2km.length)
+    // console.log(tab3km.length)
+    // console.log(tab4km.length)
+    // console.log(tab5km.length)
+    // console.log(tab6km.length)
+    // console.log(tab7km.length)
+    // console.log('FIN')
  }
 
-}
-document.getElementById("arrondissement").addEventListener("keypress", function(event) {
-  var events = $.getJSON('js/eventsGeoJson.json');
-  events.then(function(data) {
-       var events = L.geoJson(data);
-       alert(document.getElementById("arrondissement").value);
-       var arrondissement = L.geoJson(data, {
-           filter: function(feature, layer) {
-               return feature.properties.arrondissement == document.getElementById("arrondissement").value;
-           },
-           pointToLayer: function(feature, latlng) {
-               return L.marker(latlng, {
-               }).on('click', function() {
-                  this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-               });
-           }
-       });
-       alert(arrondissement);
-       var not_arrondissement = L.geoJson(data, {
-           filter: function(feature, layer) {
-               return feature.properties.arrondissement != document.getElementById("arrondissement").value;
-           },
-           pointToLayer: function(feature, latlng) {
-               return L.marker(latlng, {
-               }).on('click', function() {
-                  this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<img width='350px' height='100px' src="+feature.properties.image+">" +"<hr>"+feature.properties.description+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>").openPopup();
-               });
-           }
-       });
-       map.fitBounds(events.getBounds(), {
-           padding: [50, 50]
-       });
-       arrondissement.addTo(map)
-       // alert(arrondissement.addTo(map))
-    alert(document.getElementById("arrondissement").value);
-    map.addLayer(arrondissement);
-    map.removeLayer(not_arrondissement);
-});
-//
-// document.getElementById("arrondissement").addEventListener("keyup", function(data) {   //ne s'execute qu'une fois
-//     // alert(input.value);
-//     map.addLayer(arrondissement)
-//     map.removeLayer(not_arrondissement)
-//     // alert('hello');
-//   });
-// });
-});
+
+
+ $(document).ready(function(){
+   // var scops = $.getJSON('js/eventsGeoJson.json');
+   // scops.then(function(data) {
+
+         $.getJSON('js/eventsGeoJson.json', {}, function(data) {
+
+             var $ul = $('#ct');
+             $.each(data, function(idx, item){
+               for (var i = 0; i < item.length; i++) {
+                 if (item[i].properties) {
+                   $ul.append(
+                     '<li onclick=""><div class="event_wrapper">'
+                   + '<img class="event_img" src="'
+                   + item[i].properties.image + '" alt="event_img">'
+                   + '<p class="event_date">'
+                   + item[i].properties.price + '</p>'
+                   + '<h2>' + item[i].properties.title + '</h2>'
+                   + '<p class="detail">' + item[i].properties.price
+                   + '</p>'
+                   // +'<button onclick="openMarker('+ id +')">'
+                   // + 'Voir plus</button>'
+                   + '<a class="detail" href="#" onclick="openMarker('+i+');">Voir plus</a>'
+                   +'</div></li>')
+                 }
+                 // $ul.append('<li style="color:black">' + item[i]['properties']['title'] + '-' + item['class'] +'</li>')
+               }
+             });
+         });
+     });
+
+     console.log(markersTab);
+
+     function openMarker(id){
+        markersTab.forEach(function(marker) {
+          // marker.fire('click')
+        marker.fireEvent('click', {latlng:marker._latlng});
+          if (marker._id == id){
+               marker.fireEvent('click', {latlng:marker._latlng});
+             //marker.bindPopup('Your message').addTo(map).openPopup();
+           //marker.fireEvent("click");
+           //console.log(marker._latlng)
+     // markers.fire('click');
+           //  markers.fire('click', marker);
+          }
+        })
+     };
