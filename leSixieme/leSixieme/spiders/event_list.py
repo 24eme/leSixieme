@@ -24,7 +24,7 @@ class SpiderSpider(scrapy.Spider):
             i=0
             while(i<len(content)):
                 u=content[i].split()
-                taburls.append(u[2][:-1])     #le dernier caractère est " donc je supprime le dernier caractère
+                taburls.append(u[2][:-1])     #le dernier caractère est ", on supprime donc le dernier caractère
                 i=i+1
 
             urls.close()
@@ -32,12 +32,7 @@ class SpiderSpider(scrapy.Spider):
 
         # taburls=readLinkTxt('../eventsLinks.txt') pour Lou
         taburls=readLinkTxt('eventsLinks.txt')
-<<<<<<< HEAD
-
-=======
-
-
->>>>>>> e1403122582d003d08219d6a7e79d2bd907302ae
+        
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
