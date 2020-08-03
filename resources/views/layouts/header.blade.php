@@ -1,37 +1,29 @@
 <header>
 
-<nav class="navbar navbar-light bg-light">
+<nav class="nav_filter navbar navbar-light" id="nav_filter">
   <ul class="">
 
     <!-- <li class="nav-item"><label for="">Nom :</label><input type="text" name="name_search" value="Recherche par nom"></li> -->
     <!-- <li class="nav-item"><label for="">Secteur :</label><select class="" name=""><option id="culture" value="Culture">Culture</option><option id="fete" value="Informatique">Fete</option></select></li> -->
-    <li class="nav-item"><label for="">Arrondisement :</label><input type="text" id="arrondissement" placeholder="09"></li>
-    <li class="nav-item"><label for="">Date de début: </label><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
-    <li class="nav-item"><label for="">Date de fin: </label><input type="date" id="end" name="trip-end" value="2020-01-01"></li>
-    <li class="nav-item"><label for=""></label> <button type="button" id="filtreDate" class="btn btn-primary active">Filtrer</button></li>
+    <!-- <li class="nav-item"><form autocomplete="off" action="/action_page.php"><span id="text_container"><label>750</label><input id="myInput" type="text" name="arrondissement" placeholder="75009"></span></form></li> -->
+    <li class="nav-item"><input type="text" name="arrondissement" placeholder="75009"></li>
+    <!-- <li class="nav-item"><label for="">Arrondissement :</label><input type="text" id="arrondissement" placeholder="09"></li> -->
+    <li class="nav-item"><label for="">Date de début: </label></li>
+    <li class="nav-item"><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
+    <li class="nav-item"><label for="">Date de fin: </label></li>
+    <li class="nav-item"><input type="date" id="end" name="trip-end" value="2020-01-01"></li>
+    <button type="button" id="btn_filtrer" class="btn  active">Filtrer</button>
+
 
   </ul>
 </nav>
 
-<div class="btn-group floating-group">
-    <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
-    <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
-    <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
-    <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
-    <button type="button" id="others" class="btn btn-secondary">Autres</button>
-
-</div>
-<div class="btn-group">
-    <button type="button" id="btn_1km" class="btn active">< 1 km</button>
-    <button type="button" id="btn_2km" class="btn">< 2 km</button>
-    <button type="button" id="btn_3km" class="btn">< 3 km</button>
-    <button type="button" id="btn_4km" class="btn">< 4 km</button>
-    <button type="button" id="btn_5km" class="btn">< 5 km</button>
-    <button type="button" id="btn_6km" class="btn">< 6 km</button>
+<div class="icon_wrapper">
+  <button id="filter-icon" class="btn" type="button" name="button" onclick="openFilter()"><i class="fas fa-filter"></i></button>
+  <button id="list-icon" class="btn" type="button" name="button" onclick="openList()"><i class="fas fa-list-ul"></i></button>
 </div>
 
-<!--
-<ul>
+<ul class="nav_top">
   <div class="dropdown">
     <li class="btn dropdown-toggle" data-toggle="dropdown">Par secteur :</li>
     <div class="dropdown-menu">
@@ -53,28 +45,6 @@
       <button type="button" id="btn_6km" class="dropdown-item btn">< 6 km</button>
     </div>
   </div>
-</ul> -->
-
-  <!-- <li >Par secteur :</li>
-  <li>Par distance:</li>
 </ul>
-<button class="btn" type="button" name="button"><span><i class="fas fa-list-ul"></i></span></button>
-
-<div class="btn-group floating-group">
-    <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
-    <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
-    <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
-    <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
-    <button type="button" id="familial" class="btn btn-secondary">Familial</button>
-    <button type="button" id="others" class="btn btn-secondary">Autres</button>
-</div>
-<div class="btn-group">
-    <button type="button" id="btn_1km active" class="btn">< 1 km</button>
-    <button type="button" id="btn_2km" class="btn">< 2 km</button>
-    <button type="button" id="btn_3km" class="btn">< 3 km</button>
-    <button type="button" id="btn_4km" class="btn">< 4 km</button>
-    <button type="button" id="btn_5km" class="btn">< 5 km</button>
-    <button type="button" id="btn_6km" class="btn">< 6 km</button>
-</div> -->
 
 </header>
