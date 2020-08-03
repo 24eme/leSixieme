@@ -125,7 +125,7 @@ class SpiderSpider(scrapy.Spider):
             if date is None:
                 return 'Pas de date précisée'
             elif date=='Multiple Dates' or date=='Dates multiples':
-                return '00/00/0000'
+                return 'Dates multiples'
             else:
                 if type(date)==str:
                     year=getYear(date)
@@ -136,16 +136,16 @@ class SpiderSpider(scrapy.Spider):
                     date=date.replace(day,'')
                     d=day+'/'+month+'/'+year
                     return d
-                return '00/00/0000'
+                return 'Pas de date précisée'
 
         def format_price(price):
             if price is None:
-                price=price
+                price='Pas de prix précisé'
                 return price
             else:
                 price=price.strip()
             if price=='Gratuit' or price=='Free':
-                price=price
+                price='Gratuit'
             else:
                 price=price.split()
                 if len(price)==1:
@@ -275,8 +275,7 @@ class SpiderSpider(scrapy.Spider):
 
         def format_hour(hour):
             if hour is None:
-                hour_form=[]
-                hour_form.append(hour)
+                hour_form=['Pas d\'heure précisée']
                 return hour_form
             else:
                 hour=hour.split()
@@ -342,12 +341,10 @@ class SpiderSpider(scrapy.Spider):
         def give_arrondissement(address):
             tabaddress=address.split()
             if len(tabaddress)<2:
-                return '0'
+                return None
             if len(tabaddress[-2])!=5:
-                return '0'
-            if tabaddress[-2][0]!='7'and tabaddress[-2][1]!='5':
-                return '0'
-            arrondissement=tabaddress[-2][3]+tabaddress[-2][4]
+                return None
+            arrondissement=tabaddress[-2]
             return arrondissement
         
         def give_category(description):
@@ -462,18 +459,14 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
-
-
-
-        # for d in data:
-            # print(d['date'])
-
+        
         #for d in data:
-            #print(d['date'])
+            #print(d['url'])
+            #print(d['address'])
+            #print(d['arrondissement'])
             #print(d['title'])
             #print(d['price'])
             #print(d['hour'])
-            # print(d['address'])
 
 
 
