@@ -228,8 +228,6 @@ events.then(function(data) {
         }
     });
 //    clusters.addLayer(date);
-//fin essai dates
-
 
     map.fitBounds(events.getBounds(), {
         padding: [50, 50]
@@ -608,6 +606,8 @@ events.then(function(data) {
 });
 
 
+<<<<<<< HEAD:public/js/filter_map.js
+=======
 map.locate({setView: true, maxZoom: 40});
 
 
@@ -754,5 +754,6 @@ function createPolyLine(loc1, loc2) {
        }
      }
 
+>>>>>>> ebafa7b60e0229a032506c40ebdf07eeb8570f44:public/js/map_src.js
 
-     map.addLayer(clusters);
+map.addLayer(clusters);
