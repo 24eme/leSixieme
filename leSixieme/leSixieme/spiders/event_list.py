@@ -24,13 +24,12 @@ class SpiderSpider(scrapy.Spider):
             i=0
             while(i<len(content)):
                 u=content[i].split()
-                taburls.append(u[2][:-1])     #le dernier caractère est " donc je supprime le dernier caractère
+                taburls.append(u[2][:-1])     #le dernier caractère est ", on supprime donc le dernier caractère
                 i=i+1
 
             urls.close()
             return(taburls)
 
-        # taburls=readLinkTxt('../eventsLinks.txt') pour Lou
         taburls=readLinkTxt('eventsLinks.txt')
         
         for url in taburls:
@@ -40,26 +39,16 @@ class SpiderSpider(scrapy.Spider):
         c=CurrencyConverter()
         list_data=[]
         url_list=response.request.url
-        main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
-        title_list =main.xpath('.//h1[@class="listing-hero-title"]/text()').extract()
-        image_url_list=main.xpath('.//picture/@content').extract_first()
-        date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract_first()
-        hour_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
-
-
+       
+       #on commence par définir les fonctions qui serviront au formatage des données 
+       
         def descrip(select):
             description=[]
             for data in select:
                 cont= data.xpath('.//text()').extract();
                 description=description+['\n']+cont
             return(description)
-
-        all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
-        description_list=(descrip(all_para))
-
-        price_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
-        address_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
-
+        
         def format_descrip(tab_descrip):
             long=len(tab_descrip)
             description_list=[]
@@ -98,7 +87,7 @@ class SpiderSpider(scrapy.Spider):
             list_=[]
             list_.append(objet)
             return list_
-#Hono
+
         def getDay(date):
             tabdays=['01','02','03','04','05','06','07',
             '08','09','10','11','12','13','14','15','16','17','18','19',
@@ -134,9 +123,9 @@ class SpiderSpider(scrapy.Spider):
 
         def format_date(date):
             if date is None:
-                return '00/00/0000'
+                return 'Pas de date précisée'
             elif date=='Multiple Dates' or date=='Dates multiples':
-                return '00/00/0000'
+                return 'Dates multiples'
             else:
                 if type(date)==str:
                     year=getYear(date)
@@ -147,16 +136,16 @@ class SpiderSpider(scrapy.Spider):
                     date=date.replace(day,'')
                     d=day+'/'+month+'/'+year
                     return d
-                return '00/00/0000'
-#Fin HONo
+                return 'Pas de date précisée'
+
         def format_price(price):
             if price is None:
-                price=price
+                price='Pas de prix précisé'
                 return price
             else:
                 price=price.strip()
             if price=='Gratuit' or price=='Free':
-                price=price
+                price='Gratuit'
             else:
                 price=price.split()
                 if len(price)==1:
@@ -286,8 +275,7 @@ class SpiderSpider(scrapy.Spider):
 
         def format_hour(hour):
             if hour is None:
-                hour_form=[]
-                hour_form.append(hour)
+                hour_form=['Pas d\'heure précisée']
                 return hour_form
             else:
                 hour=hour.split()
@@ -329,17 +317,7 @@ class SpiderSpider(scrapy.Spider):
                 hour_form=hour_form.split()
                 return hour_form
             return hour_form
-
-
-        description_list=format_descrip(description_list)
-        address_list=format_add(address_list)
-        price_list=format_price(price_list)
-        price_list=convert_price(price_list)
-        hour_list=format_hour(hour_list)
-        date_list=format_list(date_list)
-        image_url_list=format_list(image_url_list)
-        url_list=format_list(url_list)
-
+        
         def coord(address):
             coord=[]
             tabAddress = address.split(' ')
@@ -359,34 +337,16 @@ class SpiderSpider(scrapy.Spider):
                 coord.append(0)
                 coord.append(0)
             return coord
-
-        address_coord_list=[]
-
-
-        for address in address_list:
-            coord=coord(address)
-            address_coord_list.append(coord)
-
-#HONO
+        
         def give_arrondissement(address):
             tabaddress=address.split()
             if len(tabaddress)<2:
-                return '0'
+                return None
             if len(tabaddress[-2])!=5:
-                return '0'
-            if tabaddress[-2][0]!='7'and tabaddress[-2][1]!='5':
-                return '0'
-            arrondissement=tabaddress[-2][3]+tabaddress[-2][4]
+                return None
+            arrondissement=tabaddress[-2]
             return arrondissement
-
-        arrondissement_list=[]
-        for address in address_list:
-            arr=give_arrondissement(address)
-            arrondissement_list.append(arr)
-        # give_arrondissement('30 Rue du 4 septembre 75012 Paris')
-#FIN HONO
-
-#Hono
+        
         def give_category(description):
             tabFestival = ['Festival']
             tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P']
@@ -407,12 +367,43 @@ class SpiderSpider(scrapy.Spider):
                     cat = 'Festival'
                     return cat
 
-##Attention aux catégories null
+        
+        #on récolte les données brutes sur le site evenbrite
 
+        main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
+        title_list =main.xpath('.//h1[@class="listing-hero-title"]/text()').extract()
+        image_url_list=main.xpath('.//picture/@content').extract_first()
+        date_list=main.xpath('.//p[@class="js-date-time-first-line"]/text()').extract_first()
+        hour_list=main.xpath('.//p[@class="js-date-time-second-line"]/text()').extract_first()
+        all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
+        price_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
+        address_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
+        
+        #on formate les données récoltées ppur ne garder que les informations utiles avec une syntaxe uniforme
+        
+        description_list=(descrip(all_para))
+        description_list=format_descrip(description_list)
+        address_list=format_add(address_list)
+        price_list=format_price(price_list)
+        price_list=convert_price(price_list)
+        hour_list=format_hour(hour_list)
+        date_list=format_list(date_list)
+        image_url_list=format_list(image_url_list)
+        url_list=format_list(url_list)
+        address_coord_list=[]
+        for address in address_list:
+            coord=coord(address)
+            address_coord_list.append(coord)
+        arrondissement_list=[]
+        for address in address_list:
+            arr=give_arrondissement(address)
+            arrondissement_list.append(arr)
         category_list=[]
         for description in description_list:
             cat=give_category(description)
             category_list.append(cat)
+
+        #on créé un json contenant les données formatées
 
         i=0
         for title in title_list:
@@ -427,8 +418,7 @@ class SpiderSpider(scrapy.Spider):
             if date_list[i] is None:
                 date_list[i]=[]
 
-            
-            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='':
+            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='' and str(address_coord_list[0][0]).startswith('2') and str(address_coord_list[0][1]).startswith('48'):
                 data={
                     'url':url_list[i],
                     'title' : title_list[i],
@@ -440,9 +430,8 @@ class SpiderSpider(scrapy.Spider):
                     'arrondissement':arrondissement_list[i],
                     'coordinates':address_coord_list[i],
                     'description':description_list[i],
-                    'category':category_list[i]
+                    'category':category_list[i],
                 }
-                #print(category_list[i])
                 i+=1
                 list_data.append(data)
 
@@ -451,16 +440,17 @@ class SpiderSpider(scrapy.Spider):
                 app_json = json.dumps(data)
                 f.write(app_json+"\n")
 
-        ##construction du geojson grâce au json créé juste au-dessus
+        #on construit un geojson grâce au json créé juste au-dessus
 
         data = [json.loads(line) for line in open('events.json', 'r')]
-
         geojson = {
             "type": "FeatureCollection",
             "features": [
             {
                 "type": "Feature",
-                "properties" : d,
+
+                "properties" : {**{'id':data.index(d)},**d},
+
                 "geometry" : {
                     "type": "Point",
                     "coordinates": d['coordinates'],
@@ -469,18 +459,14 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
-
-
-
-        # for d in data:
-            # print(d['date'])
-
+        
         #for d in data:
-            #print(d['date'])
+            #print(d['url'])
+            #print(d['address'])
+            #print(d['arrondissement'])
             #print(d['title'])
             #print(d['price'])
             #print(d['hour'])
-            # print(d['address'])
 
 
 
@@ -488,4 +474,3 @@ class SpiderSpider(scrapy.Spider):
 
         json.dump(geojson,output,indent=4)
 
-#fin hono

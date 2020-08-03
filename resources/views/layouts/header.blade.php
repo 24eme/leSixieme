@@ -6,8 +6,8 @@
     <!-- <li class="nav-item"><label for="">Nom :</label><input type="text" name="name_search" value="Recherche par nom"></li> -->
     <!-- <li class="nav-item"><label for="">Secteur :</label><select class="" name=""><option id="culture" value="Culture">Culture</option><option id="fete" value="Informatique">Fete</option></select></li> -->
     <!-- <li class="nav-item"><form autocomplete="off" action="/action_page.php"><span id="text_container"><label>750</label><input id="myInput" type="text" name="arrondissement" placeholder="75009"></span></form></li> -->
-    <li class="nav-item"><input type="text" name="arrondissement" placeholder="75009"></li>
-    <!-- <li class="nav-item"><label for="">Arrondissement :</label><input type="text" id="arrondissement" placeholder="09"></li> -->
+    <!-- <li class="nav-item"><input type="text" name="arrondissement" placeholder="75009"></li> -->
+    <li class="nav-item"><label for="">Arrondissement :</label><input type="text" id="arrondissement" placeholder="09"></li>
     <li class="nav-item"><label for="">Date de début: </label></li>
     <li class="nav-item"><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
     <li class="nav-item"><label for="">Date de fin: </label></li>

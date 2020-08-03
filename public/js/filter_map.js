@@ -1,5 +1,82 @@
 
 
+// function onEachFeature(feature, layer) {
+//     if (feature.properties && feature.properties.popupContent) {
+//         layer.bindPopup(feature.properties.popupContent);
+//         layer.setIcon(markerInfo).addTo(map);
+//
+//     };
+// };
+//
+var tab1km = [];
+var tabMarkersRemoved = [];
+var tab2km = [];
+var tab3km = [];
+var tab4km = [];
+var tab5km = [];
+var tab6km = [];
+var tab7km = [];
+var markersTab = [];
+
+var clusters = L.markerClusterGroup();
+
+var markers = [];
+var nearest = 600000;
+var nearestP = null;
+var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
+});
+
+var map = L.map('map', {
+    center: [48.853, 2.333],
+    zoom: 9,
+    layers: mapboxTiles
+});
+
+var mylocation = L.icon({
+    iconUrl: 'img/markers/location.png',
+    iconSize: [30, 30],
+});
+var eiffelTower = L.icon({
+    iconUrl: 'img/eiffelTower.png',
+    iconSize: [50, 50],
+});
+var arcDeTriomphe = L.icon({
+    iconUrl: 'img/arcDeTriomphe.png',
+    iconSize: [50, 50],
+});
+var louvre = L.icon({
+    iconUrl: 'img/louvre.png',
+    iconSize: [50, 50],
+});
+var montmartre = L.icon({
+    iconUrl: 'img/montmartre.png',
+    iconSize: [50, 50],
+});
+var cathedrale = L.icon({
+    iconUrl: 'img/cathedrale.png',
+    iconSize: [50, 50],
+});
+var festivalIcon = L.AwesomeMarkers.icon({
+prefix: 'fa',
+markerColor: 'black',
+icon: 'glass'
+});
+
+var culturelIcon = L.AwesomeMarkers.icon({
+prefix: 'fa',
+markerColor: 'red',
+icon: 'comments'
+});
+
+var loisirsIcon = L.AwesomeMarkers.icon({
+prefix: 'fa',
+markerColor: 'green',
+icon: 'coffee'
+});
+
+
+
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
@@ -150,7 +227,7 @@ events.then(function(data) {
             return marker
         }
     });
-//    clusters.addLayer(date); 
+//    clusters.addLayer(date);
 
     map.fitBounds(events.getBounds(), {
         padding: [50, 50]
@@ -529,5 +606,154 @@ events.then(function(data) {
 });
 
 
+<<<<<<< HEAD:public/js/filter_map.js
+=======
+map.locate({setView: true, maxZoom: 40});
+
+
+
+
+function onLocationFound(e) {
+    var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
+    L.marker(e.latlng,{icon:mylocation}).addTo(map)
+    L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
+    L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
+    L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
+    L.marker([48.8868058,2.3430153],{icon:montmartre}).addTo(map);
+    L.marker([48.8529371,2.3500501],{icon:cathedrale}).addTo(map);
+    //.bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
+    drawData(e.latlng);
+}
+map.on('locationfound', onLocationFound);
+
+
+
+
+
+
+function onLocationError(e) {
+   map.setView([48.853, 2.333], 13);
+}
+map.on('locationerror', onLocationError);
+
+
+
+
+function drawData(userLocation) {
+   var item, o;
+   var items = events.responseJSON.features;
+    for (item in items) {
+        var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
+        createPolyLine(loc, userLocation);
+    }
+    if (nearestP != null){
+       L.Routing.control({
+         createMarker: function() { return null; },
+        waypoints: [
+          L.latLng(nearestP.lat, nearestP.lng),
+          L.latLng(userLocation.lat, userLocation.lng)
+        ]
+      }).addTo(map);
+
+      var s = '<p>Ce lieu est à ' + (nearestP.distanceTo(userLocation)).toFixed(0) + ' m de vous.</p>';
+      var marker = L.marker(nearestP).addTo(map);
+
+      // if (marker) {
+      //     marker.bindPopup(s);
+      // }
+
+    }
+}
+
+
+
+function createPolyLine(loc1, loc2) {
+    if (Math.abs(loc1.lng - loc2.lng) > 180) {
+        loc1 = loc1.wrap(179, -179);
+    }
+    var latlongs = [loc1, loc2];
+    if(loc1.distanceTo(loc2) < nearest){
+      nearest = loc1.distanceTo(loc2);
+
+      nearestP = loc1;
+    //  var marker = L.marker(loc1,{icon:loisirsIcon}).addTo(map);
+    }
+//    console.log(loc1.distanceTo(loc2).toFixed(0));
+    if(loc1.distanceTo(loc2).toFixed(0) > 0 && loc1.distanceTo(loc2).toFixed(0) <= 1000 ){
+      tab1km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 1000 && loc1.distanceTo(loc2).toFixed(0) <= 2000 ){
+      tab2km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 2000 && loc1.distanceTo(loc2).toFixed(0) <= 3000 ){
+      tab3km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 3000 && loc1.distanceTo(loc2).toFixed(0) <= 4000 ){
+      tab4km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 4000 && loc1.distanceTo(loc2).toFixed(0) <= 5000 ){
+      tab5km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 5000 && loc1.distanceTo(loc2).toFixed(0) <= 6000 ){
+      tab6km.push(loc1);
+    }
+    if(loc1.distanceTo(loc2).toFixed(0) > 6000){
+      tab7km.push(loc1);
+    }
+    // console.log('here')
+    // console.log(tab1km.length)
+    // console.log(tab2km.length)
+    // console.log(tab3km.length)
+    // console.log(tab4km.length)
+    // console.log(tab5km.length)
+    // console.log(tab6km.length)
+    // console.log(tab7km.length)
+    // console.log('FIN')
+ }
+
+
+
+ $(document).ready(function(){
+   // var scops = $.getJSON('js/eventsGeoJson.json');
+   // scops.then(function(data) {
+
+         $.getJSON('js/eventsGeoJson.json', {}, function(data) {
+
+             var $ul = $('#ct');
+             $.each(data, function(idx, item){
+               for (var i = 0; i < item.length; i++) {
+                 if (item[i].properties) {
+                   $ul.append(
+                     '<li onclick=""><div class="event_wrapper">'
+                   + '<img class="event_img" src="'
+                   + item[i].properties.image + '" alt="event_img">'
+                   + '<a class="event_date" href="#" onclick="openMarker('+item[i].properties.id+');">'
+                   + item[i].properties.title + '</a>'
+                   + '<h2>' + item[i].properties.price + '</h2>'
+                   + '<p>'+item[i].properties.arrondissement
+                   + '</p>'
+                   +'</div></li>')
+                 }
+               }
+             });
+         });
+     });
+
+
+     function openMarker(id){
+        markersTab.forEach(function(marker) {
+          if (marker._id == id){
+               marker.fireEvent('click');
+          }
+        })
+     };
+     function clear(){
+
+       for (var i = 0; i < tabMarkersRemoved.length; i++) {
+         map.removeLayer(tabMarkersRemoved[i])
+       }
+     }
+
+>>>>>>> ebafa7b60e0229a032506c40ebdf07eeb8570f44:public/js/map_src.js
 
 map.addLayer(clusters);
