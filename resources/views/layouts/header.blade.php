@@ -1,11 +1,95 @@
 <header>
+<nav >
+  <ul>
+    <li>
+      <label>Adresse :</label><input type="text" name="adresse_search"value="votre adresse">
+      <label>Km:</label>
+      <select name="km" id="km">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+      </select>
+      <label>Filtres :</label>
+      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
 
-<nav class="navbar navbar-light bg-light">
-  <ul class="">
+      </li>
+
+      <nav id='open-filters' style="display:none">
+            <hr>
+            <li>
+              <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
+              <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin">
+              <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
+              <label>Heure Fin:</label> <input type="time" id="heureFin"value="heure de fin">
+
+            </li>
+            <nav>
+              <label>Price :</label> <input type="text" id="prix"value="prix">
+              <label>Category:</label>
+              <select name="category" id="category">
+                    <option value="Loisirs">Loisirs</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Culturel">Culturel</option>
+                    <!-- <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option> -->
+              </select>
+              <label>Arrondissement:</label>
+              <select name="arrondissement" id="arrondissement">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+              </select>
+            </li>
+            <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter()"> Filtrer</button>
+
+
+          </nav>
+          </nav>
+
+
+     </ul>
+   </nav>
+
+     <script>
+     function openFilters(){
+       var filters=document.getElementById('open-filters');
+       if(filters.style.display=='none'){
+         filters.style.display='block';
+       }
+       else{
+           filters.style.display='none';
+       }
+     }
+     </script>
+
+
+<!-- <nav class="navbar navbar-light bg-light">
+  <ul class=""> -->
 
     <!-- <li class="nav-item"><label for="">Nom :</label><input type="text" name="name_search" value="Recherche par nom"></li> -->
     <!-- <li class="nav-item"><label for="">Secteur :</label><select class="" name=""><option id="culture" value="Culture">Culture</option><option id="fete" value="Informatique">Fete</option></select></li> -->
-    <li class="nav-item"><label for="">Arrondissement :</label><input type="text" id="arrondissement" placeholder="09"></li>
+    <!-- <li class="nav-item"><label for="">Arrondisement :</label><input type="text" id="arrondissement" placeholder="09"></li>
     <li class="nav-item"><label for="">Date de début: </label><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
     <li class="nav-item"><label for="">Date de fin: </label><input type="date" id="end" name="trip-end" value="2020-01-01"></li>
     <li class="nav-item"><label for=""></label> <button type="button" id="filtreDate" class="btn btn-primary active">Filtrer</button></li>
@@ -28,7 +112,7 @@
     <button type="button" id="btn_4km" class="btn">< 4 km</button>
     <button type="button" id="btn_5km" class="btn">< 5 km</button>
     <button type="button" id="btn_6km" class="btn">< 6 km</button>
-</div>
+</div> -->
 
 <!--
 <ul>
