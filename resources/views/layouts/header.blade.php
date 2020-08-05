@@ -14,6 +14,7 @@
             <option value="6">6</option>
       </select>
 
+<<<<<<< HEAD
       <label> Filtres:</label>
       <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
       </li>
@@ -84,5 +85,6 @@
        }
      }
      </script>
+>>>>>>> f933ba6e12ad9ec08e93d3b9a3b33efb70e99f42
 
 </header>

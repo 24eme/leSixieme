@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import scrapy
 import json
 import os
@@ -460,7 +461,10 @@ class SpiderSpider(scrapy.Spider):
              ]
         }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> f933ba6e12ad9ec08e93d3b9a3b33efb70e99f42
         #for d in data:
             #print(d['url'])
             #print(d['address'])

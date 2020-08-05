@@ -80,26 +80,26 @@ icon: 'coffee'
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
-    var all= L.geoJson(data, {
-        filter: function(feature, layer) {
-            return feature.properties.category == "all";
-
-        },
-        pointToLayer: function(feature, latlng) {
-            var marker = L.marker(latlng, {
-                icon: culturelIcon
-          }).on('click', function() {
-
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-            });
-            marker._id = feature.properties.id;
-            markersTab.push(marker)
-            return marker
-
-        }
-    });
-    clusters.addLayer(all);
-    map.addLayer(clusters);
+    // var all= L.geoJson(data, {
+    //     filter: function(feature, layer) {
+    //         return feature.properties.category == "all";
+    //
+    //     },
+    //     pointToLayer: function(feature, latlng) {
+    //         var marker = L.marker(latlng, {
+    //             icon: culturelIcon
+    //       }).on('click', function() {
+    //
+    //          this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+    //         });
+    //         marker._id = feature.properties.id;
+    //         markersTab.push(marker)
+    //         return marker
+    //
+    //     }
+    // });
+    // clusters.addLayer(all);
+    // map.addLayer(clusters);
 
     var culturel= L.geoJson(data, {
         filter: function(feature, layer) {
@@ -605,9 +605,6 @@ events.then(function(data) {
 
 });
 
-
-<<<<<<< HEAD:public/js/filter_map.js
-=======
 map.locate({setView: true, maxZoom: 40});
 
 
@@ -754,6 +751,5 @@ function createPolyLine(loc1, loc2) {
        }
      }
 
->>>>>>> ebafa7b60e0229a032506c40ebdf07eeb8570f44:public/js/map_src.js
 
 map.addLayer(clusters);
