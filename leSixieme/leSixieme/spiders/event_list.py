@@ -460,13 +460,11 @@ class SpiderSpider(scrapy.Spider):
              ]
         }
 
+
         #for d in data:
-
-        # for d in data:
-
             #print(d['url'])
             #print(d['address'])
-            # print(d['code postal'])
+            #print(d['cp'])
             #print(d['title'])
             #print(d['price'])
             #print(d['hour'])
