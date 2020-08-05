@@ -3,23 +3,25 @@ var clusters = L.markerClusterGroup();
 var markers = [];
 var nearest = 600000;
 var nearestP = null;
+
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
 });
-
 
 var mylocation = L.icon({
     iconUrl: 'img/markers/location.png',
     iconSize: [30, 30],
 });
 
+var myCoordonnees;
 
 var map = L.map('map', {
     center: [48.853, 2.333],
     zoom: 9,
     layers: mapboxTiles
 });
+
 var eiffelTower = L.icon({
     iconUrl: 'img/eiffelTower.png',
     iconSize: [50, 50],
@@ -54,6 +56,7 @@ function onLocationFound(e) {
     var radius = e.accuracy;
     L.marker(e.latlng,{icon:mylocation}).addTo(map);
     drawData(e.latlng);
+    myCoordonnees=e.latlng;
 }
 map.on('locationfound', onLocationFound);
 
@@ -68,7 +71,16 @@ function drawData(userLocation) {
    var items = events.responseJSON.features;
     for (item in items) {
         var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
-        createPolyLine(loc, userLocation);
+        // createPolyLine(loc, userLocation);
+          if (Math.abs(loc.lng - userLocation.lng) > 180) {
+              loc = loc.wrap(179, -179);
+          }
+          var latlongs = [loc, userLocation];
+
+          if(loc.distanceTo(userLocation) < nearest){
+            nearest = loc.distanceTo(userLocation);
+            nearestP = loc;
+          }
     }
     if (nearestP != null){
        L.Routing.control({
@@ -78,26 +90,141 @@ function drawData(userLocation) {
           L.latLng(userLocation.lat, userLocation.lng)
         ]
       }).addTo(map);
-
       var marker = L.marker(nearestP).addTo(map);
     }
 };
 
-function createPolyLine(loc1, loc2) {
-    if (Math.abs(loc1.lng - loc2.lng) > 180) {
-        loc1 = loc1.wrap(179, -179);
-    }
-    var latlongs = [loc1, loc2];
+var tab1km = [];
+var tab2km = [];
+var tab3km = [];
+var tab4km = [];
+var tab5km = [];
+var tab6km = [];
+var tab7km = [];
 
-    if(loc1.distanceTo(loc2) < nearest){
-      nearest = loc1.distanceTo(loc2);
-      nearestP = loc1;
-    }
- };
+
+// Rempli le tableau de kms avec les id des points autour de ou je suis en
+var kmTabs= function(){
+  var item, o;
+  var items = events.responseJSON.features;
+   for (item in items) {
+       var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
+       // alert(loc);
+          if(loc.distanceTo( myCoordonnees).toFixed(0) > 0 && loc.distanceTo( myCoordonnees).toFixed(0) <= 1000 ){
+             // alert( myCoordonnees);
+             tab1km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 1000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 2000 ){
+             // alert( myCoordonnees);
+             tab2km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 2000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 3000 ){
+              // alert( myCoordonnees);
+             tab3km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 3000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 4000 ){
+             // alert( myCoordonnees);
+             tab4km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 4000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 5000 ){
+             // alert( myCoordonnees);
+             tab5km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 5000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 6000 ){
+             // alert( myCoordonnees);
+             tab6km.push(items[item].geometry.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 6000){
+             tab7km.push(items[item].geometry.id);
+           }
+   }
+}
+
 
 
 var events = $.getJSON('js/eventsGeoJson.json');
 var markersLayer = new L.LayerGroup(); // NOTE: Layer is created here!
+
+document.getElementById("km").addEventListener('change',function(event) {
+  events.then(function(data) {
+      var events = L.geoJson(data);
+      map.addLayer(clusters);
+      var markersTab = [];
+      markersLayer.clearLayers();
+      map.fitBounds(events.getBounds(), {
+          padding: [50, 50]
+      });
+      var culturelIcon = L.AwesomeMarkers.icon({
+      prefix: 'fa',
+      markerColor: 'red',
+      icon: 'comments'
+      });
+      var festivalIcon = L.AwesomeMarkers.icon({
+      prefix: 'fa',
+      markerColor: 'black',
+      icon: 'glass'
+      });
+      var loisirsIcon = L.AwesomeMarkers.icon({
+      prefix: 'fa',
+      markerColor: 'green',
+      icon: 'coffee'
+      });
+      var othersIcon = L.AwesomeMarkers.icon({
+        markerColor: 'blue',
+      });
+
+      var rayonkm= L.geoJson(data, {
+          filter: function(feature, layer) {
+            if(document.getElementById("km").value =='2'){
+              tab2km=tab2km.splice();
+              kmTabs();
+              // alert(tab2km);
+              for (id in tab2km){
+                return(feature.properties.id == tab2km[id]);
+              }
+            }
+            // tab2km= tab2km.splice();
+            // kmTabs();
+            // alert(tab4km);
+            // return initialMap();
+          },
+          pointToLayer: function(feature, latlng) {
+            if(feature.properties.category=='Culturel'){
+              icon=culturelIcon;
+            }
+            if(feature.properties.category=='Loisirs'){
+              icon=loisirsIcon;
+            }
+            if(feature.properties.category=='Festival'){
+              icon=festivalIcon;
+            }
+            if(feature.properties.category==null){
+              icon=othersIcon;
+            }
+            var marker = L.marker(latlng, {
+                  icon: icon
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+              });
+              marker._id = feature.properties.id;
+              markersTab.push(marker);
+              // markersLayer.addLayer(marker);
+              console.log(markers);
+              return marker
+          }
+      });
+
+      clusters.clearLayers();
+      clusters.addLayer(rayonkm);
+      // map.addLayer(misAJour);
+  });
+
+    // tab2km= tab2km.splice();
+    // kmTabs();
+    // alert(tab4km);
+});
+
+
 var initialMap=function(){
       events.then(function(data) {
           var events = L.geoJson(data);
@@ -363,4 +490,5 @@ updateMap();
 
 $(document).ready(function(){
 initialMap();
+alert(tab3km);
 });
