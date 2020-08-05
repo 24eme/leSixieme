@@ -11,4 +11,7 @@
 <!-- <script src="{{ asset('js/map_src.js') }}" ></script>
 <script src="{{ asset('js/map_src.js') }}" ></script> -->
 <!-- <script type="text/javascript" src="js/script.js"></script> -->
-<script src="{{ asset('js/map_src.js') }}" ></script>
+
+<!-- hono test-->
+<script src="{{ asset('js/filters.js') }}" ></script>
+<!-- fin hono test -->

@@ -18,6 +18,8 @@ event.json
 events.json
 eventsGeoJson.json
 /public/js/eventsGeoJson.json
+/public/js/eventsGeoJson_old.json
+
 eventsLinks.txt
 leSixieme/__pycache__/__init__.cpython-38.pyc
 leSixieme/__pycache__/settings.cpython-38.pyc
