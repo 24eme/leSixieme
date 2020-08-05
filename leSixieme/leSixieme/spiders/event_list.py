@@ -31,7 +31,7 @@ class SpiderSpider(scrapy.Spider):
             return(taburls)
 
         taburls=readLinkTxt('eventsLinks.txt')
-        
+
         for url in taburls:
             yield scrapy.Request(url=url, callback=self.parse)
 
@@ -39,16 +39,16 @@ class SpiderSpider(scrapy.Spider):
         c=CurrencyConverter()
         list_data=[]
         url_list=response.request.url
-       
-       #on commence par définir les fonctions qui serviront au formatage des données 
-       
+
+       #on commence par définir les fonctions qui serviront au formatage des données
+
         def descrip(select):
             description=[]
             for data in select:
                 cont= data.xpath('.//text()').extract();
                 description=description+['\n']+cont
             return(description)
-        
+
         def format_descrip(tab_descrip):
             long=len(tab_descrip)
             description_list=[]
@@ -317,7 +317,7 @@ class SpiderSpider(scrapy.Spider):
                 hour_form=hour_form.split()
                 return hour_form
             return hour_form
-        
+
         def coord(address):
             coord=[]
             tabAddress = address.split(' ')
@@ -337,7 +337,7 @@ class SpiderSpider(scrapy.Spider):
                 coord.append(0)
                 coord.append(0)
             return coord
-        
+
         def give_arrondissement(address):
             tabaddress=address.split()
             if len(tabaddress)<2:
@@ -346,7 +346,7 @@ class SpiderSpider(scrapy.Spider):
                 return None
             arrondissement=tabaddress[-2]
             return arrondissement
-        
+
         def give_category(description):
             tabFestival = ['Festival']
             tabALpha = ['A','B','C','D','E','F','G','H','I','J','L','K','M','N','O','P']
@@ -367,7 +367,7 @@ class SpiderSpider(scrapy.Spider):
                     cat = 'Festival'
                     return cat
 
-        
+
         #on récolte les données brutes sur le site evenbrite
 
         main=response.xpath('//div[@class="event-listing__body l-sm-pad-top-0"]')
@@ -378,9 +378,9 @@ class SpiderSpider(scrapy.Spider):
         all_para=main.xpath('.//div[@class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"]/p')
         price_list=main.xpath('.//div[@class="js-display-price"]/text()').extract_first()
         address_list=main.xpath('.//div[@class="event-details__data"]/p/text()').extract()
-        
+
         #on formate les données récoltées ppur ne garder que les informations utiles avec une syntaxe uniforme
-        
+
         description_list=(descrip(all_para))
         description_list=format_descrip(description_list)
         address_list=format_add(address_list)
@@ -427,7 +427,7 @@ class SpiderSpider(scrapy.Spider):
                     'hour' : hour_list[i],
                     'price':price_list[i],
                     'address':address_list[i],
-                    'arrondissement':arrondissement_list[i],
+                    'cp':arrondissement_list[i],
                     'coordinates':address_coord_list[i],
                     'description':description_list[i],
                     'category':category_list[i],
@@ -459,7 +459,7 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
-        
+
         #for d in data:
             #print(d['url'])
             #print(d['address'])
@@ -473,4 +473,3 @@ class SpiderSpider(scrapy.Spider):
         output = open("../../public/js/eventsGeoJson.json","w")
 
         json.dump(geojson,output,indent=4)
-
