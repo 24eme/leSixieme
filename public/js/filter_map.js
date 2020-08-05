@@ -228,8 +228,6 @@ events.then(function(data) {
         }
     });
 //    clusters.addLayer(date);
-//fin essai dates
-
 
     map.fitBounds(events.getBounds(), {
         padding: [50, 50]
@@ -608,6 +606,8 @@ events.then(function(data) {
 });
 
 
+<<<<<<< HEAD:public/js/filter_map.js
+=======
 map.locate({setView: true, maxZoom: 40});
 
 
@@ -727,10 +727,10 @@ function createPolyLine(loc1, loc2) {
                      '<li onclick=""><div class="event_wrapper">'
                    + '<img class="event_img" src="'
                    + item[i].properties.image + '" alt="event_img">'
-                   + '<p class="event_date"><a href="#" onclick="openMarker('+item[i].properties.id+');">'
-                   + item[i].properties.title + '</a></p>'
+                   + '<a class="event_date" href="#" onclick="openMarker('+item[i].properties.id+');">'
+                   + item[i].properties.title + '</a>'
                    + '<h2>' + item[i].properties.price + '</h2>'
-                   + '<p>750' + item[i].properties.arrondissement
+                   + '<p>'+item[i].properties.arrondissement
                    + '</p>'
                    +'</div></li>')
                  }
@@ -754,5 +754,6 @@ function createPolyLine(loc1, loc2) {
        }
      }
 
+>>>>>>> ebafa7b60e0229a032506c40ebdf07eeb8570f44:public/js/map_src.js
 
-     map.addLayer(clusters);
+map.addLayer(clusters);
