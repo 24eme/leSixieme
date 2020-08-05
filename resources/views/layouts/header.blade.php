@@ -15,30 +15,106 @@
       <label>Filtres :</label>
       <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
 
-<nav class="nav_filter navbar navbar-light" id="nav_filter">
-  <ul class="">
+      </li>
+
+      <nav id='open-filters' style="display:none">
+            <hr>
+            <li>
+              <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
+              <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin">
+              <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
+
+            </li>
+            <nav>
+              <!-- <label>Price :</label> <input type="text" id="prix"value="prix"> -->
+              <label>Category:</label>
+              <select name="category" id="category">
+                    <option value="Loisirs">Loisirs</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Culturel">Culturel</option>
+                    <!-- <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option> -->
+              </select>
+              <label>Arrondissement:</label>
+              <select name="arrondissement" id="arrondissement">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+              </select>
+            </li>
+            <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter()"> Filtrer</button>
+
+
+          </nav>
+          </nav>
+
+
+     </ul>
+   </nav>
+
+     <script>
+     function openFilters(){
+       var filters=document.getElementById('open-filters');
+       if(filters.style.display=='none'){
+         filters.style.display='block';
+       }
+       else{
+           filters.style.display='none';
+       }
+     }
+     </script>
+
+
+<!-- <nav class="navbar navbar-light bg-light">
+  <ul class=""> -->
 
     <!-- <li class="nav-item"><label for="">Nom :</label><input type="text" name="name_search" value="Recherche par nom"></li> -->
     <!-- <li class="nav-item"><label for="">Secteur :</label><select class="" name=""><option id="culture" value="Culture">Culture</option><option id="fete" value="Informatique">Fete</option></select></li> -->
-    <!-- <li class="nav-item"><form autocomplete="off" action="/action_page.php"><span id="text_container"><label>750</label><input id="myInput" type="text" name="arrondissement" placeholder="75009"></span></form></li> -->
-    <!-- <li class="nav-item"><input type="text" name="arrondissement" placeholder="75009"></li> -->
-    <li class="nav-item"><label for="">Arrondissement :</label><input type="text" id="arrondissement" placeholder="09"></li>
-    <li class="nav-item"><label for="">Date de début: </label></li>
-    <li class="nav-item"><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
-    <li class="nav-item"><label for="">Date de fin: </label></li>
-    <li class="nav-item"><input type="date" id="end" name="trip-end" value="2020-01-01"></li>
-    <button type="button" id="btn_filtrer" class="btn  active">Filtrer</button>
-
+    <!-- <li class="nav-item"><label for="">Arrondisement :</label><input type="text" id="arrondissement" placeholder="09"></li>
+    <li class="nav-item"><label for="">Date de début: </label><input type="date" id="start" name="trip-start" value="2020-01-01"></li>
+    <li class="nav-item"><label for="">Date de fin: </label><input type="date" id="end" name="trip-end" value="2020-01-01"></li>
+    <li class="nav-item"><label for=""></label> <button type="button" id="filtreDate" class="btn btn-primary active">Filtrer</button></li>
 
   </ul>
 </nav>
 
-<div class="icon_wrapper">
-  <button id="filter-icon" class="btn" type="button" name="button" onclick="openFilter()"><i class="fas fa-filter"></i></button>
-  <button id="list-icon" class="btn" type="button" name="button" onclick="openList()"><i class="fas fa-list-ul"></i></button>
-</div>
+<div class="btn-group floating-group">
+    <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
+    <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
+    <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
+    <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
+    <button type="button" id="others" class="btn btn-secondary">Autres</button>
 
-<ul class="nav_top">
+</div>
+<div class="btn-group">
+    <button type="button" id="btn_1km" class="btn active">< 1 km</button>
+    <button type="button" id="btn_2km" class="btn">< 2 km</button>
+    <button type="button" id="btn_3km" class="btn">< 3 km</button>
+    <button type="button" id="btn_4km" class="btn">< 4 km</button>
+    <button type="button" id="btn_5km" class="btn">< 5 km</button>
+    <button type="button" id="btn_6km" class="btn">< 6 km</button>
+</div> -->
+
+<!--
+<ul>
   <div class="dropdown">
     <li class="btn dropdown-toggle" data-toggle="dropdown">Par secteur :</li>
     <div class="dropdown-menu">
@@ -60,6 +136,28 @@
       <button type="button" id="btn_6km" class="dropdown-item btn">< 6 km</button>
     </div>
   </div>
+</ul> -->
+
+  <!-- <li >Par secteur :</li>
+  <li>Par distance:</li>
 </ul>
+<button class="btn" type="button" name="button"><span><i class="fas fa-list-ul"></i></span></button>
+
+<div class="btn-group floating-group">
+    <button type="button" id="all" class="btn btn-primary active">Tout afficher</button>
+    <button type="button" id="culturel" class="btn btn-secondary">Culturels</button>
+    <button type="button" id="loisirs" class="btn btn-secondary">Loisirs</button>
+    <button type="button" id="festival" class="btn btn-secondary">Festivals</button>
+    <button type="button" id="familial" class="btn btn-secondary">Familial</button>
+    <button type="button" id="others" class="btn btn-secondary">Autres</button>
+</div>
+<div class="btn-group">
+    <button type="button" id="btn_1km active" class="btn">< 1 km</button>
+    <button type="button" id="btn_2km" class="btn">< 2 km</button>
+    <button type="button" id="btn_3km" class="btn">< 3 km</button>
+    <button type="button" id="btn_4km" class="btn">< 4 km</button>
+    <button type="button" id="btn_5km" class="btn">< 5 km</button>
+    <button type="button" id="btn_6km" class="btn">< 6 km</button>
+</div> -->
 
 </header>
