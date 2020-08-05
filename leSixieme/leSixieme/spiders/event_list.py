@@ -418,7 +418,7 @@ class SpiderSpider(scrapy.Spider):
             if date_list[i] is None:
                 date_list[i]=[]
 
-            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='' and str(address_coord_list[0][0]).startswith('2') and str(address_coord_list[0][1]).startswith('48'):
+            if title_list[i]!=None and description_list[i]!=None and address_list[i]!=None and description_list[i]!='' and str(address_coord_list[0][0]).startswith('2') and str(address_coord_list[0][1]).startswith('48') and arrondissement_list[i][0:2]=='75':
                 data={
                     'url':url_list[i],
                     'title' : title_list[i],
@@ -427,7 +427,7 @@ class SpiderSpider(scrapy.Spider):
                     'hour' : hour_list[i],
                     'price':price_list[i],
                     'address':address_list[i],
-                    'arrondissement':arrondissement_list[i],
+                    'code postal':arrondissement_list[i],
                     'coordinates':address_coord_list[i],
                     'description':description_list[i],
                     'category':category_list[i],
@@ -460,10 +460,10 @@ class SpiderSpider(scrapy.Spider):
              ]
         }
         
-        #for d in data:
+        for d in data:
             #print(d['url'])
             #print(d['address'])
-            #print(d['arrondissement'])
+            print(d['code postal'])
             #print(d['title'])
             #print(d['price'])
             #print(d['hour'])
