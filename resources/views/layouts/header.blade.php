@@ -2,8 +2,9 @@
 <nav >
   <ul>
     <li>
-      <label>Adresse :</label><input type="text" name="adresse_search"value="votre adresse">
-      <label>Km:</label>
+      <!-- <label>Adresse :</label><input type="text" name="adresse_search"value="votre adresse"> -->
+
+      <label>Km en fonction de TOI</label>
       <select name="km" id="km">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -12,9 +13,9 @@
             <option value="5">5</option>
             <option value="6">6</option>
       </select>
-      <label>Filtres :</label>
-      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
 
+      <label> Filtres:</label>
+      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
       </li>
 
       <nav id='open-filters' style="display:none">
