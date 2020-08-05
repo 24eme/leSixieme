@@ -71,35 +71,60 @@ var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
     map.addLayer(clusters);
-    //
-    // var all= L.geoJson(data, {
-    //     filter: function(feature, layer) {
-    //         return feature.properties.category == "all";
-    //     },
-    //     pointToLayer: function(feature, latlng) {
-    //         var marker = L.marker(latlng, {
-    //             icon: culturelIcon
-    //       }).on('click', function() {
-    //
-    //          this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-    //         });
-    //         marker._id = feature.properties.id;
-    //         markersTab.push(marker)
-    //         return marker
-    //
-    //     }
-    // });
-    // clusters.addLayer(all);
+    map.fitBounds(events.getBounds(), {
+        padding: [50, 50]
+    });
+
+    var culturelIcon = L.AwesomeMarkers.icon({
+    prefix: 'fa',
+    markerColor: 'red',
+    icon: 'comments'
+    });
+    var festivalIcon = L.AwesomeMarkers.icon({
+    prefix: 'fa',
+    markerColor: 'black',
+    icon: 'glass'
+    });
+    var loisirsIcon = L.AwesomeMarkers.icon({
+    prefix: 'fa',
+    markerColor: 'green',
+    icon: 'coffee'
+    });
+    var othersIcon = L.AwesomeMarkers.icon({
+      markerColor: 'blue',
+    });
 
 
-    var culturel= L.geoJson(data, {
+    var category= L.geoJson(data, {
         filter: function(feature, layer) {
+          if(feature.properties.category=='Culturel'){
             return feature.properties.category == "Culturel";
-
+          }
+          if(feature.properties.category=='Loisirs'){
+            return feature.properties.category == "Loisirs";
+          }
+          if(feature.properties.category=='Festival'){
+            return feature.properties.category == "Festival";
+          }
+          else{
+            return feature.properties.category != "Loisirs" && feature.properties.category != "Culturel" && feature.properties.category != "Festival" && (feature.properties.arrondissement != document.getElementById("arrondissement").value);
+          }
         },
         pointToLayer: function(feature, latlng) {
-            var marker = L.marker(latlng, {
-                icon: culturelIcon
+          if(feature.properties.category=='Culturel'){
+            icon=culturelIcon;
+          }
+          if(feature.properties.category=='Loisirs'){
+            icon=loisirsIcon;
+          }
+          if(feature.properties.category=='Festival'){
+            icon=festivalIcon;
+          }
+          else{
+            icon=othersIcon;
+          }
+          var marker = L.marker(latlng, {
+                icon: icon
           }).on('click', function() {
              this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
             });
@@ -108,6 +133,7 @@ events.then(function(data) {
             return marker
         }
     });
+<<<<<<< HEAD
 //    var clusters = L.markerClusterGroup();
     clusters.addLayer(culturel);
 //    map.addLayer(clusters);
@@ -595,6 +621,10 @@ events.then(function(data) {
       //   };
       // });
 
+=======
+    //ajout dans la map et pris en compte par les clusters
+    clusters.addLayer(category);
+>>>>>>> 9075ff7964f4dd3b6897482c417efd551c1fad6a
 
 });
 

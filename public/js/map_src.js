@@ -8,94 +8,11 @@ var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
 });
 
-
-var mylocation = L.icon({
-    iconUrl: 'img/markers/location.png',
-    iconSize: [30, 30],
-});
-
-
 var map = L.map('map', {
     center: [48.853, 2.333],
     zoom: 9,
     layers: mapboxTiles
 });
-var eiffelTower = L.icon({
-    iconUrl: 'img/eiffelTower.png',
-    iconSize: [50, 50],
-});
-var arcDeTriomphe = L.icon({
-    iconUrl: 'img/arcDeTriomphe.png',
-    iconSize: [50, 50],
-});
-var louvre = L.icon({
-    iconUrl: 'img/louvre.png',
-    iconSize: [50, 50],
-});
-var montmartre = L.icon({
-    iconUrl: 'img/montmartre.png',
-    iconSize: [50, 50],
-});
-var cathedrale = L.icon({
-    iconUrl: 'img/cathedrale.png',
-    iconSize: [50, 50],
-});
-
-
-L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
-L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
-L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
-L.marker([48.8868058,2.3430153],{icon:montmartre}).addTo(map);
-L.marker([48.8529371,2.3500501],{icon:cathedrale}).addTo(map);
-
-map.locate({setView: true, maxZoom: 40});
-
-function onLocationFound(e) {
-    var radius = e.accuracy;
-    L.marker(e.latlng,{icon:mylocation}).addTo(map);
-    drawData(e.latlng);
-}
-map.on('locationfound', onLocationFound);
-
-
-function onLocationError(e) {
-   map.setView([48.853, 2.333], 13);
-}
-map.on('locationerror', onLocationError);
-
-function drawData(userLocation) {
-   var item, o;
-   var items = events.responseJSON.features;
-    for (item in items) {
-        var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
-        createPolyLine(loc, userLocation);
-    }
-    if (nearestP != null){
-       L.Routing.control({
-         createMarker: function() { return null; },
-        waypoints: [
-          L.latLng(nearestP.lat, nearestP.lng),
-          L.latLng(userLocation.lat, userLocation.lng)
-        ]
-      }).addTo(map);
-
-      var marker = L.marker(nearestP).addTo(map);
-    }
-};
-
-function createPolyLine(loc1, loc2) {
-    if (Math.abs(loc1.lng - loc2.lng) > 180) {
-        loc1 = loc1.wrap(179, -179);
-    }
-    var latlongs = [loc1, loc2];
-
-    if(loc1.distanceTo(loc2) < nearest){
-      nearest = loc1.distanceTo(loc2);
-      nearestP = loc1;
-    }
- };
-
-
 var events = $.getJSON('js/eventsGeoJson.json');
 var markersLayer = new L.LayerGroup(); // NOTE: Layer is created here!
 var initialMap=function(){
@@ -373,8 +290,8 @@ function filter(){
 updateMap();
 }
 
-// markersLayer.addTo(map);
 
+markersLayer.addTo(map);
 $(document).ready(function(){
 initialMap();
 });
