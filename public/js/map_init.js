@@ -2,10 +2,8 @@
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
 //         layer.setIcon(markerInfo).addTo(map);
-//
 //     };
 // };
-
 var tab1km = [];
 var tab2km = [];
 var tab3km = [];
@@ -20,11 +18,12 @@ var markersTab = [];
 
 var clusters = L.markerClusterGroup();
 
-var arrondissements = ["9<sup></sup> Arrondissement","2ème Arrondissement","3ème Arrondissement","4ème Arrondissement","5ème Arrondissement","6ème Arrondissement","7ème Arrondissement","8ème Arrondissement","9ème Arrondissement","10ème Arrondissement","11ème Arrondissement","12ème Arrondissement","13ème Arrondissement","14ème Arrondissement","15ème Arrondissement","16ème Arrondissement","17ème Arrondissement","18ème Arrondissement","19ème Arrondissement","20ème Arrondissement"]
+var arrondissements = ["9<sup>ème</sup> Arrondissement","2ème Arrondissement","3ème Arrondissement","4ème Arrondissement","5ème Arrondissement","6ème Arrondissement","7ème Arrondissement","8ème Arrondissement","9ème Arrondissement","10ème Arrondissement","11ème Arrondissement","12ème Arrondissement","13ème Arrondissement","14ème Arrondissement","15ème Arrondissement","16ème Arrondissement","17ème Arrondissement","18ème Arrondissement","19ème Arrondissement","20ème Arrondissement"]
 
 var markers = [];
 var nearest = 600000;
 var nearestP = null;
+
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème© les contributeurs d’OpenStreetMap</a>'
 });
@@ -64,13 +63,11 @@ prefix: 'fa',
 markerColor: 'black',
 icon: 'glass'
 });
-
 var culturelIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
 markerColor: 'red',
 icon: 'comments'
 });
-
 var loisirsIcon = L.AwesomeMarkers.icon({
 prefix: 'fa',
 markerColor: 'green',

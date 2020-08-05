@@ -1,13 +1,9 @@
-
-
 // function onEachFeature(feature, layer) {
 //     if (feature.properties && feature.properties.popupContent) {
 //         layer.bindPopup(feature.properties.popupContent);
 //         layer.setIcon(markerInfo).addTo(map);
-//
 //     };
 // };
-//
 var tab1km = [];
 var tabMarkersRemoved = [];
 var tab2km = [];
@@ -18,6 +14,8 @@ var tab6km = [];
 var tab7km = [];
 var markersTab = [];
 
+var userLocation = [48.853, 2.333];
+var rControl = 0;
 var clusters = L.markerClusterGroup();
 
 var markers = [];
@@ -76,30 +74,54 @@ icon: 'coffee'
 });
 
 
+map.locate({setView: true, maxZoom: 40});
+
+
+
+
+function onLocationFound(e) {
+    var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
+    userLocation = e.latlng;
+    L.marker(e.latlng,{icon:mylocation}).addTo(map)
+    L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
+    L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
+    L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
+    L.marker([48.8868058,2.3430153],{icon:montmartre}).addTo(map);
+    L.marker([48.8529371,2.3500501],{icon:cathedrale}).addTo(map);
+    //.bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
+    drawData(e.latlng);
+
+}
+map.on('locationfound', onLocationFound);
+
+function onLocationError(e) {
+   map.setView([48.853, 2.333], 13);
+}
+map.on('locationerror', onLocationError);
 
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
-    // var all= L.geoJson(data, {
-    //     filter: function(feature, layer) {
-    //         return feature.properties.category == "all";
-    //
-    //     },
-    //     pointToLayer: function(feature, latlng) {
-    //         var marker = L.marker(latlng, {
-    //             icon: culturelIcon
-    //       }).on('click', function() {
-    //
-    //          this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-    //         });
-    //         marker._id = feature.properties.id;
-    //         markersTab.push(marker)
-    //         return marker
-    //
-    //     }
-    // });
-    // clusters.addLayer(all);
-    // map.addLayer(clusters);
+    var all= L.geoJson(data, {
+        filter: function(feature, layer) {
+            return feature.properties.category == "all";
+
+        },
+        pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {
+                icon: culturelIcon
+          }).on('click', function() {
+
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</button>");
+            });
+            marker._id = feature.properties.id;
+            markersTab.push(marker)
+            return marker
+
+        }
+    });
+    clusters.addLayer(all);
+    map.addLayer(clusters);
 
     var culturel= L.geoJson(data, {
         filter: function(feature, layer) {
@@ -110,7 +132,7 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
                 icon: culturelIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</button>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -130,7 +152,7 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
                 icon: loisirsIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -149,7 +171,7 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
                 icon: festivalIcon
           }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -166,8 +188,9 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
     // <img src="feature.properties.image">" + "</a>"
     // "<a href=feature.properties.image>"
+
             }).on('click', function() {
-                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -183,7 +206,7 @@ events.then(function(data) {
         pointToLayer: function(feature, latlng) {
             var marker = L.marker(latlng, {
             }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -210,24 +233,26 @@ events.then(function(data) {
 
 
 //hono essai pour les dates
-    var input_date_start = document.getElementById("start");
-    var input_date_end = document.getElementById("end");
-    var date = L.geoJson(data, {
-        filter: function(feature, layer) {
-            return feature.properties.date >=input_date_start.value
-            // && feature.properties.date <=input_date_end.value
-        },
-        pointToLayer: function(feature, latlng) {
-            var marker = L.marker(latlng, {
-            }).on('click', function() {
-                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-            });
-            marker._id = feature.properties.id;
-            markersTab.push(marker)
-            return marker
-        }
-    });
+    // var input_date_start = document.getElementById("start");
+    // var input_date_end = document.getElementById("end");
+    // var date = L.geoJson(data, {
+    //     filter: function(feature, layer) {
+    //         return feature.properties.date >=input_date_start.value
+    //         // && feature.properties.date <=input_date_end.value
+    //     },
+    //     pointToLayer: function(feature, latlng) {
+    //         var marker = L.marker(latlng, {
+    //         }).on('click', function() {
+    //             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+    //         });
+    //         marker._id = feature.properties.id;
+    //         markersTab.push(marker);
+    //         return marker
+    //     }
+    // });
 //    clusters.addLayer(date);
+//fin essai dates
+
 
     map.fitBounds(events.getBounds(), {
         padding: [50, 50]
@@ -605,33 +630,7 @@ events.then(function(data) {
 
 });
 
-map.locate({setView: true, maxZoom: 40});
 
-
-
-
-function onLocationFound(e) {
-    var radius = e.accuracy; //  L.circle(e.latlng, radius).addTo(map);
-    L.marker(e.latlng,{icon:mylocation}).addTo(map)
-    L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
-    L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
-    L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
-    L.marker([48.8868058,2.3430153],{icon:montmartre}).addTo(map);
-    L.marker([48.8529371,2.3500501],{icon:cathedrale}).addTo(map);
-    //.bindPopup("Vous êtes à " + radius + " mètres de ce lieu").openPopup();
-    drawData(e.latlng);
-}
-map.on('locationfound', onLocationFound);
-
-
-
-
-
-
-function onLocationError(e) {
-   map.setView([48.853, 2.333], 13);
-}
-map.on('locationerror', onLocationError);
 
 
 
@@ -644,11 +643,12 @@ function drawData(userLocation) {
         createPolyLine(loc, userLocation);
     }
     if (nearestP != null){
-       L.Routing.control({
+       rControl = L.Routing.control({
          createMarker: function() { return null; },
-        waypoints: [
-          L.latLng(nearestP.lat, nearestP.lng),
-          L.latLng(userLocation.lat, userLocation.lng)
+         language:'fr',
+         waypoints: [
+           L.latLng(nearestP.lat, nearestP.lng),
+           L.latLng(userLocation.lat, userLocation.lng)
         ]
       }).addTo(map);
 
@@ -676,22 +676,22 @@ function createPolyLine(loc1, loc2) {
     //  var marker = L.marker(loc1,{icon:loisirsIcon}).addTo(map);
     }
 //    console.log(loc1.distanceTo(loc2).toFixed(0));
-    if(loc1.distanceTo(loc2).toFixed(0) > 0 && loc1.distanceTo(loc2).toFixed(0) <= 1000 ){
+    if(loc1.distanceTo(loc2).toFixed(0) <= 1000 ){
       tab1km.push(loc1);
     }
-    if(loc1.distanceTo(loc2).toFixed(0) > 1000 && loc1.distanceTo(loc2).toFixed(0) <= 2000 ){
+    if(loc1.distanceTo(loc2).toFixed(0) <= 2000 ){
       tab2km.push(loc1);
     }
-    if(loc1.distanceTo(loc2).toFixed(0) > 2000 && loc1.distanceTo(loc2).toFixed(0) <= 3000 ){
+    if(loc1.distanceTo(loc2).toFixed(0) <= 3000 ){
       tab3km.push(loc1);
     }
-    if(loc1.distanceTo(loc2).toFixed(0) > 3000 && loc1.distanceTo(loc2).toFixed(0) <= 4000 ){
+    if(loc1.distanceTo(loc2).toFixed(0) <= 4000 ){
       tab4km.push(loc1);
     }
-    if(loc1.distanceTo(loc2).toFixed(0) > 4000 && loc1.distanceTo(loc2).toFixed(0) <= 5000 ){
+    if(loc1.distanceTo(loc2).toFixed(0) <= 5000 ){
       tab5km.push(loc1);
     }
-    if(loc1.distanceTo(loc2).toFixed(0) > 5000 && loc1.distanceTo(loc2).toFixed(0) <= 6000 ){
+    if(loc1.distanceTo(loc2).toFixed(0) <= 6000 ){
       tab6km.push(loc1);
     }
     if(loc1.distanceTo(loc2).toFixed(0) > 6000){
@@ -716,19 +716,19 @@ function createPolyLine(loc1, loc2) {
 
          $.getJSON('js/eventsGeoJson.json', {}, function(data) {
 
-             var $ul = $('#ct');
+             var nav_events = $('#nav_events');
              $.each(data, function(idx, item){
                for (var i = 0; i < item.length; i++) {
                  if (item[i].properties) {
-                   $ul.append(
+                   nav_events.append(
                      '<li onclick=""><div class="event_wrapper">'
                    + '<img class="event_img" src="'
                    + item[i].properties.image + '" alt="event_img">'
-                   + '<a class="event_date" href="#" onclick="openMarker('+item[i].properties.id+');">'
+                   + '<a href="#" onclick="openMarker('+item[i].properties.id+');">'
                    + item[i].properties.title + '</a>'
                    + '<h2>' + item[i].properties.price + '</h2>'
-                   + '<p>'+item[i].properties.arrondissement
-                   + '</p>'
+                   + item[i].properties.arrondissement
+                   + ''
                    +'</div></li>')
                  }
                }
@@ -740,7 +740,9 @@ function createPolyLine(loc1, loc2) {
      function openMarker(id){
         markersTab.forEach(function(marker) {
           if (marker._id == id){
+               map.setView([marker._latlng.lat, marker._latlng.lng], 40);
                marker.fireEvent('click');
+               console.log(marker._latlng.lat);
           }
         })
      };
@@ -751,5 +753,17 @@ function createPolyLine(loc1, loc2) {
        }
      }
 
+function drawItinary(userLocation,destination){
+  rControl.hide();
+//  map.removeRoutingControl(rControl);
+  var rControl = L.Routing.control({
+      createMarker: function() { return null; },
+      language:'fr',
+      waypoints: [
+        L.latLng(destination.lat, destination.lng),
+        L.latLng(userLocation.lat, userLocation.lng)
+     ]
+   }).addTo(map);
+}
 
-map.addLayer(clusters);
+     map.addLayer(clusters);
