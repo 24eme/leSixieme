@@ -427,11 +427,7 @@ class SpiderSpider(scrapy.Spider):
                     'hour' : hour_list[i],
                     'price':price_list[i],
                     'address':address_list[i],
-<<<<<<< HEAD
                     'cp':arrondissement_list[i],
-=======
-                    'code postal':arrondissement_list[i],
->>>>>>> a3aba2230b007825e96159638f1361fba78044c3
                     'coordinates':address_coord_list[i],
                     'description':description_list[i],
                     'category':category_list[i],
@@ -463,16 +459,14 @@ class SpiderSpider(scrapy.Spider):
              } for d in data
              ]
         }
-<<<<<<< HEAD
 
         #for d in data:
-=======
-        
-        for d in data:
->>>>>>> a3aba2230b007825e96159638f1361fba78044c3
+
+        # for d in data:
+
             #print(d['url'])
             #print(d['address'])
-            print(d['code postal'])
+            # print(d['code postal'])
             #print(d['title'])
             #print(d['price'])
             #print(d['hour'])
