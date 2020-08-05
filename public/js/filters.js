@@ -253,7 +253,7 @@ document.getElementById("km").addEventListener('change',function(event) {
               marker._id = feature.properties.id;
               markersTab.push(marker);
               // markersLayer.addLayer(marker);
-              console.log(markers);
+              // console.log(markers);
               return marker
           }
       });
@@ -327,7 +327,7 @@ var initialMap=function(){
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
-                  console.log(markers);
+                  // console.log(markers);
                   return marker
               }
           });
@@ -506,7 +506,7 @@ var updateMap =function(){
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
-                  console.log(markers);
+                  // console.log(markers);
                   return marker
               }
           });
