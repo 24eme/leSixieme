@@ -148,8 +148,7 @@ var updateMap =function(){
 
           var misAJour= L.geoJson(data, {
               filter: function(feature, layer) {
-                var d=feature.properties.date;
-                var h=feature.properties
+
                 if(feature.properties.hour != null){
                   if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous'){
                     // alert('tout est vide');
@@ -258,15 +257,15 @@ var updateMap =function(){
                   });
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
-                  markersLayer.addLayer(marker);
+                  // markersLayer.addLayer(marker);
                   console.log(markers);
                   return marker
               }
           });
 
           clusters.clearLayers();
-          // clusters.addLayer(misAJour);
-          map.addLayer(misAJour);
+          clusters.addLayer(misAJour);
+          // map.addLayer(misAJour);
       });
 }
 
