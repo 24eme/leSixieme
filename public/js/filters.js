@@ -231,9 +231,6 @@ var updateMap =function(){
 
           var misAJour= L.geoJson(data, {
               filter: function(feature, layer) {
-<<<<<<< HEAD:public/js/map_src.js
-                if(feature.properties.hour != null && feature.properties.date != null && feature.properties.category != null){
-=======
 
                 if(feature.properties.hour != null){
                   if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous'){
@@ -252,7 +249,6 @@ var updateMap =function(){
 
                   if (dateDeb != '' && heureDeb !='' && category!='Tous'){
                   // alert('arrondissement est vide');
->>>>>>> c4732fd50f2438ff391ed5f1bd5634be512a9fe3:public/js/filters.js
                   return (feature.properties.date== convertDate(dateDeb) &&
                   feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                   feature.properties.category == category);
@@ -322,15 +318,7 @@ var updateMap =function(){
                   }
 
                 }
-<<<<<<< HEAD:public/js/map_src.js
-
-                else if(feature.properties.date != null){
-                  return feature.properties.date== convertDate(dateDeb);
-
-                }
-=======
                 // return initialMap();
->>>>>>> c4732fd50f2438ff391ed5f1bd5634be512a9fe3:public/js/filters.js
               },
               pointToLayer: function(feature, latlng) {
                 if(feature.properties.category=='Culturel'){
@@ -364,9 +352,7 @@ var updateMap =function(){
       });
 }
 
-function getId(){
 
-}
 
 function filter(){
   // alert('hello');
