@@ -15,7 +15,6 @@
       <label>Filtres :</label>
       <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
 
-<<<<<<< HEAD
 <nav class="nav_filter navbar navbar-light" id="nav_filter">
   <ul class="">
 
@@ -64,7 +63,6 @@
     </div>
   </div>
 </ul>
-=======
       </li>
 
       <nav id='open-filters' style="display:none">
@@ -132,7 +130,5 @@
            filters.style.display='none';
        }
      }
-     </script>
->>>>>>> f933ba6e12ad9ec08e93d3b9a3b33efb70e99f42
-
+     </script> 
 </header>

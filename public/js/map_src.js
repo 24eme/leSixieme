@@ -737,7 +737,7 @@ function createPolyLine(loc1, loc2) {
      });
 
 
-     function openMarker(id){
+  function openMarker(id){
         markersTab.forEach(function(marker) {
           if (marker._id == id){
                map.setView([marker._latlng.lat, marker._latlng.lng], 40);
@@ -745,13 +745,13 @@ function createPolyLine(loc1, loc2) {
                console.log(marker._latlng.lat);
           }
         })
-     };
-     function clear(){
+  };
+ function clear(){
 
        for (var i = 0; i < tabMarkersRemoved.length; i++) {
          map.removeLayer(tabMarkersRemoved[i])
        }
-     }
+ };
 
 function drawItinary(userLocation,destination){
   rControl.hide();
@@ -767,116 +767,116 @@ function drawItinary(userLocation,destination){
 }
 
      map.addLayer(clusters);
-                  return (feature.properties.date== convertDate(dateDeb) &&
-                  feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
-                  feature.properties.category == category);
-                  }
-                  if(dateDeb != '' && heureDeb !='' && arrondissement!='Tous'){
-                    // alert('category est vide');
-                    return (feature.properties.date== convertDate(dateDeb) &&
-                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
-                    feature.properties.cp.substr(3,2) == arrondissement);
-                  }
-                  if (dateDeb != '' && arrondissement !='Tous' && category!='Tous'){
-
-                  // alert('heure est vide');
-                  return (feature.properties.date== convertDate(dateDeb) &&
-                  feature.properties.cp.substr(3,2)==arrondissement &&
-                  feature.properties.category == category);
-                  }
-                  if (heureDeb != '' && arrondissement !='Tous' && category!='Tous'){
-                    // alert('date est vide');
-                  return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
-                  feature.properties.cp.substr(3,2)==arrondissement &&
-                  feature.properties.category == category);
-                  }
-                  if (dateDeb !='' && heureDeb != ''){
-                    // alert('arrondissement et category sont vide');
-                    return (feature.properties.date== convertDate(dateDeb) &&
-                    feature.properties.hour.substr(0,5)==convertHour(heureDeb));
-                  }
-                  if (dateDeb !='' && category != 'Tous'){
-                    // alert('arrondissement et heure sont vide');
-                    return (feature.properties.date== convertDate(dateDeb) &&
-                    feature.properties.category == category);
-                  }
-                  if (dateDeb !='' && arrondissement != 'Tous'){
-                    // alert('heure et category sont vide');
-                    return (feature.properties.date== convertDate(dateDeb) &&
-                    feature.properties.cp.substr(3,2)== arrondissement);
-                  }
-                  if (heureDeb !='' && category != 'Tous'){
-                    // alert('arrondissement et date sont vide');
-                    return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
-                    feature.properties.category == category);
-                  }
-                  if (heureDeb !='' && arrondissement != 'Tous'){
-                    // alert('arrondissement et category sont vide');
-                    return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
-                    feature.properties.cp.substr(3,2) == arrondissement);
-                  }
-                  if (category !='Tous' && arrondissement != 'Tous'){
-                    // alert('heure et date sont vide');
-                    return (feature.properties.category==category &&
-                    feature.properties.cp.substr(3,2) == arrondissement);
-                  }
-                  if(dateDeb!=''){
-                    return feature.properties.date== convertDate(dateDeb);
-                  }
-                  if(heureDeb!=''){
-                    return feature.properties.hour.substr(0,5)==convertHour(heureDeb);
-                  }
-                  if(arrondissement!='Tous'){
-                    // alert(arrondissement);
-                    // alert(dateDeb);
-                    return feature.properties.cp.substr(3,2)== arrondissement;
-                  }
-                  if(category!='Tous'){
-                    return feature.properties.category== category;
-                  }
-
-                }
-<<<<<<< HEAD:public/js/map_src.js
-
-                else if(feature.properties.date != null){
-                  return feature.properties.date== convertDate(dateDeb);
-
-                }
-=======
-                // return initialMap();
->>>>>>> c4732fd50f2438ff391ed5f1bd5634be512a9fe3:public/js/filters.js
-              },
-              pointToLayer: function(feature, latlng) {
-                if(feature.properties.category=='Culturel'){
-                  icon=culturelIcon;
-                }
-                if(feature.properties.category=='Loisirs'){
-                  icon=loisirsIcon;
-                }
-                if(feature.properties.category=='Festival'){
-                  icon=festivalIcon;
-                }
-                if(feature.properties.category==null){
-                  icon=othersIcon;
-                }
-                var marker = L.marker(latlng, {
-                      icon: icon
-                }).on('click', function() {
-                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-                  });
-                  marker._id = feature.properties.id;
-                  markersTab.push(marker);
-                  // markersLayer.addLayer(marker);
-                  console.log(markers);
-                  return marker
-              }
-          });
-
-          clusters.clearLayers();
-          clusters.addLayer(misAJour);
-          // map.addLayer(misAJour);
-      });
-}
+//                   return (feature.properties.date== convertDate(dateDeb) &&
+//                   feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+//                   feature.properties.category == category);
+//                   }
+//                   if(dateDeb != '' && heureDeb !='' && arrondissement!='Tous'){
+//                     // alert('category est vide');
+//                     return (feature.properties.date== convertDate(dateDeb) &&
+//                     feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+//                     feature.properties.cp.substr(3,2) == arrondissement);
+//                   }
+//                   if (dateDeb != '' && arrondissement !='Tous' && category!='Tous'){
+//
+//                   // alert('heure est vide');
+//                   return (feature.properties.date== convertDate(dateDeb) &&
+//                   feature.properties.cp.substr(3,2)==arrondissement &&
+//                   feature.properties.category == category);
+//                   }
+//                   if (heureDeb != '' && arrondissement !='Tous' && category!='Tous'){
+//                     // alert('date est vide');
+//                   return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+//                   feature.properties.cp.substr(3,2)==arrondissement &&
+//                   feature.properties.category == category);
+//                   }
+//                   if (dateDeb !='' && heureDeb != ''){
+//                     // alert('arrondissement et category sont vide');
+//                     return (feature.properties.date== convertDate(dateDeb) &&
+//                     feature.properties.hour.substr(0,5)==convertHour(heureDeb));
+//                   }
+//                   if (dateDeb !='' && category != 'Tous'){
+//                     // alert('arrondissement et heure sont vide');
+//                     return (feature.properties.date== convertDate(dateDeb) &&
+//                     feature.properties.category == category);
+//                   }
+//                   if (dateDeb !='' && arrondissement != 'Tous'){
+//                     // alert('heure et category sont vide');
+//                     return (feature.properties.date== convertDate(dateDeb) &&
+//                     feature.properties.cp.substr(3,2)== arrondissement);
+//                   }
+//                   if (heureDeb !='' && category != 'Tous'){
+//                     // alert('arrondissement et date sont vide');
+//                     return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+//                     feature.properties.category == category);
+//                   }
+//                   if (heureDeb !='' && arrondissement != 'Tous'){
+//                     // alert('arrondissement et category sont vide');
+//                     return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+//                     feature.properties.cp.substr(3,2) == arrondissement);
+//                   }
+//                   if (category !='Tous' && arrondissement != 'Tous'){
+//                     // alert('heure et date sont vide');
+//                     return (feature.properties.category==category &&
+//                     feature.properties.cp.substr(3,2) == arrondissement);
+//                   }
+//                   if(dateDeb!=''){
+//                     return feature.properties.date== convertDate(dateDeb);
+//                   }
+//                   if(heureDeb!=''){
+//                     return feature.properties.hour.substr(0,5)==convertHour(heureDeb);
+//                   }
+//                   if(arrondissement!='Tous'){
+//                     // alert(arrondissement);
+//                     // alert(dateDeb);
+//                     return feature.properties.cp.substr(3,2)== arrondissement;
+//                   }
+//                   if(category!='Tous'){
+//                     return feature.properties.category== category;
+//                   }
+//
+//                 }
+// <<<<<<< HEAD:public/js/map_src.js
+//
+//                 else if(feature.properties.date != null){
+//                   return feature.properties.date== convertDate(dateDeb);
+//
+//                 }
+// =======
+//                 // return initialMap();
+// >>>>>>> c4732fd50f2438ff391ed5f1bd5634be512a9fe3:public/js/filters.js
+//               },
+//               pointToLayer: function(feature, latlng) {
+//                 if(feature.properties.category=='Culturel'){
+//                   icon=culturelIcon;
+//                 }
+//                 if(feature.properties.category=='Loisirs'){
+//                   icon=loisirsIcon;
+//                 }
+//                 if(feature.properties.category=='Festival'){
+//                   icon=festivalIcon;
+//                 }
+//                 if(feature.properties.category==null){
+//                   icon=othersIcon;
+//                 }
+//                 var marker = L.marker(latlng, {
+//                       icon: icon
+//                 }).on('click', function() {
+//                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+//                   });
+//                   marker._id = feature.properties.id;
+//                   markersTab.push(marker);
+//                   // markersLayer.addLayer(marker);
+//                   console.log(markers);
+//                   return marker
+//               }
+//           });
+//
+//           clusters.clearLayers();
+//           clusters.addLayer(misAJour);
+//           // map.addLayer(misAJour);
+//       });
+// }
 
 function getId(){
 
@@ -891,5 +891,4 @@ updateMap();
 markersLayer.addTo(map);
 $(document).ready(function(){
 initialMap();
-});
->>>>>>> f933ba6e12ad9ec08e93d3b9a3b33efb70e99f42
+}); 

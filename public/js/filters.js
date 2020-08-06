@@ -104,7 +104,7 @@ var tab7km = [];
 
 
 // Rempli le tableau de kms avec les id des points autour de ou je suis en
-var kmTabs= function(){
+var kmTabs = function(){
   var item, o;
   var items = events.responseJSON.features;
    for (item in items) {
@@ -289,7 +289,6 @@ var initialMap=function(){
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
-                  console.log(markers);
                   return marker
               }
           });
@@ -489,6 +488,5 @@ updateMap();
 // markersLayer.addTo(map);
 
 $(document).ready(function(){
-initialMap();
-alert(tab3km);
+initialMap(); 
 });
