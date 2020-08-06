@@ -4,6 +4,28 @@
     <li>
       <!-- <label>Adresse :</label><input type="text" name="adresse_search"value="votre adresse"> -->
 
+      <label>Km</label>
+      <select name="km" id="km">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+      </select>
+
+      <label> Filtres:</label>
+      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
+      </li>
+
+      <nav id='open-filters' style="display:none">
+            <hr>
+            <li>
+              <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
+              <!-- <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin"> -->
+              <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
+
+
   <!-- <div class="dropdown">
     <li id="title_secteur" class="btn dropdown-toggle" data-toggle="dropdown">Par secteur :</li>
     <div class="dropdown-menu">
