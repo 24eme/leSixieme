@@ -1,10 +1,10 @@
 <header>
-<button id='filter-icon' class='btn' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
+<nav >
+  <ul>
+    <li>
+      <!-- <label>Adresse :</label><input type="text" name="adresse_search"value="votre adresse"> -->
 
-<nav id='open-filters' style="display:none">
-<ul class="nav_top">
-
-  <div class="dropdown">
+  <!-- <div class="dropdown">
     <li id="title_secteur" class="btn dropdown-toggle" data-toggle="dropdown">Par secteur :</li>
     <div class="dropdown-menu">
         <button type="button" id="all" class="dropdown-item btn btn-primary active" value="Tout afficher">Tout afficher</button>
@@ -13,9 +13,9 @@
         <button type="button" id="festival" class="dropdown-item btn btn-secondary" value="Festivals">Festivals</button>
         <button type="button" id="others" class="dropdown-item btn btn-secondary" value="Autres">Autres</button>
     </div>
-  </div>
+  </div> -->
 
-  <div class="dropdown">
+   <!-- <div class="dropdown">
     <li id="title_distance" class="btn dropdown-toggle" data-toggle="dropdown">Par distance :</li>
     <div class="dropdown-menu">
       <button type="button" id="btn_1km active" class="dropdown-item btn-km">1 km</button>
@@ -25,28 +25,52 @@
       <button type="button" id="btn_5km" class="dropdown-item btn-km" value="5">5 km</button>
       <button type="button" id="btn_6km" class="dropdown-item btn-km" value="6">6 km</button>
     </div>
-  </div>
+  </div> -->
 
-  <select name="km" id="km">
+  <!-- <select name="km" id="km">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
-</select></li>
+</select></li> -->
+      <!-- <label>Km</label>
+      <select name="km" id="km">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+      </select> -->
 
-<li><label>Débutant :</label> <input type="date" id="dateDeb"value="" placeholder="12/08/2020"></li>
-<li><label>Heure Debut:</label> <input type="time" id="heureDeb"value=""></li>
-<li><label>Category:</label></li>
-<li><select name="category" id="category" placeholder='Tous'>
+      <label> Filtres:</label>
+      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
+      </li>
+
+      <nav id='open-filters' style="display:none">
+            <hr>
+            <li>
+              <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
+              <!-- <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin"> -->
+              <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
+
+            </li>
+            <nav>
+              <!-- <label>Price :</label> <input type="text" id="prix"value="prix"> -->
+              <label>Category:</label>
+              <select name="category" id="category" placeholder='Tous'>
                     <option value="Tous">Tous</option>
                     <option value="Loisirs">Loisirs</option>
                     <option value="Festival">Festival</option>
                     <option value="Culturel">Culturel</option>
-</select></li>
-<li><label>Arrondissement:</label></li>
-<li><select name="arrondissement" id="arrondissement">
+                    <!-- <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option> -->
+              </select>
+              <label>Arrondissement:</label>
+              <select name="arrondissement" id="arrondissement">
                 <option value="Tous">Tous</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -68,11 +92,29 @@
                 <option value="18">18</option>
                 <option value="19">19</option>
                 <option value="20">20</option>
-</select></li>
-<button id='validate-filter' class='btn' type='button' name='button' onclick="filter()"> Filtrer</button>
-</ul>
-</nav>
+              </select>
+            </li>
+            <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
 
+
+          </nav>
+          </nav>
+
+
+     </ul>
+   </nav>
+
+     <script>
+     function openFilters(){
+       var filters=document.getElementById('open-filters');
+       if(filters.style.display=='none'){
+         filters.style.display='block';
+       }
+       else{
+           filters.style.display='none';
+       }
+     }
+     </script>
 
 
 </header>
