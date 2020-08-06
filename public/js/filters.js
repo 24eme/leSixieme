@@ -155,124 +155,137 @@ var tab7km = [];
 
 var events = $.getJSON('js/eventsGeoJson.json');
 var markersLayer = new L.LayerGroup();
+//
+// document.getElementById("km").addEventListener('change',function(event) {
+//   events.then(function(data) {
+//       var events = L.geoJson(data);
+//       map.addLayer(clusters);
+//       var markersTab = [];
+//       markersLayer.clearLayers();
+//       map.fitBounds(events.getBounds(), {
+//           padding: [50, 50]
+//       });
+//       var culturelIcon = L.AwesomeMarkers.icon({
+//       prefix: 'fa',
+//       markerColor: 'red',
+//       icon: 'comments'
+//       });
+//       var festivalIcon = L.AwesomeMarkers.icon({
+//       prefix: 'fa',
+//       markerColor: 'black',
+//       icon: 'glass'
+//       });
+//       var loisirsIcon = L.AwesomeMarkers.icon({
+//       prefix: 'fa',
+//       markerColor: 'green',
+//       icon: 'coffee'
+//       });
+//       var othersIcon = L.AwesomeMarkers.icon({
+//         markerColor: 'blue',
+//       });
+//
+//       var rayonkm= L.geoJson(data, {
+//           filter: function(feature, layer) {
+//             // tab2km= tab2km.splice();
+//             // kmTabs();
+//             // alert(tab4km);
+//             // return initialMap();
+//             if(document.getElementById("km").value =='1'){
+//               tab1km=tab1km.splice();
+//               kmTabs();
+//               for(i in tab1km){
+//               return feature.properties.id == tab1km[i];
+//
+//               }
+//             }
+//             if(document.getElementById("km").value =='2'){
+//               tab2km=tab2km.splice();
+//               kmTabs();
+//               // alert(tab2km);
+//               for(i in tab2km){
+//                 return feature.properties.id == tab2km[i];
+//               }
+//               // alert(tab2km);
+//             }
+//             if(document.getElementById("km").value =='3'){
+//               tab3km=tab3km.splice();
+//               kmTabs();
+//               for(i in tab3km){
+//               return feature.properties.id == tab3km[i];
+//             }
+//             }
+//             if(document.getElementById("km").value =='4'){
+//               tab4km=tab4km.splice();
+//               kmTabs();
+//               for(i in tab4km){
+//                 // return(tab4km[i]);
+//               return feature.properties.id == tab4km[i];
+//
+//               }
+//             }
+//             if(document.getElementById("km").value =='5'){
+//               // alert(tab5km);
+//               tab5km=tab5km.splice();
+//               kmTabs();
+//               for(i in tab5km){
+//               return feature.properties.id == tab5km[i];
+//
+//               }
+//             }
+//             if(document.getElementById("km").value =='6'){
+//               // alert(tab6km);
+//               tab6km=tab6km.splice();
+//               kmTabs();
+//               for(i in tab6km){
+//               return feature.properties.id == tab6km[i];
+//
+//               }
+//             }
+//
+//           },
+//           pointToLayer: function(feature, latlng) {
+//             if(feature.properties.category=='Culturel'){
+//               icon=culturelIcon;
+//             }
+//             if(feature.properties.category=='Loisirs'){
+//               icon=loisirsIcon;
+//             }
+//             if(feature.properties.category=='Festival'){
+//               icon=festivalIcon;
+//             }
+//             if(feature.properties.category==null){
+//               icon=othersIcon;
+//             }
+//             var marker = L.marker(latlng, {
+//                   icon: icon
+//             }).on('click', function() {
+//                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+//               });
+//               marker._id = feature.properties.id;
+//               markersTab.push(marker);
+//               // markersLayer.addLayer(marker);
+//               // console.log(markers);
+//               return marker
+//           }
+//       });
+//       clusters.clearLayers();
+//       clusters.addLayer(rayonkm);
+//   });
+// });
 
-document.getElementById("km").addEventListener('change',function(event) {
-  events.then(function(data) {
-      var events = L.geoJson(data);
-      map.addLayer(clusters);
-      var markersTab = [];
-      markersLayer.clearLayers();
-      map.fitBounds(events.getBounds(), {
-          padding: [50, 50]
-      });
-      var culturelIcon = L.AwesomeMarkers.icon({
-      prefix: 'fa',
-      markerColor: 'red',
-      icon: 'comments'
-      });
-      var festivalIcon = L.AwesomeMarkers.icon({
-      prefix: 'fa',
-      markerColor: 'black',
-      icon: 'glass'
-      });
-      var loisirsIcon = L.AwesomeMarkers.icon({
-      prefix: 'fa',
-      markerColor: 'green',
-      icon: 'coffee'
-      });
-      var othersIcon = L.AwesomeMarkers.icon({
-        markerColor: 'blue',
-      });
 
-      var rayonkm= L.geoJson(data, {
-          filter: function(feature, layer) {
-            // tab2km= tab2km.splice();
-            // kmTabs();
-            // alert(tab4km);
-            // return initialMap();
-            if(document.getElementById("km").value =='1'){
-              tab1km=tab1km.splice();
-              kmTabs();
-              for(i in tab1km){
-              return feature.properties.id == tab1km[i];
 
-              }
-            }
-            if(document.getElementById("km").value =='2'){
-              tab2km=tab2km.splice();
-              kmTabs();
-              // alert(tab2km);
-              for(i in tab2km){
-                return feature.properties.id == tab2km[i];
-              }
-              // alert(tab2km);
-            }
-            if(document.getElementById("km").value =='3'){
-              tab3km=tab3km.splice();
-              kmTabs();
-              for(i in tab3km){
-              return feature.properties.id == tab3km[i];
-            }
-            }
-            if(document.getElementById("km").value =='4'){
-              tab4km=tab4km.splice();
-              kmTabs();
-              for(i in tab4km){
-                // return(tab4km[i]);
-              return feature.properties.id == tab4km[i];
+ // console.log(tab6km)
+ // console.log(tab2km)
 
-              }
-            }
-            if(document.getElementById("km").value =='5'){
-              // alert(tab5km);
-              tab5km=tab5km.splice();
-              kmTabs();
-              for(i in tab5km){
-              return feature.properties.id == tab5km[i];
-
-              }
-            }
-            if(document.getElementById("km").value =='6'){
-              // alert(tab6km);
-              tab6km=tab6km.splice();
-              kmTabs();
-              for(i in tab6km){
-              return feature.properties.id == tab6km[i];
-
-              }
-            }
-
-          },
-          pointToLayer: function(feature, latlng) {
-            if(feature.properties.category=='Culturel'){
-              icon=culturelIcon;
-            }
-            if(feature.properties.category=='Loisirs'){
-              icon=loisirsIcon;
-            }
-            if(feature.properties.category=='Festival'){
-              icon=festivalIcon;
-            }
-            if(feature.properties.category==null){
-              icon=othersIcon;
-            }
-            var marker = L.marker(latlng, {
-                  icon: icon
-            }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-              });
-              marker._id = feature.properties.id;
-              markersTab.push(marker);
-              // markersLayer.addLayer(marker);
-              // console.log(markers);
-              return marker
-          }
-      });
-      clusters.clearLayers();
-      clusters.addLayer(rayonkm);
-  });
-});
-
+ function openMarker(id){
+  markersTab.forEach(function(marker) {
+    if (marker._id == id){
+      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      marker.fireEvent('click');
+    }
+  })
+};
 
 var initialMap=function(){
       events.then(function(data) {
@@ -338,7 +351,9 @@ var initialMap=function(){
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
+
                   // console.log(markers);
+
                   return marker
               }
           });
@@ -527,8 +542,6 @@ var updateMap =function(){
           // map.addLayer(misAJour);
       });
 }
-
-
 
 function filter(){
   // alert('hello');

@@ -124,5 +124,3 @@ function filter_list(){
 $(document).ready(function(){
 	initList();
 });
-
-
