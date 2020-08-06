@@ -4,6 +4,7 @@ body,html{
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
+  background-color: black;
 }
 
 *{
@@ -16,20 +17,15 @@ nav,ul{
   text-align: center;
 }
 li{
+  display: inline-block;
   list-style-type: none;
 }
 .fas{
   font-size: 1.5em;
   color: white;
   padding: .5em;
-  background-color: #b81121;
   border-radius: 10px;
 }
-/* input{
-  padding: .5em;
-  border:1px solid #E8E8E8;
-  background-color: inherit;
-} */
 li > label{
   color:white;
   font-size: 15px;
@@ -42,8 +38,8 @@ select,option{
 }
 #map{
   display: inline-block;
-  height: 80%;
-  width: 65%;
+  height: 100%;
+  width: 100%;
   vertical-align: middle;
 }
 .leaflet-routing-container{
@@ -65,25 +61,6 @@ select,option{
 }
 .leaflet-popup-tip{
   visibility: hidden;
-}
-.nav_filter{
-  position: fixed;
-  top: 100px;
-  left: 100px;
-  width: 25%;
-  text-align: left;
-  background-color: #b81121;
-  border-radius: 10px;
-  display: none;
-  z-index: 1000;
-}
-.nav_top{
-  color: white;
-  position: fixed;
-  margin-left: 500px;
-  background-color: #b81121;
-  border-radius: 10px;
-  z-index: 1000;
 }
 #btn_filtrer{
   color: black;
@@ -112,8 +89,17 @@ select,option{
   z-index: 1000;
   /* margin-left: 100px; */
 }
-.event_item{
-
+#filter-icon{
+  position: absolute;
+  right:0;
+  background-color: rgba(101, 161, 199, 0.5);
+  z-index: 1000
+}
+#open-filters{
+  position: fixed;
+  margin-left: 200px;
+  background-color: rgba(101, 161, 199, 0.5);
+  z-index: 1000;
 }
 .event_wrapper{
 
@@ -134,170 +120,26 @@ select,option{
 .event_wrapper h2 {
   font-size: 1em;
 }
-/* .img_wrapper{
-  width: 100px;
-  height: 100px;
-} */
 .event_img{
   float: left;
   width: 100px;
   height: 100px;
   }
-  /* input{
-    padding: .5em;
-    border:1px solid #E8E8E8;
-    background-color: inherit;
-  } */
-
   .event_date{
     color: black;
   }
   #list-icon:hover > #nav_events{
     display:block;
-
   }
-
-
-
-  .nav-item{
+.nav-item{
     text-align: left;
     padding: 10px;
-  }
-  #text_container {
-    padding: 1px;
-    /*To make sure that the input and the label will not overlap the border, If you remove this line it will not display correctly on Opera 15.0*/
-    border: 1px solid activeborder;
-    /*Create our fake border :D*/
-  }
-
-  #text_container>label {
-    color: activeborder;
-    background-color: white;
-    -webkit-touch-callout: none;
-    /*Make the label text unselectable*/
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-
-  #text_container>input {
-    border: none;
-    /*We have our fake border already :D*/
-  }
-  .btn_searchZone{
-    position: fixed;
-  }
-
-
-
-
-
-
-  /* .active{
-    background-color: red !important;
-  } */
-  .marker-cluster-small {
-  background-color: rgba(218, 94, 94, 0.6);
-  }
-  .marker-cluster-small div {
-  background-color: rgba(226, 36, 36, 0.6);
-  }
-  .marker-cluster-medium {
-  background-color: rgba(241, 211, 87, 0.6);
-  }
-  .marker-cluster-medium div {
-  background-color: rgba(240, 194, 12, 0.6);
-  }
-
-  .marker-cluster-large {
-  background-color: rgba(253, 156, 115, 0.6);
-  }
-  .marker-cluster-large div {
-  background-color: rgba(241, 128, 23, 0.6);
-  }
-
 }
-.event_date{
-  color: black;
-  font-weight: bold;
-}
-.detail{
-  color: #E8E8E8;
-  opacity: 0.4;
-  margin: auto;
-}
-
 #list-icon:hover > #nav_events{
   display:block;
-
 }
 
 
-
-.nav-item{
-  text-align: left;
-  padding: 10px;
-}
-#text_container {
-  padding: 1px;
-  /*To make sure that the input and the label will not overlap the border, If you remove this line it will not display correctly on Opera 15.0*/
-  border: 1px solid activeborder;
-  /*Create our fake border :D*/
-}
-
-#text_container>label {
-  color: activeborder;
-  background-color: white;
-  -webkit-touch-callout: none;
-  /*Make the label text unselectable*/
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-#text_container>input {
-  border: none;
-  /*We have our fake border already :D*/
-}
-.btn_searchZone{
-  position: fixed;
-}
-
-
-
-
-
-
-
-#map{
-  width: 100%;
-  height: 100%;
-}
-.btn-group{
-    width: 20%;
-  display: block !important;
-}
-.btn-group > .btn{
-  width: 100%;
-}
-.floating-group{
-  width: 20%;
-  height: 100%;
-}
-.dropdown{
-  display: inline-block;
-}
-.dropdown-toggle{
-  z-index: 100;
-  margin-bottom: : 100px;
-}
-
-
-/* .active{
-  background-color: red !important;
-} */
 .marker-cluster-small {
 background-color: rgba(218, 94, 94, 0.6);
 }

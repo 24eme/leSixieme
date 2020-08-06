@@ -12,6 +12,7 @@ for (var i = 0; i < btns.length; i++) {
 };
 
 
+
 // function drawData(userLocation) {
 //   var events = $.getJSON('eventsGeoJson.json');
 //
@@ -87,43 +88,7 @@ for (var i = 0; i < btns.length; i++) {
 //  };
 //
 
-$('input[name="dates"]').daterangepicker({
-  "locale": {
-    "format": "DD/MM/YYYY",
-    "separator": " - ",
-    "applyLabel": "Valider",
-    "cancelLabel": "Annuler",
-    "fromLabel": "De",
-    "toLabel": "à",
-    "customRangeLabel": "Custom",
-    "weekLabel": "S",
-    "daysOfWeek": [
-        "Di",
-        "Lu",
-        "Ma",
-        "Me",
-        "Je",
-        "Ve",
-        "Sa"
-    ],
-    "monthNames": [
-        "Janvier",
-        "Février",
-        "Mars",
-        "Avril",
-        "Mai",
-        "Juin",
-        "Juillet",
-        "Août",
-        "Septembre",
-        "Octobre",
-        "Novembre",
-        "Décembre"
-    ],
-    "firstDay": 1
-},
-});
- function openFilter() {
+function openFilter() {
    var filter = document.getElementById('nav_filter');
    var list = document.getElementById('nav_events');
 
@@ -138,7 +103,8 @@ $('input[name="dates"]').daterangepicker({
      filter.style.display = 'none';
    }
 };
- function openList() {
+
+function openList() {
    var filter = document.getElementById('nav_filter');
    var list = document.getElementById('nav_events');
 
@@ -152,4 +118,13 @@ $('input[name="dates"]').daterangepicker({
      list.style.display = 'none';
    }
 
- };
+};
+function openFilters(){
+   var filters=document.getElementById('open-filters');
+   if(filters.style.display=='none'){
+       filters.style.display='block';
+   }
+   else{
+       filters.style.display='none';
+   }
+};
