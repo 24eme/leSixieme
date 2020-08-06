@@ -98,7 +98,19 @@ function onLocationError(e) {
    map.setView([48.853, 2.333], 13);
 }
 map.on('locationerror', onLocationError);
-
+function drawItinary(userLocation,destination){
+//  rControl.hide();
+//  map.removeRoutingControl(rControl);
+console.log(destination)
+   rControl = L.Routing.control({
+      createMarker: function() { return null; },
+      language:'fr',
+      waypoints: [
+        L.latLng(destination.lat, destination.lng),
+        L.latLng(userLocation.lat, userLocation.lng)
+     ]
+   }).addTo(map);
+}
 var events = $.getJSON('js/eventsGeoJson.json');
 events.then(function(data) {
     var events = L.geoJson(data);
@@ -112,7 +124,7 @@ events.then(function(data) {
                 icon: culturelIcon
           }).on('click', function() {
 
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</button>");
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation+","+latlng+")'>Itineraire</button>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -132,7 +144,7 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
                 icon: culturelIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</button>");
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation+","+latlng+")'>Itineraire</button>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -152,7 +164,7 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
                 icon: loisirsIcon
           }).on('click', function() {
-             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
+             this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a  onclick='drawItinary(userLocation,latlng)'>Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -171,7 +183,7 @@ events.then(function(data) {
             var marker = L.marker(latlng, {
                 icon: festivalIcon
           }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick='drawItinary(userLocation,latlng)'>Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -190,7 +202,7 @@ events.then(function(data) {
     // "<a href=feature.properties.image>"
 
             }).on('click', function() {
-                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
+                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick='drawItinary(userLocation,latlng)'>Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -206,7 +218,7 @@ events.then(function(data) {
         pointToLayer: function(feature, latlng) {
             var marker = L.marker(latlng, {
             }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a onclick="+drawItinary(userLocation,latlng)+ ">Itineraire</a>");
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<a  onclick='drawItinary(userLocation,latlng)'>Itineraire</a>");
             });
             marker._id = feature.properties.id;
             markersTab.push(marker)
@@ -281,7 +293,7 @@ events.then(function(data) {
         clusters.removeLayer(others)
         clusters.removeLayer(arrondissement)
       //  clusters.removeLayer(not_arrondissement)
-        clusters.removeLayer(date)
+        //clusters.removeLayer(date)
     });
     $("#loisirs").click(function() {
         clusters.addLayer(loisirs)
@@ -753,18 +765,7 @@ function createPolyLine(loc1, loc2) {
        }
  };
 
-function drawItinary(userLocation,destination){
-  rControl.hide();
-//  map.removeRoutingControl(rControl);
-  var rControl = L.Routing.control({
-      createMarker: function() { return null; },
-      language:'fr',
-      waypoints: [
-        L.latLng(destination.lat, destination.lng),
-        L.latLng(userLocation.lat, userLocation.lng)
-     ]
-   }).addTo(map);
-}
+
 
      map.addLayer(clusters);
 //                   return (feature.properties.date== convertDate(dateDeb) &&
@@ -836,15 +837,12 @@ function drawItinary(userLocation,destination){
 //                   }
 //
 //                 }
-// <<<<<<< HEAD:public/js/map_src.js
 //
 //                 else if(feature.properties.date != null){
 //                   return feature.properties.date== convertDate(dateDeb);
 //
 //                 }
-// =======
 //                 // return initialMap();
-// >>>>>>> c4732fd50f2438ff391ed5f1bd5634be512a9fe3:public/js/filters.js
 //               },
 //               pointToLayer: function(feature, latlng) {
 //                 if(feature.properties.category=='Culturel'){
@@ -891,4 +889,4 @@ updateMap();
 markersLayer.addTo(map);
 $(document).ready(function(){
 initialMap();
-}); 
+});

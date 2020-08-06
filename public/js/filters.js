@@ -104,41 +104,42 @@ var tab7km = [];
 
 
 // Rempli le tableau de kms avec les id des points autour de ou je suis en
-var kmTabs = function(){
-  var item, o;
-  var items = events.responseJSON.features;
-   for (item in items) {
-       var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
-       // alert(loc);
-          if(loc.distanceTo( myCoordonnees).toFixed(0) > 0 && loc.distanceTo( myCoordonnees).toFixed(0) <= 1000 ){
-             // alert( myCoordonnees);
-             tab1km.push(items[item].properties.id);
-           }
-           if(loc.distanceTo( myCoordonnees).toFixed(0) > 1000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 2000 ){
-             // alert( myCoordonnees);
-             tab2km.push(items[item].properties.id);
-           }
-           if(loc.distanceTo( myCoordonnees).toFixed(0) > 2000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 3000 ){
-              // alert( myCoordonnees);
-             tab3km.push(items[item].properties.id);
-           }
-           if(loc.distanceTo( myCoordonnees).toFixed(0) > 3000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 4000 ){
-             // alert( myCoordonnees);
-             tab4km.push(items[item].properties.id);
-           }
-           if(loc.distanceTo( myCoordonnees).toFixed(0) > 4000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 5000 ){
-             // alert( myCoordonnees);
-             tab5km.push(items[item].properties.id);
-           }
-           if(loc.distanceTo( myCoordonnees).toFixed(0) > 5000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 6000 ){
-             // alert( myCoordonnees);
-             tab6km.push(items[item].geometry.id);
-           }
-           if(loc.distanceTo( myCoordonnees).toFixed(0) > 6000){
-             tab7km.push(items[item].geometry.id);
-           }
-   }
-}
+//PAS LE BON CODE
+// var kmTabs = function(){
+//   var item, o;
+//   var items = events.responseJSON.features;
+//    for (item in items) {
+//        var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
+//        // alert(loc);
+//           if(loc.distanceTo( myCoordonnees).toFixed(0) > 0 && loc.distanceTo( myCoordonnees).toFixed(0) <= 1000 ){
+//              // alert( myCoordonnees);
+//              tab1km.push(items[item].properties.id);
+//            }
+//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 1000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 2000 ){
+//              // alert( myCoordonnees);
+//              tab2km.push(items[item].properties.id);
+//            }
+//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 2000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 3000 ){
+//               // alert( myCoordonnees);
+//              tab3km.push(items[item].properties.id);
+//            }
+//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 3000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 4000 ){
+//              // alert( myCoordonnees);
+//              tab4km.push(items[item].properties.id);
+//            }
+//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 4000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 5000 ){
+//              // alert( myCoordonnees);
+//              tab5km.push(items[item].properties.id);
+//            }
+//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 5000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 6000 ){
+//              // alert( myCoordonnees);
+//              tab6km.push(items[item].geometry.id);
+//            }
+//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 6000){
+//              tab7km.push(items[item].geometry.id);
+//            }
+//    }
+// }
 
 
 
@@ -488,5 +489,5 @@ updateMap();
 // markersLayer.addTo(map);
 
 $(document).ready(function(){
-initialMap(); 
+initialMap();
 });
