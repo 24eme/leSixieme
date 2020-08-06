@@ -116,7 +116,6 @@ var updateList = function(){
 }
 
 
-
 function filter_list(){
 	updateList();
 }
