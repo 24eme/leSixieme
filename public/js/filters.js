@@ -145,10 +145,8 @@ var tab7km = [];
  function openMarker(id){
   markersTab.forEach(function(marker) {
     if (marker._id == id){
-        map.fitBounds(marker.getBounds(), {
-              padding: [50, 50]
-            })
-        marker.fireEvent('click');
+      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      marker.fireEvent('click');
     }
   })
 };
