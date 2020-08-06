@@ -113,8 +113,14 @@ class SpiderSpider(scrapy.Spider):
 
         def getYear(date):
             today=datetime.date.today()
-            if str(today.year) in date:
+            if str(today.year-2) in date:
+                            return str(today.year)
+            elif str(today.year-1) in date:
                 return str(today.year)
+
+            elif str(today.year) in date:
+                return str(today.year)
+
             elif str(today.year+1) in date:
                 return str(today.year+1)
             elif str(today.year+2) in date:
@@ -461,10 +467,6 @@ class SpiderSpider(scrapy.Spider):
              ]
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f933ba6e12ad9ec08e93d3b9a3b33efb70e99f42
         #for d in data:
             #print(d['url'])
             #print(d['address'])
