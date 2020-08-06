@@ -3,7 +3,7 @@ var clusters = L.markerClusterGroup();
 var markers = [];
 var nearest = 600000;
 var nearestP = null;
-
+var rControl = 0;
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
@@ -83,7 +83,7 @@ function drawData(userLocation) {
           }
     }
     if (nearestP != null){
-       L.Routing.control({
+       rControl = L.Routing.control({
          createMarker: function() { return null; },
         waypoints: [
           L.latLng(nearestP.lat, nearestP.lng),
@@ -149,6 +149,20 @@ var tab7km = [];
       marker.fireEvent('click');
     }
   })
+};
+
+function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
+
+  map.removeControl(rControl);
+
+   rControl = L.Routing.control({
+      createMarker: function() { return null; },
+      language:'fr',
+      waypoints: [
+        L.latLng(destinationlat, destinationlng),
+        L.latLng(userLocationlat, userLocationlng)
+     ]
+   }).addTo(map);
 };
 
 
@@ -346,7 +360,7 @@ var initialMap=function(){
                 var marker = L.marker(latlng, {
                       icon: icon
                 }).on('click', function() {
-                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
@@ -527,7 +541,7 @@ var updateMap =function(){
                 var marker = L.marker(latlng, {
                       icon: icon
                 }).on('click', function() {
-                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
