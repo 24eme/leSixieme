@@ -114,10 +114,9 @@ class SpiderSpider(scrapy.Spider):
         def getYear(date):
             today=datetime.date.today()
             if str(today.year-2) in date:
-                            return str(today.year)
+                return str(today.year-2)
             elif str(today.year-1) in date:
-                return str(today.year)
-
+                return str(today.year-1)
             elif str(today.year) in date:
                 return str(today.year)
 
