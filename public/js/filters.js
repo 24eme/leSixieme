@@ -142,6 +142,18 @@ var tab7km = [];
 // }
 
 
+ function openMarker(id){
+  markersTab.forEach(function(marker) {
+    if (marker._id == id){
+        map.fitBounds(marker.getBounds(), {
+              padding: [50, 50]
+            })
+        marker.fireEvent('click');
+    }
+  })
+};
+
+
 
 var events = $.getJSON('js/eventsGeoJson.json');
 var markersLayer = new L.LayerGroup();
