@@ -144,7 +144,7 @@ var tab7km = [];
 
 
 var events = $.getJSON('js/eventsGeoJson.json');
-var markersLayer = new L.LayerGroup(); // NOTE: Layer is created here!
+var markersLayer = new L.LayerGroup();
 
 document.getElementById("km").addEventListener('change',function(event) {
   events.then(function(data) {
@@ -176,18 +176,62 @@ document.getElementById("km").addEventListener('change',function(event) {
 
       var rayonkm= L.geoJson(data, {
           filter: function(feature, layer) {
-            if(document.getElementById("km").value =='2'){
-              tab2km=tab2km.splice();
-              kmTabs();
-              // alert(tab2km);
-              for (id in tab2km){
-                return(feature.properties.id == tab2km[id]);
-              }
-            }
             // tab2km= tab2km.splice();
             // kmTabs();
             // alert(tab4km);
             // return initialMap();
+            if(document.getElementById("km").value =='1'){
+              tab1km=tab1km.splice();
+              kmTabs();
+              for(i in tab1km){
+              return feature.properties.id == tab1km[i];
+
+              }
+            }
+            if(document.getElementById("km").value =='2'){
+              tab2km=tab2km.splice();
+              kmTabs();
+              // alert(tab2km);
+              for(i in tab2km){
+                return feature.properties.id == tab2km[i];
+              }
+              // alert(tab2km);
+            }
+            if(document.getElementById("km").value =='3'){
+              tab3km=tab3km.splice();
+              kmTabs();
+              for(i in tab3km){
+              return feature.properties.id == tab3km[i];
+            }
+            }
+            if(document.getElementById("km").value =='4'){
+              tab4km=tab4km.splice();
+              kmTabs();
+              for(i in tab4km){
+                // return(tab4km[i]);
+              return feature.properties.id == tab4km[i];
+
+              }
+            }
+            if(document.getElementById("km").value =='5'){
+              // alert(tab5km);
+              tab5km=tab5km.splice();
+              kmTabs();
+              for(i in tab5km){
+              return feature.properties.id == tab5km[i];
+
+              }
+            }
+            if(document.getElementById("km").value =='6'){
+              // alert(tab6km);
+              tab6km=tab6km.splice();
+              kmTabs();
+              for(i in tab6km){
+              return feature.properties.id == tab6km[i];
+
+              }
+            }
+
           },
           pointToLayer: function(feature, latlng) {
             if(feature.properties.category=='Culturel'){
@@ -210,19 +254,13 @@ document.getElementById("km").addEventListener('change',function(event) {
               marker._id = feature.properties.id;
               markersTab.push(marker);
               // markersLayer.addLayer(marker);
-              console.log(markers);
+              // console.log(markers);
               return marker
           }
       });
-
       clusters.clearLayers();
       clusters.addLayer(rayonkm);
-      // map.addLayer(misAJour);
   });
-
-    // tab2km= tab2km.splice();
-    // kmTabs();
-    // alert(tab4km);
 });
 
 
@@ -290,6 +328,10 @@ var initialMap=function(){
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
+<<<<<<< HEAD
+=======
+                  // console.log(markers);
+>>>>>>> ba7c56a529e595d1e81c3a860b35a8f295c8a580
                   return marker
               }
           });
@@ -468,7 +510,7 @@ var updateMap =function(){
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
-                  console.log(markers);
+                  // console.log(markers);
                   return marker
               }
           });

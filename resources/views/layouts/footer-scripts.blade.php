@@ -8,8 +8,23 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+<<<<<<< HEAD
 <script src="{{ asset('js/script.js') }}" ></script>
  <script src="{{ asset('js/map_src.js') }}" ></script>
+=======
+<!-- <script src="{{ asset('js/script.js') }}" ></script>
+ <script src="{{ asset('js/map_src.js') }}" ></script> -->
+
+<!-- <script type="text/json" src="{{ asset('js/scops.json') }}" ></script> -->
+<!-- <script src="{{ asset('js/map_init.js') }}" ></script> -->
+<!-- <script src="{{ asset('js/map.js') }}" ></script> -->
+<!-- <script src="{{ asset('js/events_list.js') }}" ></script>
+<script src="{{ asset('js/filter_map.js') }}" ></script>
+<script src="{{ asset('js/script.js') }}" ></script> -->
+<!-- <script src="{{ asset('js/map_src.js') }}" ></script>
+<script src="{{ asset('js/map_src.js') }}" ></script> -->
+<!-- <script type="text/javascript" src="js/script.js"></script> -->
+>>>>>>> ba7c56a529e595d1e81c3a860b35a8f295c8a580
 
 <!-- hono test-->
 <!-- <script src="{{ asset('js/filters.js') }}" ></script> -->
