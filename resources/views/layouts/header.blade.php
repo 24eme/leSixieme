@@ -62,7 +62,7 @@
                 <option value="20">20</option>
               </select>
             </li>
-            <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter()"> Filtrer</button>
+            <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter();filter_list();"> Filtrer</button>
 
 
           </nav>

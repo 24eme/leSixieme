@@ -14,4 +14,5 @@
 
 <!-- hono test-->
 <script src="{{ asset('js/filters.js') }}" ></script>
+<script src="{{ asset('js/list.js') }}" ></script>
 <!-- fin hono test -->

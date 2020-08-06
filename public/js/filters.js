@@ -95,6 +95,18 @@ function createPolyLine(loc1, loc2) {
     }
  };
 
+ function openMarker(id){
+  markersTab.forEach(function(marker) {
+    if (marker._id == id){
+        map.fitBounds(marker.getBounds(), {
+              padding: [50, 50]
+            })
+        marker.fireEvent('click');
+    }
+  })
+};
+
+
 
 var events = $.getJSON('js/eventsGeoJson.json');
 var markersLayer = new L.LayerGroup(); // NOTE: Layer is created here!
@@ -174,7 +186,7 @@ var initialMap=function(){
           clusters.addLayer(initialisation);
           // map.removeLayer(initialisation);
       });
-      var markersTab = [];
+      markersTab = [];
 
 }
 
