@@ -41,7 +41,7 @@ button:active{
 #map{
   display: inline-block;
   height: 80%;
-  width: 65%;
+  width: 70%;
   vertical-align: middle;
 }
 .leaflet-routing-container{
@@ -110,15 +110,6 @@ button:active{
   opacity: 0.4;
   margin: auto;
 }
-
-
-
-
-
-
-
-
-
 .marker-cluster-small {
 background-color: rgba(218, 94, 94, 0.6);
 }
