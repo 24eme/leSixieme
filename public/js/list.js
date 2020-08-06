@@ -113,21 +113,7 @@ var updateList = function(){
 	        );
 	    }
 	})
-};
-
-function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
-
-  map.removeControl(rControl);
-
-   rControl = L.Routing.control({
-      createMarker: function() { return null; },
-      language:'fr',
-      waypoints: [
-        L.latLng(destinationlat, destinationlng),
-        L.latLng(userLocationlat, userLocationlng)
-     ]
-   }).addTo(map);
-};
+}
 
 
 function filter_list(){

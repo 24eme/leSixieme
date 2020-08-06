@@ -4,6 +4,7 @@ var markers = [];
 var nearest = 600000;
 var nearestP = null;
 var rControl = 0;
+var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
@@ -54,6 +55,7 @@ map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
     var radius = e.accuracy;
+        userLocation = e.latlng;
     L.marker(e.latlng,{icon:mylocation}).addTo(map);
     drawData(e.latlng);
     myCoordonnees=e.latlng;
@@ -152,8 +154,8 @@ function openMarker(id){
 };
 
 function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
-
-  map.removeControl(rControl);
+   rControl.hide()
+   map.removeControl(rControl);
 
    rControl = L.Routing.control({
       createMarker: function() { return null; },

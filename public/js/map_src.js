@@ -403,8 +403,11 @@ function drawData(userLocation) {
 }
 
 function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
-  
-  map.removeControl(rControl);
+  console.log(userLocationlat);
+    console.log(userLocationlng);
+      console.log(destinationlat);
+        console.log(destinationlng);
+//  map.removeControl(rControl);
 
    rControl = L.Routing.control({
       createMarker: function() { return null; },
