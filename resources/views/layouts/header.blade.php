@@ -16,14 +16,14 @@
   </div>
 
   <div class="dropdown">
-    <li class="btn dropdown-toggle" data-toggle="dropdown">Par distance :</li>
+    <li id="title_distance" class="btn dropdown-toggle" data-toggle="dropdown">Par distance :</li>
     <div class="dropdown-menu">
-      <button type="button" id="btn_1km active" class="dropdown-item btn">1 km</button>
-      <button type="button" id="btn_2km" class="dropdown-item btn" value="2">2 km</button>
-      <button type="button" id="btn_3km" class="dropdown-item btn" value="3">3 km</button>
-      <button type="button" id="btn_4km" class="dropdown-item btn" value="4">4 km</button>
-      <button type="button" id="btn_5km" class="dropdown-item btn" value="5">5 km</button>
-      <button type="button" id="btn_6km" class="dropdown-item btn" value="6">6 km</button>
+      <button type="button" id="btn_1km active" class="dropdown-item btn-km">1 km</button>
+      <button type="button" id="btn_2km" class="dropdown-item btn-km" value="2">2 km</button>
+      <button type="button" id="btn_3km" class="dropdown-item btn-km" value="3">3 km</button>
+      <button type="button" id="btn_4km" class="dropdown-item btn-km" value="4">4 km</button>
+      <button type="button" id="btn_5km" class="dropdown-item btn-km" value="5">5 km</button>
+      <button type="button" id="btn_6km" class="dropdown-item btn-km" value="6">6 km</button>
     </div>
   </div>
 
