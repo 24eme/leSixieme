@@ -4,7 +4,6 @@ body,html{
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-  background-color: black;
 }
 
 *{
@@ -17,17 +16,14 @@ nav,ul{
   text-align: center;
 }
 li{
-  display: inline-block;
   list-style-type: none;
 }
-.fas{
-  font-size: 1.5em;
-  color: white;
+input{
   padding: .5em;
-  border-radius: 10px;
+  border:1px solid #E8E8E8;
+  background-color: inherit;
 }
-li > label{
-  color:white;
+label{
   font-size: 15px;
   font-weight: bold;
 }
@@ -36,10 +32,16 @@ select,option{
   border:none;
   padding: 10px;
 }
+button:active{
+  background-color: red;
+}
+.nav-item {
+  display: inline-block;
+}
 #map{
   display: inline-block;
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 65%;
   vertical-align: middle;
 }
 .leaflet-routing-container{
@@ -58,55 +60,29 @@ select,option{
   width: 400px;
   height: 450px;
   padding: 1em;
+  background-color: rgba(240,240,240,0.7);
 }
 .leaflet-popup-tip{
   visibility: hidden;
 }
-#btn_filtrer{
-  color: black;
-  background-color: white;
-}
-.btn-icon{
-  background-color: transparent;
-  border: none;
-}
-.icon_wrapper{
-  margin: 50px;
-  margin-top: 10px;
-  position: fixed;
-  z-index: 1000;
-}
 .nav_events{
-  width: auto;
+  width: 430px;
   height: 80%;
-  margin-top: 100px;
-  margin-left: 20px;
-  vertical-align: middle;
-  position: fixed;
   overflow-y: scroll;
-  display: none;
-  transition: width 0.3s ease;
-  z-index: 1000;
+  display: inline-block;
+  margin-top: 10px;
+  vertical-align: middle;
+  border: 1px solid grey;
   /* margin-left: 100px; */
 }
-#filter-icon{
-  position: absolute;
-  right:0;
-  background-color: rgba(101, 161, 199, 0.5);
-  z-index: 1000
-}
-#open-filters{
-  position: fixed;
-  margin-left: 200px;
-  background-color: rgba(101, 161, 199, 0.5);
-  z-index: 1000;
+.event_item{
+
 }
 .event_wrapper{
 
   text-align:center;
   height: 100px;
   width: 400px;
-  border-radius: 20px;
   background-color: white;
   margin-bottom: 10px;
   -webkit-box-shadow: 10px 10px 41px 0px rgba(237,237,237,1);
@@ -124,22 +100,54 @@ select,option{
   float: left;
   width: 100px;
   height: 100px;
-  }
-  .event_date{
-    color: black;
-  }
-  #list-icon:hover > #nav_events{
-    display:block;
-  }
-.nav-item{
-    text-align: left;
-    padding: 10px;
 }
-#list-icon:hover > #nav_events{
-  display:block;
+.event_date{
+  color: black;
+  font-weight: bold;
+}
+.detail{
+  color: #E8E8E8;
+  opacity: 0.4;
+  margin: auto;
 }
 
 
+
+
+
+
+
+
+
+
+
+
+/* idee de front-end à decommenter pour voir  */
+/* #map{
+  width: 100%;
+  height: 100%;
+}
+.btn-group{
+    width: 20%;
+  display: block !important;
+}
+.btn-group > .btn{
+  width: 100%;
+}
+.floating-group{
+  width: 20%;
+  height: 100%;
+}
+.dropdown-toggle{
+  position: absolute;
+  z-index: 100;
+  margin-bottom: : 100px;
+} */
+
+
+/* .active{
+  background-color: red !important;
+} */
 .marker-cluster-small {
 background-color: rgba(218, 94, 94, 0.6);
 }
