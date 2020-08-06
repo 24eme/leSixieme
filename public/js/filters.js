@@ -142,13 +142,13 @@ var tab7km = [];
 // }
 
 
- function openMarker(id){
-  markersTab.forEach(function(marker) {
-    if (marker._id == id){
-      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
-      marker.fireEvent('click');
-    }
-  })
+function openMarker(id){
+ markersTab.forEach(function(marker) {
+   if (marker._id == id){
+     map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+     marker.fireEvent('click');
+   }
+ })
 };
 
 function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
@@ -562,8 +562,30 @@ function filter(){
 updateMap();
 }
 
-// markersLayer.addTo(map);
 
+function openFilters(){
+  var filters=document.getElementById('open-filters');
+  if(filters.style.display=='none'){
+    filters.style.display='block';
+  }
+  else{
+      filters.style.display='none';
+  }
+}
+
+function closeFilters(){
+  var filters=document.getElementById('open-filters');
+    if(filters.style.display=='block'){
+      filters.style.display='none';
+  }
+}
+
+// markersLayer.addTo(map);
+document.getElementById("reinitialiser").addEventListener('click',function(event) {
+  closeFilters();
+  initialMap();
+
+});
 $(document).ready(function(){
 initialMap();
 });
