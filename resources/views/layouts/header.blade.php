@@ -46,7 +46,8 @@
       </select> -->
 
       <label> Filtres:</label>
-      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button>
+      <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters();"><i class='fas fa-filter'></i></button>
+      <button id='reinitialiser' class='btn-primary' type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
       </li>
 
       <nav id='open-filters' style="display:none">
@@ -103,18 +104,5 @@
 
      </ul>
    </nav>
-
-     <script>
-     function openFilters(){
-       var filters=document.getElementById('open-filters');
-       if(filters.style.display=='none'){
-         filters.style.display='block';
-       }
-       else{
-           filters.style.display='none';
-       }
-     }
-     </script>
-
 
 </header>
