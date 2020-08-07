@@ -106,7 +106,7 @@ var updateList = function(){
 	        + '<img class="event_img" src="'
             + list[i]['image'] + '" alt="event_img">'
 	        + '<a class="event_date" href="#" onclick="openMarker('+list[i]['id']+');">'
-	        + list[i]['title'] + '</a>'
+            + list[i]['title'] + '</a>'
 	        + '<h2>' + list[i]['price'] + '</h2>'
 	        + '<p>'+list[i]['cp']
 	        +'</div></li>'
@@ -114,6 +114,42 @@ var updateList = function(){
 	    }
 	})
 }
+
+
+document.getElementById('km').addEventListener('change',function(event) {
+	events.then(function(data) {
+		document.getElementById('ct').innerHTML="";
+		$ul = $('#ct');
+		list=[];
+		listkm=[];
+		km=document.getElementById('km').value;
+		tabkm=list_km(km);
+		for (var i in data['features']){
+	        list.push(data['features'][i]['properties']);
+	    }
+	    for (var i in tabkm){
+	    	for(var j in list){
+	    		if (list[j]['id']==tabkm[i]){
+	    			listkm.push(list[j]);
+	    		}
+	    	}
+	    }
+
+	    for (var i in listkm){
+	      	$ul.append(
+	        '<li onclick=""><div class="event_wrapper">'
+	        + '<img class="event_img" src="'
+            + listkm[i]['image'] + '" alt="event_img">'
+	        + '<a class="event_date" href="#" onclick="openMarker('+listkm[i]['id']+');">'
+            + listkm[i]['title'] + '</a>'
+	        + '<h2>' + listkm[i]['price'] + '</h2>'
+	        + '<p>'+listkm[i]['cp']
+	        +'</div></li>'
+	        );
+	    }
+	    
+	});
+});
 
 
 function filter_list(){
