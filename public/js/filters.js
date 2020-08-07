@@ -8,6 +8,12 @@ var userLocation = [48.853, 2.333];
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
 });
+// var mapboxTiles = L.tileLayer('', {
+// 	attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>',
+// 	minZoom: 0,
+// 	maxZoom: 20,
+// 	ext: 'png'
+// });
 
 var mylocation = L.icon({
     iconUrl: 'img/markers/location.png',
