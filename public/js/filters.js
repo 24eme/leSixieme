@@ -92,6 +92,7 @@ function drawData(userLocation) {
     if (nearestP != null){
        rControl = L.Routing.control({
          createMarker: function() { return null; },
+         language:'fr',
         waypoints: [
           L.latLng(nearestP.lat, nearestP.lng),
           L.latLng(userLocation.lat, userLocation.lng)
