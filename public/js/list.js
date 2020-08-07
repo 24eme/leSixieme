@@ -1,6 +1,6 @@
 var events = $.getJSON('js/eventsGeoJson.json');
 
-var initList= function (){
+var initList = function (){
 	events.then(function(data){
 		list=[];
 		$ul = $('#ct');
@@ -119,7 +119,31 @@ var updateList = function(){
 function filter_list(){
 	updateList();
 }
-
+//
+// var restaurants = $.getJSON('js/restaurants.geojson');
+//
+// var restaurantAround = function (){
+// 	restaurants.then(function(data){
+// 		liste=[];
+// 		$nav = $('#nav_restaurants');
+// 		for (var i in data['features']){
+// 	        liste.push(data['features'][i]['properties']);
+// 	    }
+// 	    for (var i in liste){
+//             $nav.append(
+//              '<li onclick=""><div class="event_wrapper">'
+//             + '<img class="event_img" src="'
+//             + liste[i]['image'] + '" alt="event_img">'
+//             + '<a class="event_date" href="#" onclick="openMarker('+liste[i]['id']+');">'
+//             + liste[i]['title'] + '</a>'
+//             + '<h2>' + liste[i]['price'] + '</h2>'
+//             + '<p>'+liste[i]['code']
+//             +'</div></li>'
+//             );
+//         }
+//
+// 	})
+// }
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
 	document.getElementById('ct').innerHTML="";
   	initList();
