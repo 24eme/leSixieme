@@ -1,4 +1,3 @@
-// hono et sidi
 var clusters = L.markerClusterGroup();
 var markers = [];
 var nearest = 600000;
@@ -106,7 +105,6 @@ var tab7km = [];
 
 
 // Rempli le tableau de kms avec les id des points autour de ou je suis en
-//PAS LE BON CODE
 var kmTabs = function(){
   var item, o;
   var items = events.responseJSON.features;
@@ -199,66 +197,68 @@ document.getElementById("km").addEventListener('change',function(event) {
       var othersIcon = L.AwesomeMarkers.icon({
         markerColor: 'blue',
       });
-      // var a;
+
       var rayonkm= L.geoJson(data, {
           filter: function(feature, layer) {
-            // tab2km= tab2km.splice();
-            // kmTabs();
-            // alert(tab4km);
-            // return initialMap();
-            if(document.getElementById("km").value =='1'){
+            var km = document.getElementById("km").value;
+            if(km=='1'){
               tab1km=tab1km.splice();
               kmTabs();
               for(i in tab1km){
               return feature.properties.id == tab1km[i];
-
               }
             }
-            if(document.getElementById("km").value =='2'){
+            if(km =='2'){
+              var a;
               tab2km=tab2km.splice();
               kmTabs();
-              // alert(tab2km);
-              for(i in tab2km){
-                return feature.properties.id == tab2km[i];
-              }
-              // alert(tab2km);
+              a=(feature.properties.id == tab2km[0]);
+              tab2km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
             }
-            if(document.getElementById("km").value =='3'){
+            if(km=='3'){
+              var a;
               tab3km=tab3km.splice();
               kmTabs();
-              for(i in tab3km){
-              return feature.properties.id == tab3km[i] && feature.properties.category == "Culturel";
-               // && feature.properties.id == tab3km[tab3km.length-1] ;
-              }
+              a=(feature.properties.id == tab3km[0]);
+              tab3km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
             }
-            if(document.getElementById("km").value =='4'){
+            if(km =='4'){
+              var a;
               tab4km=tab4km.splice();
               kmTabs();
-              for(i in tab4km){
-                // return(tab4km[i]);
-              return feature.properties.id == tab4km[i];
+              a=(feature.properties.id == tab4km[0]);
+              tab4km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
 
-              }
             }
-            if(document.getElementById("km").value =='5'){
-              // alert(tab5km);
+            if(km =='5'){
+              var a;
               tab5km=tab5km.splice();
               kmTabs();
-              for(i in tab5km){
-              return feature.properties.id == tab5km[i];
-
-              }
+              a=(feature.properties.id == tab5km[0]);
+              tab5km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
             }
-            if(document.getElementById("km").value =='6'){
-              // alert(tab6km);
+            if(km =='6'){
+              var a;
               tab6km=tab6km.splice();
               kmTabs();
-              for(i in tab6km){
-              return feature.properties.id == tab6km[i];
-
-              }
+              a=(feature.properties.id == tab6km[0]);
+              tab6km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
             }
-
           },
           pointToLayer: function(feature, latlng) {
             if(feature.properties.category=='Culturel'){
@@ -289,11 +289,6 @@ document.getElementById("km").addEventListener('change',function(event) {
       clusters.addLayer(rayonkm);
   });
 });
-
-
-
- // console.log(tab6km)
- // console.log(tab2km)
 
  function openMarker(id){
   markersTab.forEach(function(marker) {
