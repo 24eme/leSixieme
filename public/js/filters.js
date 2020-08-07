@@ -295,11 +295,16 @@ document.getElementById("km").addEventListener('change',function(event) {
  function openMarker(id){
   markersTab.forEach(function(marker) {
     if (marker._id == id){
-      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      // alert(marker);
       marker.fireEvent('click');
+      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      // alert('hello1');
+
     }
   })
 };
+
+
 
 var initialMap=function(){
       events.then(function(data) {
@@ -545,7 +550,7 @@ var updateMap =function(){
                 }).on('click', function() {
                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
-                  // map.removeControl(rControl);
+                  map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
