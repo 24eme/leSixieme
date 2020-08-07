@@ -160,7 +160,6 @@ function openMarker(id){
 function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
    rControl.hide();
    map.removeControl(rControl);
-
    rControl = L.Routing.control({
       createMarker: function() { return null; },
       language:'fr',
