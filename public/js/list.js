@@ -134,7 +134,7 @@ function filter_list(){
 //              '<li onclick=""><div class="event_wrapper">'
 //             + '<img class="event_img" src="'
 //             + liste[i]['image'] + '" alt="event_img">'
-//             + '<a class="event_date" href="#" onclick="openMarker('+liste[i]['id']+');">'
+//             + '<a class="event_date" href="#" onclick="openMarker('+liste[i]['id']+');">Site web'
 //             + liste[i]['title'] + '</a>'
 //             + '<h2>' + liste[i]['price'] + '</h2>'
 //             + '<p>'+liste[i]['code']

@@ -1,4 +1,3 @@
-// hono et sidi
 var clusters = L.markerClusterGroup();
 var markers = [];
 var nearest = 600000;
@@ -106,42 +105,41 @@ var tab7km = [];
 
 
 // Rempli le tableau de kms avec les id des points autour de ou je suis en
-//PAS LE BON CODE
-// var kmTabs = function(){
-//   var item, o;
-//   var items = events.responseJSON.features;
-//    for (item in items) {
-//        var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
-//        // alert(loc);
-//           if(loc.distanceTo( myCoordonnees).toFixed(0) > 0 && loc.distanceTo( myCoordonnees).toFixed(0) <= 1000 ){
-//              // alert( myCoordonnees);
-//              tab1km.push(items[item].properties.id);
-//            }
-//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 1000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 2000 ){
-//              // alert( myCoordonnees);
-//              tab2km.push(items[item].properties.id);
-//            }
-//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 2000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 3000 ){
-//               // alert( myCoordonnees);
-//              tab3km.push(items[item].properties.id);
-//            }
-//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 3000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 4000 ){
-//              // alert( myCoordonnees);
-//              tab4km.push(items[item].properties.id);
-//            }
-//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 4000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 5000 ){
-//              // alert( myCoordonnees);
-//              tab5km.push(items[item].properties.id);
-//            }
-//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 5000 && loc.distanceTo( myCoordonnees).toFixed(0) <= 6000 ){
-//              // alert( myCoordonnees);
-//              tab6km.push(items[item].geometry.id);
-//            }
-//            if(loc.distanceTo( myCoordonnees).toFixed(0) > 6000){
-//              tab7km.push(items[item].geometry.id);
-//            }
-//    }
-// }
+var kmTabs = function(){
+  var item, o;
+  var items = events.responseJSON.features;
+   for (item in items) {
+       var loc = new L.LatLng(items[item].geometry.coordinates[1],items[item].geometry.coordinates[0]);
+       // alert(loc);
+          if(loc.distanceTo(myCoordonnees).toFixed(0) <= 1000 ){
+             // alert( myCoordonnees);
+             tab1km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo(myCoordonnees).toFixed(0) <= 2000 ){
+             // alert( myCoordonnees);
+             tab2km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) <= 3000 ){
+              // alert( myCoordonnees);
+             tab3km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) <= 4000 ){
+             // alert( myCoordonnees);
+             tab4km.push(items[item].properties.id);
+           }
+           if( loc.distanceTo( myCoordonnees).toFixed(0) <= 5000 ){
+             // alert( myCoordonnees);
+             tab5km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) <= 6000 ){
+             // alert( myCoordonnees);
+             tab6km.push(items[item].properties.id);
+           }
+           if(loc.distanceTo( myCoordonnees).toFixed(0) > 6000){
+             tab7km.push(items[item].properties.id);
+           }
+   }
+}
 
 
 function openMarker(id){
@@ -171,134 +169,142 @@ function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationl
 
 var events = $.getJSON('js/eventsGeoJson.json');
 var markersLayer = new L.LayerGroup();
-//
-// document.getElementById("km").addEventListener('change',function(event) {
-//   events.then(function(data) {
-//       var events = L.geoJson(data);
-//       map.addLayer(clusters);
-//       var markersTab = [];
-//       markersLayer.clearLayers();
-//       map.fitBounds(events.getBounds(), {
-//           padding: [50, 50]
-//       });
-//       var culturelIcon = L.AwesomeMarkers.icon({
-//       prefix: 'fa',
-//       markerColor: 'red',
-//       icon: 'comments'
-//       });
-//       var festivalIcon = L.AwesomeMarkers.icon({
-//       prefix: 'fa',
-//       markerColor: 'black',
-//       icon: 'glass'
-//       });
-//       var loisirsIcon = L.AwesomeMarkers.icon({
-//       prefix: 'fa',
-//       markerColor: 'green',
-//       icon: 'coffee'
-//       });
-//       var othersIcon = L.AwesomeMarkers.icon({
-//         markerColor: 'blue',
-//       });
-//
-//       var rayonkm= L.geoJson(data, {
-//           filter: function(feature, layer) {
-//             // tab2km= tab2km.splice();
-//             // kmTabs();
-//             // alert(tab4km);
-//             // return initialMap();
-//             if(document.getElementById("km").value =='1'){
-//               tab1km=tab1km.splice();
-//               kmTabs();
-//               for(i in tab1km){
-//               return feature.properties.id == tab1km[i];
-//
-//               }
-//             }
-//             if(document.getElementById("km").value =='2'){
-//               tab2km=tab2km.splice();
-//               kmTabs();
-//               // alert(tab2km);
-//               for(i in tab2km){
-//                 return feature.properties.id == tab2km[i];
-//               }
-//               // alert(tab2km);
-//             }
-//             if(document.getElementById("km").value =='3'){
-//               tab3km=tab3km.splice();
-//               kmTabs();
-//               for(i in tab3km){
-//               return feature.properties.id == tab3km[i];
-//             }
-//             }
-//             if(document.getElementById("km").value =='4'){
-//               tab4km=tab4km.splice();
-//               kmTabs();
-//               for(i in tab4km){
-//                 // return(tab4km[i]);
-//               return feature.properties.id == tab4km[i];
-//
-//               }
-//             }
-//             if(document.getElementById("km").value =='5'){
-//               // alert(tab5km);
-//               tab5km=tab5km.splice();
-//               kmTabs();
-//               for(i in tab5km){
-//               return feature.properties.id == tab5km[i];
-//
-//               }
-//             }
-//             if(document.getElementById("km").value =='6'){
-//               // alert(tab6km);
-//               tab6km=tab6km.splice();
-//               kmTabs();
-//               for(i in tab6km){
-//               return feature.properties.id == tab6km[i];
-//
-//               }
-//             }
-//
-//           },
-//           pointToLayer: function(feature, latlng) {
-//             if(feature.properties.category=='Culturel'){
-//               icon=culturelIcon;
-//             }
-//             if(feature.properties.category=='Loisirs'){
-//               icon=loisirsIcon;
-//             }
-//             if(feature.properties.category=='Festival'){
-//               icon=festivalIcon;
-//             }
-//             if(feature.properties.category==null){
-//               icon=othersIcon;
-//             }
-//             var marker = L.marker(latlng, {
-//                   icon: icon
-//             }).on('click', function() {
-//                this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
-//               });
-//               marker._id = feature.properties.id;
-//               markersTab.push(marker);
-//               // markersLayer.addLayer(marker);
-//               // console.log(markers);
-//               return marker
-//           }
-//       });
-//       clusters.clearLayers();
-//       clusters.addLayer(rayonkm);
-//   });
-// });
 
+document.getElementById("km").addEventListener('change',function(event) {
+  events.then(function(data) {
+      var events = L.geoJson(data);
+      map.addLayer(clusters);
+      var markersTab = [];
+      markersLayer.clearLayers();
+      map.fitBounds(events.getBounds(), {
+          padding: [50, 50]
+      });
+      var culturelIcon = L.AwesomeMarkers.icon({
+      prefix: 'fa',
+      markerColor: 'red',
+      icon: 'comments'
+      });
+      var festivalIcon = L.AwesomeMarkers.icon({
+      prefix: 'fa',
+      markerColor: 'black',
+      icon: 'glass'
+      });
+      var loisirsIcon = L.AwesomeMarkers.icon({
+      prefix: 'fa',
+      markerColor: 'green',
+      icon: 'coffee'
+      });
+      var othersIcon = L.AwesomeMarkers.icon({
+        markerColor: 'blue',
+      });
 
+      var rayonkm= L.geoJson(data, {
+          filter: function(feature, layer) {
+            var km = document.getElementById("km").value;
+            if(km=='1'){
+              tab1km=tab1km.splice();
+              kmTabs();
+              for(i in tab1km){
+              return feature.properties.id == tab1km[i];
+              }
+            }
+            if(km =='2'){
+              var a;
+              tab2km=tab2km.splice();
+              kmTabs();
+              a=(feature.properties.id == tab2km[0]);
+              tab2km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
+            }
+            if(km=='3'){
+              var a;
+              tab3km=tab3km.splice();
+              kmTabs();
+              a=(feature.properties.id == tab3km[0]);
+              tab3km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
+            }
+            if(km =='4'){
+              var a;
+              tab4km=tab4km.splice();
+              kmTabs();
+              a=(feature.properties.id == tab4km[0]);
+              tab4km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
+
+            }
+            if(km =='5'){
+              var a;
+              tab5km=tab5km.splice();
+              kmTabs();
+              a=(feature.properties.id == tab5km[0]);
+              tab5km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
+            }
+            if(km =='6'){
+              var a;
+              tab6km=tab6km.splice();
+              kmTabs();
+              a=(feature.properties.id == tab6km[0]);
+              tab6km.forEach((i) => {
+                a = a || feature.properties.id == i;
+              });
+              return a;
+            }
+          },
+          pointToLayer: function(feature, latlng) {
+            if(feature.properties.category=='Culturel'){
+              icon=culturelIcon;
+            }
+            if(feature.properties.category=='Loisirs'){
+              icon=loisirsIcon;
+            }
+            if(feature.properties.category=='Festival'){
+              icon=festivalIcon;
+            }
+            if(feature.properties.category==null){
+              icon=othersIcon;
+            }
+            var marker = L.marker(latlng, {
+                  icon: icon
+            }).on('click', function() {
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
+              });
+              map.removeControl(rControl);
+              marker._id = feature.properties.id;
+              markersTab.push(marker);
+              // markersLayer.addLayer(marker);
+              // console.log(markers);
+              return marker
+          }
+      });
+
+      clusters.clearLayers();
+      clusters.addLayer(rayonkm);
+  });
+});
 
  function openMarker(id){
   markersTab.forEach(function(marker) {
     if (marker._id == id){
-      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      // alert(marker);
       marker.fireEvent('click');
+      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      // alert('hello1');
+
     }
   })
 };
+
+
 
 var initialMap=function(){
       events.then(function(data) {
@@ -362,6 +368,7 @@ var initialMap=function(){
                 }).on('click', function() {
                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
+                  // map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
@@ -374,9 +381,10 @@ var initialMap=function(){
           //ajout dans la map et pris en compte par les clusters
           // notInitialisation.clearLayers();
           // clusters.clearLayers(notInitialisation);
-          // markersLayer.clearLayers();
+          // markersLayer.clearLayers();;
           clusters.clearLayers();
           clusters.addLayer(initialisation);
+          // alert('heelo');
           // map.removeLayer(initialisation);
       });
       markersTab = [];
@@ -544,6 +552,7 @@ var updateMap =function(){
                 }).on('click', function() {
                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
+                  map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
@@ -551,7 +560,8 @@ var updateMap =function(){
                   return marker
               }
           });
-
+          // rControl.hide();
+          // map.removeControl(rControl);
           clusters.clearLayers();
           clusters.addLayer(misAJour);
           // map.addLayer(misAJour);
@@ -585,7 +595,6 @@ function closeFilters(){
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
   closeFilters();
   initialMap();
-
 });
 $(document).ready(function(){
 initialMap();

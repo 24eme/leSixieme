@@ -41,7 +41,7 @@ button:active{
 #map{
   display: inline-block;
   height: 80%;
-  width: 70%;
+  width: 65%;
   vertical-align: middle;
 }
 .leaflet-routing-container{

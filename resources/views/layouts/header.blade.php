@@ -47,15 +47,15 @@
                     <option value="6">6</option>
                   </select></li> -->
 
-        <nav id='open-filters' style="display:none">
+        <span id='open-filters' style="display:none">
          <hr>
          <li>
            <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
            <!-- <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin"> -->
            <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
 
-         </li>
-         <nav>
+
+
            <!-- <label>Price :</label> <input type="text" id="prix"value="prix"> -->
            <label>Category:</label>
            <select name="category" id="category" placeholder='Tous'>
@@ -89,16 +89,17 @@
                 <option value="19">19</option>
                 <option value="20">20</option>
             </select>
+            <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
+
         </li>
-        <button id='validate-filter' class='btn-primary' type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
 
 
-        </nav>
-</nav>
+      </span>
+
 
 
 </ul>
 </nav>
- 
+
 
 </header>
