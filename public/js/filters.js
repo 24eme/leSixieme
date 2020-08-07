@@ -7,7 +7,7 @@ var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
+    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
 });
 
 var mylocation = L.icon({
