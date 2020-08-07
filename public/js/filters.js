@@ -276,8 +276,9 @@ document.getElementById("km").addEventListener('change',function(event) {
             var marker = L.marker(latlng, {
                   icon: icon
             }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>");
+               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
               });
+              map.removeControl(rControl);
               marker._id = feature.properties.id;
               markersTab.push(marker);
               // markersLayer.addLayer(marker);
@@ -285,6 +286,7 @@ document.getElementById("km").addEventListener('change',function(event) {
               return marker
           }
       });
+
       clusters.clearLayers();
       clusters.addLayer(rayonkm);
   });
@@ -360,6 +362,7 @@ var initialMap=function(){
                 }).on('click', function() {
                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
+                  map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
@@ -372,7 +375,7 @@ var initialMap=function(){
           //ajout dans la map et pris en compte par les clusters
           // notInitialisation.clearLayers();
           // clusters.clearLayers(notInitialisation);
-          // markersLayer.clearLayers();
+          // markersLayer.clearLayers();;
           clusters.clearLayers();
           clusters.addLayer(initialisation);
           // map.removeLayer(initialisation);
@@ -541,6 +544,7 @@ var updateMap =function(){
                 }).on('click', function() {
                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });
+                  map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
                   // markersLayer.addLayer(marker);
@@ -548,7 +552,8 @@ var updateMap =function(){
                   return marker
               }
           });
-
+          // rControl.hide();
+          // map.removeControl(rControl);
           clusters.clearLayers();
           clusters.addLayer(misAJour);
           // map.addLayer(misAJour);
