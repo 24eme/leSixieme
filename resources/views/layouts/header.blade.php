@@ -99,17 +99,6 @@
 
 </ul>
 </nav>
-
-<!-- <script>
-function openFilters(){
-var filters=document.getElementById('open-filters');
-if(filters.style.display=='none'){
-filters.style.display='block';
-}
-else{
-filters.style.display='none';
-}
-}
-</script> -->
+ 
 
 </header>
