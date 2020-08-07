@@ -73,13 +73,8 @@ button:active{
   margin-top: 10px;
   vertical-align: middle;
   border: 1px solid grey;
-  /* margin-left: 100px; */
-}
-.event_item{
-
 }
 .event_wrapper{
-
   text-align:center;
   height: 100px;
   width: 400px;
@@ -110,6 +105,7 @@ button:active{
   opacity: 0.4;
   margin: auto;
 }
+
 .marker-cluster-small {
 background-color: rgba(218, 94, 94, 0.6);
 }
@@ -122,7 +118,6 @@ background-color: rgba(241, 211, 87, 0.6);
 .marker-cluster-medium div {
 background-color: rgba(240, 194, 12, 0.6);
 }
-
 .marker-cluster-large {
 background-color: rgba(253, 156, 115, 0.6);
 }
