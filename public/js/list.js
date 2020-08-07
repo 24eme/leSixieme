@@ -120,6 +120,11 @@ function filter_list(){
 	updateList();
 }
 
+document.getElementById("reinitialiser").addEventListener('click',function(event) {
+	document.getElementById('ct').innerHTML="";
+  	initList();
+});
+
 $(document).ready(function(){
 	initList();
 });
