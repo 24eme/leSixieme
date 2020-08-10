@@ -355,9 +355,10 @@ var initialMap=function(){
           var events = L.geoJson(data);
           map.addLayer(clusters);
           markersLayer.clearLayers();
-          map.fitBounds(events.getBounds(), {
-              padding: [50, 50]
-          });
+          // map.fitBounds(events.getBounds(), {
+          //     padding: [50, 50]
+          // });
+          map.setView([48.853, 2.333],12);
           var culturelIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
           markerColor: 'red',
