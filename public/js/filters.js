@@ -16,7 +16,7 @@ var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x
 // });
 
 var mylocation = L.icon({
-    iconUrl: 'img/markers/location.png',
+    iconUrl: 'img/markers/round.png',
     iconSize: [30, 30],
 });
 
@@ -62,16 +62,18 @@ function onLocationFound(e) {
     var radius = e.accuracy;
     userLocation = e.latlng;
     L.marker(e.latlng,{icon:mylocation}).addTo(map);
+    // map.fitBounds(mylocation.getBounds());
     // map.setView(userLocation,400);
     // map.setView(40);
     drawData(e.latlng);
     myCoordonnees=e.latlng;
+    map.setView(e.latlng, 15);
 }
 map.on('locationfound', onLocationFound,);
 
 
 function onLocationError(e) {
-   map.setView([48.853, 2.333], 13);
+   map.setView([48.853, 2.333], 12);
 }
 map.on('locationerror', onLocationError);
 
@@ -172,6 +174,7 @@ function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationl
         L.latLng(userLocationlat, userLocationlng)
      ]
    }).addTo(map);
+   map.setView([userLocationlat,userLocationlng], 8);
 };
 
 
