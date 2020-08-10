@@ -26,7 +26,7 @@ input{
   color:white;
 }
 label{
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
   color:#bebfd3;
   margin-left: 10px;
@@ -111,22 +111,34 @@ button:active{
 }
 
 .marker-cluster-small {
-background-color: rgba(218, 94, 94, 0.6);
+/* background-color: rgba(218, 94, 94, 0.6); */
+background-color: #5a5c7c;
+
 }
 .marker-cluster-small div {
-background-color: rgba(226, 36, 36, 0.6);
+/* background-color: rgba(226, 36, 36, 0.6); */
+background-color: #bebfd3;
+
 }
 .marker-cluster-medium {
-background-color: rgba(241, 211, 87, 0.6);
+/* background-color: rgba(241, 211, 87, 0.6); */
+background-color: #5a5c7c;
+
 }
 .marker-cluster-medium div {
-background-color: rgba(240, 194, 12, 0.6);
+/* background-color: rgba(240, 194, 12, 0.6); */
+background-color:#bebfd3;
+
 }
 .marker-cluster-large {
-background-color: rgba(253, 156, 115, 0.6);
+/* background-color: rgba(253, 156, 115, 0.6); */
+background-color: #5a5c7c;
+
 }
 .marker-cluster-large div {
-background-color: rgba(241, 128, 23, 0.6);
+/* background-color: rgba(241, 128, 23, 0.6); */
+background-color: #bebfd3;
+
 }
 
 #validate-filter{
