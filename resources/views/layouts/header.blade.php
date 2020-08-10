@@ -1,10 +1,15 @@
-<header><nav >
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto">
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+       <span class="navbar-toggler-icon"></span>
+   </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
   <ul>
     <li>
 
             <!-- <label>Filtres : </label> -->
             <!-- <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button> -->
-            <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
+            <label class="col-xs-12">Date Debut:</label> <input class="col-xs-12" type="date" id="dateDeb"value="date de début">
             <!-- <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin"> -->
             <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
 
@@ -63,7 +68,10 @@
 
 
 </ul>
+   </div>
 </nav>
+
+
 
 
 </header>
