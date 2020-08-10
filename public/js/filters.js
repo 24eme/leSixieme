@@ -610,28 +610,32 @@ function filter(){
 updateMap();
 }
 
-
-function openFilters(){
-  var filters=document.getElementById('open-filters');
-  if(filters.style.display=='none'){
-    filters.style.display='block';
-  }
-  else{
-      filters.style.display='none';
-  }
-}
-
-function closeFilters(){
-  var filters=document.getElementById('open-filters');
-    if(filters.style.display=='block'){
-      filters.style.display='none';
-  }
-}
+//
+// function openFilters(){
+//   var filters=document.getElementById('open-filters');
+//   if(filters.style.display=='none'){
+//     filters.style.display='block';
+//   }
+//   else{
+//       filters.style.display='none';
+//   }
+// }
+//
+// function closeFilters(){
+//   var filters=document.getElementById('open-filters');
+//     if(filters.style.display=='block'){
+//       filters.style.display='none';
+//   }
+// }
 
 // markersLayer.addTo(map);
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
-  closeFilters();
+  // closeFilters();
   initialMap();
+  document.getElementById('dateDeb').value='jj/mm/aaaa';
+  document.getElementById('heureDeb').value=' : ';
+  document.getElementById('category').value='Tous';
+  document.getElementById('arrondissement').value='Tous';
 });
 $(document).ready(function(){
 initialMap();
