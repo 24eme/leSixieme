@@ -6,16 +6,8 @@
     <div class="collapse navbar-collapse" id="navbarMenu">
   <ul>
     <li>
-
-            <!-- <label>Filtres : </label> -->
-            <!-- <button id='filter-icon' class='btn-primary' type='button' name='button' onclick="openFilters()"><i class='fas fa-filter'></i></button> -->
-            <label class="col-xs-12">Date Debut:</label> <input class="col-xs-12" type="date" id="dateDeb"value="date de début">
-            <!-- <label>Date Fin:</label> <input type="date" id="dateFin"value="date de fin"> -->
+            <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
             <label>Heure Debut:</label> <input type="time" id="heureDeb"value="heure de début">
-
-
-
-            <!-- <label>Price :</label> <input type="text" id="prix"value="prix"> -->
             <label>Catégorie:</label>
             <select name="category" id="category" placeholder='Tous'>
                   <option value="Tous">Tous</option>
