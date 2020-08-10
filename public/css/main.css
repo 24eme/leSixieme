@@ -4,6 +4,7 @@ body,html{
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
+  background-color:#cfccd0;
 }
 
 *{
@@ -43,10 +44,13 @@ button:active{
   display: inline-block;
 }
 #map{
-  display: inline-block;
-  height: 80%;
-  width: 70%;
-  vertical-align: middle;
+  /* margin-top: 0; */
+  float:left;
+  /* display: inline-block; */
+  height: 100%;
+  width: 72%;
+  /* vertical-align: left; */
+  /* vertical-align: middle; */
 }
 .leaflet-routing-container{
   height: 20px;
@@ -150,4 +154,11 @@ background-color: #bebfd3;
 #rayonkm{
   margin-left: 25px;
   margin-right: 5px;
+}
+#ct{
+  margin-left:0px;
+}
+
+#list{
+  float:right
 }
