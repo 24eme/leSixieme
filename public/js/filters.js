@@ -1,7 +1,7 @@
 var clusters = L.markerClusterGroup();
 var markers = [];
-var nearest = 600000;
-var nearestP = null;
+// var nearest = 600000;
+// var nearestP = null;
 var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
@@ -60,12 +60,14 @@ map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
     var radius = e.accuracy;
-        userLocation = e.latlng;
+    userLocation = e.latlng;
     L.marker(e.latlng,{icon:mylocation}).addTo(map);
+    // map.setView(userLocation,400);
+    // map.setView(40);
     drawData(e.latlng);
     myCoordonnees=e.latlng;
 }
-map.on('locationfound', onLocationFound);
+map.on('locationfound', onLocationFound,);
 
 
 function onLocationError(e) {
@@ -84,22 +86,22 @@ function drawData(userLocation) {
           }
           var latlongs = [loc, userLocation];
 
-          if(loc.distanceTo(userLocation) < nearest){
-            nearest = loc.distanceTo(userLocation);
-            nearestP = loc;
-          }
+          // if(loc.distanceTo(userLocation) < nearest){
+          //   nearest = loc.distanceTo(userLocation);
+          //   nearestP = loc;
+          // }
     }
-    if (nearestP != null){
+    // if (nearestP != null){
        rControl = L.Routing.control({
          createMarker: function() { return null; },
          language:'fr',
         waypoints: [
-          L.latLng(nearestP.lat, nearestP.lng),
+          // L.latLng(nearestP.lat, nearestP.lng),
           L.latLng(userLocation.lat, userLocation.lng)
         ]
       }).addTo(map);
-      var marker = L.marker(nearestP).addTo(map);
-    }
+      // var marker = L.marker(nearestP).addTo(map);
+    // }
 };
 
 tab1km = [];
@@ -606,27 +608,9 @@ var updateMap =function(){
 }
 
 function filter(){
-  // alert('hello');
 updateMap();
 }
 
-//
-// function openFilters(){
-//   var filters=document.getElementById('open-filters');
-//   if(filters.style.display=='none'){
-//     filters.style.display='block';
-//   }
-//   else{
-//       filters.style.display='none';
-//   }
-// }
-//
-// function closeFilters(){
-//   var filters=document.getElementById('open-filters');
-//     if(filters.style.display=='block'){
-//       filters.style.display='none';
-//   }
-// }
 
 // markersLayer.addTo(map);
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
