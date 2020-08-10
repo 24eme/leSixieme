@@ -76,7 +76,8 @@ button:active{
   visibility: hidden;
 }
 .nav_events{
-  /* width: 430px; */
+
+  width: 430px;
   height: 100%;
   overflow-y: scroll;
   display: inline-block;
