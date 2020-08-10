@@ -11,3 +11,9 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Learning Laravel
 
+
+Lancer le script bash avec ./script.sh
+Puis faites composer install
+Ainsi que pip install currencyconverter
+installer scrapy ? 
+Puis vous pouvez lancer votre projet avec php artisan serve
