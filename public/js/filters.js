@@ -421,6 +421,7 @@ var initialMap=function(){
                   // console.log(markers);
 
                   return marker
+
               }
           });
           //ajout dans la map et pris en compte par les clusters
