@@ -14,6 +14,7 @@ nav,ul{
   padding: 10px;
   padding-bottom: 0;
   text-align: center;
+  background-color: #5a5c7c;
 }
 li{
   list-style-type: none;
@@ -22,10 +23,13 @@ input{
   padding: .5em;
   border:1px solid #E8E8E8;
   background-color: inherit;
+  color:white;
 }
 label{
   font-size: 15px;
   font-weight: bold;
+  color:#bebfd3;
+  margin-left: 10px;
 }
 select,option{
   background-color: rgba(240,240,240,0.5);
@@ -33,7 +37,7 @@ select,option{
   padding: 10px;
 }
 button:active{
-  background-color: red;
+  background-color: white;
 }
 .nav-item {
   display: inline-block;
@@ -123,4 +127,15 @@ background-color: rgba(253, 156, 115, 0.6);
 }
 .marker-cluster-large div {
 background-color: rgba(241, 128, 23, 0.6);
+}
+
+#validate-filter{
+  margin-left: 25px;
+}
+.btn{
+  border-radius: 10px;
+}
+#rayonkm{
+  margin-left: 25px;
+  margin-right: 5px;
 }
