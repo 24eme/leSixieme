@@ -311,43 +311,44 @@ document.getElementById("km").addEventListener('change',function(event) {
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
       // alert('hello1');
+      // console.log(marker);
 
     }
   })
 };
 
-function list_km(km){
-  if (km==1){
-    tab1km=tab1km.splice();
-    kmTabs();
-    return tab1km;
-  }
-  if (km==2){
-    tab2km=tab2km.splice();
-    kmTabs();
-    return tab2km;
-  }
-  if (km==3){
-    tab3km=tab3km.splice();
-    kmTabs();
-    return tab3km;
-  }
-  if (km==4){
-    tab4km=tab4km.splice();
-    kmTabs();
-    return tab4km;
-  }
-  if (km==5){
-    tab5km=tab5km.splice();
-    kmTabs();
-    return tab5km;
-  }
-  if (km==6){
-    tab6km=tab6km.splice();
-    kmTabs();
-    return tab6km;
-  }
-}
+// function list_km(km){
+//   if (km==1){
+//     tab1km=tab1km.splice();
+//     kmTabs();
+//     return tab1km;
+//   }
+//   if (km==2){
+//     tab2km=tab2km.splice();
+//     kmTabs();
+//     return tab2km;
+//   }
+//   if (km==3){
+//     tab3km=tab3km.splice();
+//     kmTabs();
+//     return tab3km;
+//   }
+//   if (km==4){
+//     tab4km=tab4km.splice();
+//     kmTabs();
+//     return tab4km;
+//   }
+//   if (km==5){
+//     tab5km=tab5km.splice();
+//     kmTabs();
+//     return tab5km;
+//   }
+//   if (km==6){
+//     tab6km=tab6km.splice();
+//     kmTabs();
+//     return tab6km;
+//   }
+// }
 
 
 var initialMap=function(){
@@ -611,8 +612,38 @@ var updateMap =function(){
       });
 }
 
+function getAllMarkers() {
+
+    var allMarkersObjArray = []; // for marker objects
+    var allMarkersGeoJsonArray = []; // for readable geoJson markers
+    $.each(map._layers, function (ml) {
+        if (map._layers[ml].feature) {
+            allMarkersObjArray.push(this)
+            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+        }
+    })
+
+    // console.log(allMarkersObjArray);
+}
+
+// any html element such as button, div to call the function()
+// $(".get-markers").on("click", getAllMarkers);
+
+
 function filter(){
 updateMap();
+// getAllMarkers();
+// var drawnItems = new L.FeatureGroup();
+// drawnItems.eachLayer();
+// map.addLayer(drawnItems);
+// var json = drawnItems.toGeoJSON();
+// console.log(json);
+// layers=[];
+// map.eachLayer(function (layer) {
+//   if( layer instanceof L.TileLayer )
+//         console.log(layer);
+//       });
+// console.log(layers);
 }
 
 
