@@ -1,5 +1,14 @@
 var events = $.getJSON('js/eventsGeoJson.json');
 
+//fonction pour convertir une date :  01/02/2020 --> 01 Février 2020
+function convertExpliciteDate(date){
+	var tabMonth={"01":Janvier,"02":Février,"03":Mars,"04":Avril,"05":Mai,"06":Juin,"07":Juillet,"08":Aout,
+	"09":Septembre,"10":Octobre,"11":Novembre,"12":Décembre};
+	var month=tabMonth[date.substr(3,2)];
+	return date.substr(0,2)+' '+month+' '+date.substr(6,4);
+}
+
+
 var initList= function (){
 	events.then(function(data){
 		list=[];
