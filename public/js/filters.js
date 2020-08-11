@@ -430,7 +430,7 @@ var initialMap=function(){
           // markersLayer.clearLayers();;
           clusters.clearLayers();
           clusters.addLayer(initialisation);
-          // getAllMarkers();
+          getAllMarkers();
 
           // alert('heelo');
           // map.removeLayer(initialisation);
@@ -653,8 +653,9 @@ updateMap();
 // getAllMarkers();
 
 }
-
-
+document.getElementById('map').addEventListener('click',function(event){
+  getAllMarkers();
+});
 // markersLayer.addTo(map);
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
   // closeFilters();
