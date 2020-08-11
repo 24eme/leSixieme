@@ -16,7 +16,7 @@ nav,ul{
   padding-bottom: 0;
   text-align: center;
   background-color: #5a5c7c;
-  display: inline-block;
+  /* display: inline-block; */        /* <--Sidi */
 }
 li{
   list-style-type: none;
