@@ -430,6 +430,8 @@ var initialMap=function(){
           // markersLayer.clearLayers();;
           clusters.clearLayers();
           clusters.addLayer(initialisation);
+          getAllMarkers();
+
           // alert('heelo');
           // map.removeLayer(initialisation);
       });
@@ -609,42 +611,27 @@ var updateMap =function(){
           // map.removeControl(rControl);
           clusters.clearLayers();
           clusters.addLayer(misAJour);
+          getAllMarkers();
           // map.addLayer(misAJour);
       });
 }
 
-function getAllMarkers() {
-
-    var allMarkersObjArray = []; // for marker objects
-    var allMarkersGeoJsonArray = []; // for readable geoJson markers
+function getAllMarkers() {      //Ne récupére que les ids des  évenements or clusters.
+    var allMarkersObjArray = [];
+    var allMarkersGeoJsonArray = [];
     $.each(map._layers, function (ml) {
         if (map._layers[ml].feature) {
             allMarkersObjArray.push(this)
-            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON().properties.id))
         }
     })
-
-    // console.log(allMarkersObjArray);
+    console.log(allMarkersGeoJsonArray);
 }
-
-// any html element such as button, div to call the function()
-// $(".get-markers").on("click", getAllMarkers);
-
 
 function filter(){
 updateMap();
 // getAllMarkers();
-// var drawnItems = new L.FeatureGroup();
-// drawnItems.eachLayer();
-// map.addLayer(drawnItems);
-// var json = drawnItems.toGeoJSON();
-// console.log(json);
-// layers=[];
-// map.eachLayer(function (layer) {
-//   if( layer instanceof L.TileLayer )
-//         console.log(layer);
-//       });
-// console.log(layers);
+
 }
 
 
