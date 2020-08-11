@@ -21,18 +21,18 @@
     </style>
 </head>
 
-
 <body>
     <!--  where the map will live  -->
     <div id="map"></div>
     <script>
         // create targomo client
-        const client = new tgm.TargomoClient('northamerica', '__targomo_key_here__');
+        const client = new tgm.TargomoClient('northamerica', 'TKT7GDUDYYFW3BOCGQ8G336934266');
 
         // Create a Leaflet map with basemap, set the center of the map to Portland, Oregon.
-        const tilesUrl = 'https://api.maptiler.com/maps/positron/{z}/{x}/{y}@2x.png?key=__your_maptiler_api_key__';
-        const tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
+        const tilesUrl = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+        const tileLayer = L.tileLayer(tilesUrl, {
+            tileSize: 512, zoomOffset: -1,
+            minZoom: 1, crossOrigin: true
         });
         var map = L.map('map', {
             layers: [tileLayer],
@@ -46,11 +46,10 @@
         // Define source and target locations which are passed into the Targomo route service.
         let targets = [
             { id: 1, lat: 45.514286, lng: -122.641754 },
-            { id: 2, lat: 45.478429, lng: -122.617893 }
+            { id: 2, lat: 45.514284, lng: -122.641754 }
         ];
-        let source = { id: 0, lat: 45.497804, lng: -122.676429 };
+        let source = { id: 0, lat: 45.514286, lng: -122.641754 };
 
-        // create a target marker icon to be able to distinguish source and target markers
 
 
         // create a draggable source and two draggable target markers, add them to the map
