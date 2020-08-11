@@ -430,7 +430,7 @@ var initialMap=function(){
           // markersLayer.clearLayers();;
           clusters.clearLayers();
           clusters.addLayer(initialisation);
-          getAllMarkers();
+          // getAllMarkers();
 
           // alert('heelo');
           // map.removeLayer(initialisation);
@@ -475,7 +475,8 @@ var updateMap =function(){
           category=document.getElementById('category').value;
           // prix=document.getElementById('prix').value;
           arrondissement=document.getElementById('arrondissement').value;
-
+          price=document.getElementById('price').value;
+          // alert(price);
           function convertDate(date){ //2020-03-01
            var year= date.substr(0, 4);
            var month=date.substr(5,2);
@@ -490,14 +491,33 @@ var updateMap =function(){
             return hour;
           }
 
+          function pr(price){
+            if (price=='Gratuit'){
+              return 'Gratuit';
+            }
+            if (price=='Moins de 10€'){
+              return 10;
+            }
+            if (price=='Moins de 50€'){
+              return 50;
+            }
+            if (price=='Moins de 100€'){
+              return 100;
+            }
+          }
           var misAJour= L.geoJson(data, {
               filter: function(feature, layer) {
 
                 if(feature.properties.hour != null){
-                  if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous'){
+                  if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous' && price=='Tous'){
                     // alert('tout est vide');
                     return initialMap();
                   }
+
+                  if (price !='Tous'){
+                    return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
+                  }
+
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){
                     // alert('rien' est vide');
                     // alert(arrondissement);
@@ -643,6 +663,7 @@ document.getElementById("reinitialiser").addEventListener('click',function(event
   document.getElementById('heureDeb').value=' : ';
   document.getElementById('category').value='Tous';
   document.getElementById('arrondissement').value='Tous';
+  document.getElementById('price').value='Tous';
 });
 $(document).ready(function(){
 initialMap();
