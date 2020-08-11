@@ -1,9 +1,13 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto">
+  <!--Sidi debut-->
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto">
   <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
        <span class="navbar-toggler-icon"></span>
    </button>
-    <div class="collapse navbar-collapse" id="navbarMenu">
+    <div class="collapse navbar-collapse" id="navbarMenu"> -->
+    <!-- <div id="navbarMenu"> -->
+    <!--Sidi fin-->
+<nav>
   <ul>
     <li>
             <label>Date Debut:</label> <input type="date" id="dateDeb"value="date de début">
