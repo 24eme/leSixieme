@@ -1,7 +1,7 @@
 var clusters = L.markerClusterGroup();
 var markers = [];
-var nearest = 600000;
-var nearestP = null;
+// var nearest = 600000;
+// var nearestP = null;
 var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
@@ -16,7 +16,7 @@ var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x
 // });
 
 var mylocation = L.icon({
-    iconUrl: 'img/markers/location.png',
+    iconUrl: 'img/markers/round.png',
     iconSize: [30, 30],
 });
 
@@ -64,12 +64,13 @@ function onLocationFound(e) {
     L.marker(e.latlng,{icon:mylocation,zIndexOffset:1000}).addTo(map);
     drawData(e.latlng);
     myCoordonnees=e.latlng;
+    map.setView(e.latlng, 15);
 }
-map.on('locationfound', onLocationFound);
+map.on('locationfound', onLocationFound,);
 
 
 function onLocationError(e) {
-   map.setView([48.853, 2.333], 13);
+   map.setView([48.853, 2.333], 12);
 }
 map.on('locationerror', onLocationError);
 
@@ -84,22 +85,22 @@ function drawData(userLocation) {
           }
           var latlongs = [loc, userLocation];
 
-          if(loc.distanceTo(userLocation) < nearest){
-            nearest = loc.distanceTo(userLocation);
-            nearestP = loc;
-          }
+          // if(loc.distanceTo(userLocation) < nearest){
+          //   nearest = loc.distanceTo(userLocation);
+          //   nearestP = loc;
+          // }
     }
-    if (nearestP != null){
+    // if (nearestP != null){
        rControl = L.Routing.control({
          createMarker: function() { return null; },
          language:'fr',
         waypoints: [
-          L.latLng(nearestP.lat, nearestP.lng),
+          // L.latLng(nearestP.lat, nearestP.lng),
           L.latLng(userLocation.lat, userLocation.lng)
         ]
       }).addTo(map);
-      var marker = L.marker(nearestP).addTo(map);
-    }
+      // var marker = L.marker(nearestP).addTo(map);
+    // }
 };
 
 tab1km = [];
@@ -170,6 +171,7 @@ function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationl
         L.latLng(userLocationlat, userLocationlng)
      ]
    }).addTo(map);
+   map.setView([userLocationlat,userLocationlng], 8);
 };
 
 
@@ -308,43 +310,44 @@ document.getElementById("km").addEventListener('change',function(event) {
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
       // alert('hello1');
+      // console.log(marker);
 
     }
   })
 };
 
-function list_km(km){
-  if (km==1){
-    tab1km=tab1km.splice();
-    kmTabs();
-    return tab1km;
-  }
-  if (km==2){
-    tab2km=tab2km.splice();
-    kmTabs();
-    return tab2km;
-  }
-  if (km==3){
-    tab3km=tab3km.splice();
-    kmTabs();
-    return tab3km;
-  }
-  if (km==4){
-    tab4km=tab4km.splice();
-    kmTabs();
-    return tab4km;
-  }
-  if (km==5){
-    tab5km=tab5km.splice();
-    kmTabs();
-    return tab5km;
-  }
-  if (km==6){
-    tab6km=tab6km.splice();
-    kmTabs();
-    return tab6km;
-  }
-}
+// function list_km(km){
+//   if (km==1){
+//     tab1km=tab1km.splice();
+//     kmTabs();
+//     return tab1km;
+//   }
+//   if (km==2){
+//     tab2km=tab2km.splice();
+//     kmTabs();
+//     return tab2km;
+//   }
+//   if (km==3){
+//     tab3km=tab3km.splice();
+//     kmTabs();
+//     return tab3km;
+//   }
+//   if (km==4){
+//     tab4km=tab4km.splice();
+//     kmTabs();
+//     return tab4km;
+//   }
+//   if (km==5){
+//     tab5km=tab5km.splice();
+//     kmTabs();
+//     return tab5km;
+//   }
+//   if (km==6){
+//     tab6km=tab6km.splice();
+//     kmTabs();
+//     return tab6km;
+//   }
+// }
 
 
 var initialMap=function(){
@@ -352,9 +355,10 @@ var initialMap=function(){
           var events = L.geoJson(data);
           map.addLayer(clusters);
           markersLayer.clearLayers();
-          map.fitBounds(events.getBounds(), {
-              padding: [50, 50]
-          });
+          // map.fitBounds(events.getBounds(), {
+          //     padding: [50, 50]
+          // });
+          map.setView([48.853, 2.333],12);
           var culturelIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
           markerColor: 'blue',
@@ -418,6 +422,7 @@ var initialMap=function(){
                   // console.log(markers);
 
                   return marker
+
               }
           });
           //ajout dans la map et pris en compte par les clusters
@@ -426,6 +431,8 @@ var initialMap=function(){
           // markersLayer.clearLayers();;
           clusters.clearLayers();
           clusters.addLayer(initialisation);
+          getAllMarkers();
+
           // alert('heelo');
           // map.removeLayer(initialisation);
       });
@@ -469,7 +476,8 @@ var updateMap =function(){
           category=document.getElementById('category').value;
           // prix=document.getElementById('prix').value;
           arrondissement=document.getElementById('arrondissement').value;
-
+          price=document.getElementById('price').value;
+          // alert(price);
           function convertDate(date){ //2020-03-01
            var year= date.substr(0, 4);
            var month=date.substr(5,2);
@@ -484,14 +492,33 @@ var updateMap =function(){
             return hour;
           }
 
+          function pr(price){
+            if (price=='Gratuit'){
+              return 'Gratuit';
+            }
+            if (price=='Moins de 10€'){
+              return 10;
+            }
+            if (price=='Moins de 50€'){
+              return 50;
+            }
+            if (price=='Moins de 100€'){
+              return 100;
+            }
+          }
           var misAJour= L.geoJson(data, {
               filter: function(feature, layer) {
 
                 if(feature.properties.hour != null){
-                  if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous'){
+                  if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous' && price=='Tous'){
                     // alert('tout est vide');
                     return initialMap();
                   }
+
+                  if (price !='Tous'){
+                    return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
+                  }
+
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){
                     // alert('rien' est vide');
                     // alert(arrondissement);
@@ -606,37 +633,40 @@ var updateMap =function(){
           // map.removeControl(rControl);
           clusters.clearLayers();
           clusters.addLayer(misAJour);
+          getAllMarkers();
           // map.addLayer(misAJour);
       });
 }
 
+function getAllMarkers() {      //Ne récupére que les ids des  évenements or clusters.
+    var allMarkersObjArray = [];
+    var allMarkersGeoJsonArray = [];
+    $.each(map._layers, function (ml) {
+        if (map._layers[ml].feature) {
+            allMarkersObjArray.push(this)
+            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON().properties.id))
+        }
+    })
+    console.log(allMarkersGeoJsonArray);
+}
+
 function filter(){
-  // alert('hello');
 updateMap();
+// getAllMarkers();
+
 }
-
-
-function openFilters(){
-  var filters=document.getElementById('open-filters');
-  if(filters.style.display=='none'){
-    filters.style.display='block';
-  }
-  else{
-      filters.style.display='none';
-  }
-}
-
-function closeFilters(){
-  var filters=document.getElementById('open-filters');
-    if(filters.style.display=='block'){
-      filters.style.display='none';
-  }
-}
-
+document.getElementById('map').addEventListener('click',function(event){
+  getAllMarkers();
+});
 // markersLayer.addTo(map);
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
-  closeFilters();
+  // closeFilters();
   initialMap();
+  document.getElementById('dateDeb').value='jj/mm/aaaa';
+  document.getElementById('heureDeb').value=' : ';
+  document.getElementById('category').value='Tous';
+  document.getElementById('arrondissement').value='Tous';
+  document.getElementById('price').value='Tous';
 });
 $(document).ready(function(){
 initialMap();

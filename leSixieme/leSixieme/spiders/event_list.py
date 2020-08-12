@@ -446,6 +446,9 @@ class SpiderSpider(scrapy.Spider):
                 app_json = json.dumps(data)
                 f.write(app_json+"\n")
 
+        with open('description.txt','a+') as f:
+            for data in list_data:
+                f.write(data['description']+'\n'+'$')
         #on construit un geojson grâce au json créé juste au-dessus
 
         data = [json.loads(line) for line in open('events.json', 'r')]
