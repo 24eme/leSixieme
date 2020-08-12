@@ -8,9 +8,9 @@
     <div id="btn-transit" onclick="setData('transit')" class="btn-routing button"><i class="fas fa-train"></i></div>
 </div>
 <div class="legend">
-    <div class="container" id="five-label"><label for="">5 min</label></div>
+    <div class="container" id="five-label"><label for="">30 min</label></div>
     <div class="container" id="fifteen-label"><label for="">15 min</label></div>
-    <div class="container" id="thirty-label"><label for="">30 min</label></div>
+    <div class="container" id="thirty-label"><label for="">5 min</label></div>
 </div>
 <!-- <button type="button" id="others" class="btn btn-secondary btn_searchZone">Recherche dans cette zone</button> -->
 <div id="map"></div>

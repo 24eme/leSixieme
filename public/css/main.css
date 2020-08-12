@@ -331,6 +331,12 @@ background-color: rgba(167, 210, 250, 0.6);
   div#map{
     display: none;
   }
+  .legend{
+    display: none;
+  }
+  .button-group .btn-routing{
+    display: none !important;
+  }
 
 
 
