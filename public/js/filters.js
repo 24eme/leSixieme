@@ -9,10 +9,11 @@ var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
 });
 var map = L.map('map', {
-    center: [48.853, 2.333],
+    center: [48.8738,2.295],
     zoom: 9,
     layers: mapboxTiles
 });
+map.locate({setView: true, maxZoom: 40});
 
 var mylocation = L.icon({
     iconUrl: 'img/markers/round.png',
@@ -87,7 +88,6 @@ L.marker([48.8626481,2.3356961],{icon:louvre}).addTo(map);
 L.marker([48.8868058,2.3430153],{icon:montmartre}).addTo(map);
 L.marker([48.8529371,2.3500501],{icon:cathedrale}).addTo(map);
 
-map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
     var radius = e.accuracy;
@@ -189,10 +189,10 @@ function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationl
       language:'fr',
       waypoints: [
         L.latLng(destinationlat, destinationlng),
-        L.latLng(userLocationlat, userLocationlng)
+        L.latLng(userLocation.lat, userLocation.lng)
      ]
    }).addTo(map);
-   map.setView([userLocationlat,userLocationlng], 8);
+   map.setView([userLocation.lat,userLocation.lng], 8);
 };
 
 
@@ -329,9 +329,6 @@ document.getElementById("km").addEventListener('change',function(event) {
     if (marker._id == id){
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
-      drawItinary(userLocation.lat,userLocation.lng,marker._latlng.lat,marker._latlng.lng)
-
-
     }
   })
 };
@@ -745,7 +742,6 @@ function getAllMarkers() {      //Ne récupére que les ids des  évenements or 
             allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON().properties.id))
         }
     })
-    console.log(allMarkersGeoJsonArray);
 }
 
 function filter(){

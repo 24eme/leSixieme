@@ -245,14 +245,16 @@ button:active{
 transition: height .1s ease-in;
 display: none;
 }
-.event-plus-wrapper > a {
+.event-plus-wrapper > a,button{
   visibility: hidden;
+  display: none !important;
 }
 .event-wrapper:hover .event-plus-wrapper{
   height: 100px !important;
   color:black;
 }
-.event-wrapper:hover .event-plus-wrapper > a{
+.event-wrapper:hover .event-plus-wrapper > a,button{
+  display: block !important;
   visibility: visible;
 }
 
