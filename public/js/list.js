@@ -85,10 +85,14 @@ var initList = function (){
 		$ul = $('#nav_events');
 		for (var i in data['features']){
 	        list.push(data['features'][i]['properties']);
+					// console.log(list[i]['id']);
 	    }
 			for (var i in list){
 						$ul.append(
-						 '<li class="event-item"><div class="event-wrapper">'
+						"<li id="
+						+list[i]['id']
+						+'"'
+						+'class="event-item"><div class="event-wrapper">'
 						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
 						+ '<div class="event-img-wrapper"><img src="'
 						+ list[i]['image'] +'"alt="event_img"></div>'
@@ -245,7 +249,10 @@ var updateList = function(){
 
 		for (var i in list){
 	      	$ul.append(
-						'<li class="event-item"><div class="event-wrapper">'
+						"<li id="
+						+list[i]['id']
+						+'"'
+						+'class="event-item"><div class="event-wrapper">'
 					 + '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
 					 + '<div class="event-img-wrapper"><img src="'
 					 + list[i]['image'] +'"alt="event_img"></div>'
