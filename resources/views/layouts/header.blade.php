@@ -29,6 +29,15 @@
             <option value="Culturel">Culturel</option>
 
       </select>
+
+      <label>Prix Maximum</label>
+      <select name="price" id="price" placeholder='Tous'>
+            <option value="Tous">Tous</option>
+            <option value="Gratuit">Gratuit</option>
+            <option value="Moins de 10€"> Moins de 10€</option>
+            <option value="Moins de 50€">Moins de 50€</option>
+            <option value="Moins de 100€">Moins de 100€</option>
+      </select>
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
     <form class="form-inline my-2 my-lg-0 col-xs-12">
@@ -59,10 +68,10 @@
        </select>
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-4">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-         <button id='validate-filter' class='btn bg-success' type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
-         <button id='reinitialiser'class='btn bg-primary' type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
+         <button id='validate-filter' class='btn'  type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
+         <button id='reinitialiser'class='btn'  type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
 
