@@ -469,17 +469,17 @@ var updateMap =function(){
           });
           var culturelIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'red',
+          markerColor: 'blue',
           icon: 'comments'
           });
           var festivalIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'black',
+          markerColor: 'blue',
           icon: 'glass'
           });
           var loisirsIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'green',
+          markerColor: 'blue',
           icon: 'coffee'
           });
           var othersIcon = L.AwesomeMarkers.icon({
@@ -510,9 +510,9 @@ var updateMap =function(){
           }
 
           function pr(price){
-            if (price=='Gratuit'){
-              return 'Gratuit';
-            }
+            // if (price=='Gratuit'){
+            //   return 'ratui';
+            // }
             if (price=='Moins de 10€'){
               return 10;
             }
@@ -523,57 +523,137 @@ var updateMap =function(){
               return 100;
             }
           }
+
           var misAJour= L.geoJson(data, {
               filter: function(feature, layer) {
 
                 if(feature.properties.hour != null){
+
+                  //Tout les element sont manquants
                   if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous' && price=='Tous'){
                     // alert('tout est vide');
                     return initialMap();
                   }
 
-                  if (price !='Tous' &&  price!='Gratuit'){
-                    return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
-                  }
+                  // if (price !='Tous'){
+                  //   return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
+                  // }
 
-                  if(price =='Gratuit'){
-                    return feature.properties.price=='Gratuit';
-                  }
+                  //Un élément est manquant
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){
-                    // alert('rien' est vide');
-                    // alert(arrondissement);
-                    // alert(feature.properties.cp.substr(3,2));
                     return (feature.properties.date== convertDate(dateDeb) &&
                     feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                     feature.properties.category == category &&
                     feature.properties.cp.substr(3,2) == arrondissement);
+                  } //sans prix
+
+
+                  if (dateDeb!='' && heureDeb!='' && category!='Tous' && price!='Tous'){
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.category == category &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }//sans arr
+
+
+                  if (dateDeb!='' && heureDeb!='' && arrondissement!='Tous' && price!='Tous'){
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.cp.substr(3,2) == arrondissementy &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
                   }
+
+
+                  if (category!='Tous' && heureDeb!='' && arrondissement!='Tous' && price!='Tous'){
+                    return (feature.properties.category == category &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.cp.substr(3,2) == arrondissementy &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  } //sans date
+
+
+                  if (category!='Tous' && dateDeb!='' && arrondissement!='Tous' && price!='Tous'){
+                    return (feature.properties.category == category &&
+                    feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.cp.substr(3,2) == arrondissementy &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  } //sans heure
+
+
+                  //deux éléments sont maquants:
 
                   if (dateDeb != '' && heureDeb !='' && category!='Tous'){
                   // alert('arrondissement est vide');
                   return (feature.properties.date== convertDate(dateDeb) &&
                   feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                   feature.properties.category == category);
-                  }
+                }//prix et arr
                   if(dateDeb != '' && heureDeb !='' && arrondissement!='Tous'){
                     // alert('category est vide');
                     return (feature.properties.date== convertDate(dateDeb) &&
                     feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                     feature.properties.cp.substr(3,2) == arrondissement);
-                  }
+                  }//prix et cat
+
+                  if(dateDeb != '' && heureDeb !='' && price!='Tous'){
+                    // alert('category est vide');
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }//prix et cat
+
                   if (dateDeb != '' && arrondissement !='Tous' && category!='Tous'){
+                  return (feature.properties.date== convertDate(dateDeb) &&
+                  feature.properties.cp.substr(3,2)==arrondissement &&
+                  feature.properties.category == category);
+                }//
+
+                    if (dateDeb != '' && category !='Tous' && price!='Tous'){
+
+                    // alert('heure est vide');
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.category == category &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }//
+
+                  if (dateDeb != '' && arrondissement !='Tous' && price!='Tous'){
 
                   // alert('heure est vide');
                   return (feature.properties.date== convertDate(dateDeb) &&
                   feature.properties.cp.substr(3,2)==arrondissement &&
-                  feature.properties.category == category);
-                  }
+                  (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                }//
+
+
+
                   if (heureDeb != '' && arrondissement !='Tous' && category!='Tous'){
                     // alert('date est vide');
                   return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                   feature.properties.cp.substr(3,2)==arrondissement &&
                   feature.properties.category == category);
                   }
+                  if (heureDeb != '' && price !='Tous' && category!='Tous'){
+                    // alert('date est vide');
+                  return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                  feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit' &&
+                  feature.properties.category == category);
+                  }
+                  if (heureDeb != '' && arrondissement !='Tous' && price !='Tous'){
+                    // alert('date est vide');
+                  return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                  feature.properties.cp.substr(3,2)==arrondissement &&
+                  (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }
+
+                  if (category != '' && arrondissement !='Tous' && price !='Tous'){
+                    // alert('date est vide');
+                  return (feature.properties.category == category &&
+                  feature.properties.cp.substr(3,2)==arrondissement &&
+                  (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }
+
+                  //troix manquants
+
                   if (dateDeb !='' && heureDeb != ''){
                     // alert('arrondissement et category sont vide');
                     return (feature.properties.date== convertDate(dateDeb) &&
@@ -589,6 +669,12 @@ var updateMap =function(){
                     return (feature.properties.date== convertDate(dateDeb) &&
                     feature.properties.cp.substr(3,2)== arrondissement);
                   }
+                  if (dateDeb !='' && price != 'Tous'){
+                    // alert('heure et category sont vide');
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }
+
                   if (heureDeb !='' && category != 'Tous'){
                     // alert('arrondissement et date sont vide');
                     return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
@@ -599,11 +685,27 @@ var updateMap =function(){
                     return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                     feature.properties.cp.substr(3,2) == arrondissement);
                   }
+                  if (heureDeb !='' && price != 'Tous'){
+                    // alert('arrondissement et category sont vide');
+                    return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }
                   if (category !='Tous' && arrondissement != 'Tous'){
                     // alert('heure et date sont vide');
                     return (feature.properties.category==category &&
                     feature.properties.cp.substr(3,2) == arrondissement);
                   }
+                  if (category !='Tous' && price != 'Tous'){
+                    // alert('heure et date sont vide');
+                    return (feature.properties.category==category &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }
+                  if (arrondissement !='Tous' && price != 'Tous'){
+                    // alert('heure et date sont vide');
+                    return (feature.properties.cp.substr(3,2) == arrondissement &&
+                    (feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'));
+                  }
+
                   if(dateDeb!=''){
                     return feature.properties.date== convertDate(dateDeb);
                   }
@@ -617,6 +719,9 @@ var updateMap =function(){
                   }
                   if(category!='Tous'){
                     return feature.properties.category== category;
+                  }
+                  if(price!='Tous'){
+                    return feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit';
                   }
 
                 }
@@ -638,9 +743,11 @@ var updateMap =function(){
                 var marker = L.marker(latlng, {
                       icon: icon,
                       zIndexOffset:1000
-                }).on('click', function() {
-                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
-                  });
+                })
+                // .on('click', function() {
+                //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
+                //   })
+                  ;
                   map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
