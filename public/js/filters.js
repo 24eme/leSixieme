@@ -329,8 +329,6 @@ document.getElementById("km").addEventListener('change',function(event) {
     if (marker._id == id){
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
-
-
     }
   })
 };
