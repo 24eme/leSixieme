@@ -513,9 +513,9 @@ var updateMap =function(){
           }
 
           function pr(price){
-            if (price=='Gratuit'){
-              return 'Gratuit';
-            }
+            // if (price=='Gratuit'){
+            //   return 'ratui';
+            // }
             if (price=='Moins de 10€'){
               return 10;
             }
@@ -526,57 +526,132 @@ var updateMap =function(){
               return 100;
             }
           }
+
           var misAJour= L.geoJson(data, {
               filter: function(feature, layer) {
 
                 if(feature.properties.hour != null){
+
+                  //Tout les element sont manquants
                   if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous' && price=='Tous'){
                     // alert('tout est vide');
                     return initialMap();
                   }
 
-                  if (price !='Tous' &&  price!='Gratuit'){
-                    return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
-                  }
+                  // if (price !='Tous'){
+                  //   return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
+                  // }
 
-                  if(price =='Gratuit'){
-                    return feature.properties.price=='Gratuit';
-                  }
+                  //Un élément est manquant
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){
-                    // alert('rien' est vide');
-                    // alert(arrondissement);
-                    // alert(feature.properties.cp.substr(3,2));
                     return (feature.properties.date== convertDate(dateDeb) &&
                     feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                     feature.properties.category == category &&
                     feature.properties.cp.substr(3,2) == arrondissement);
+                  } //sans prix
+
+
+                  if (dateDeb!='' && heureDeb!='' && category!='Tous' && price!='Tous'){
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.category == category &&
+                    feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
+                  }//sans arr
+
+
+                  if (dateDeb!='' && heureDeb!='' && arrondissement!='Tous' && price!='Tous'){
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.cp.substr(3,2) == arrondissementy &&
+                    feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
                   }
+
+
+                  if (category!='Tous' && heureDeb!='' && arrondissement!='Tous' && price!='Tous'){
+                    return (feature.properties.category == category &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.cp.substr(3,2) == arrondissementy &&
+                    feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
+                  } //sans date
+
+
+                  if (category!='Tous' && dateDeb!='' && arrondissement!='Tous' && price!='Tous'){
+                    return (feature.properties.category == category &&
+                    feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.cp.substr(3,2) == arrondissementy &&
+                    feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
+                  } //sans heure
+
+
+                  //deux éléments sont maquants:
 
                   if (dateDeb != '' && heureDeb !='' && category!='Tous'){
                   // alert('arrondissement est vide');
                   return (feature.properties.date== convertDate(dateDeb) &&
                   feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                   feature.properties.category == category);
-                  }
+                }//prix et arr
                   if(dateDeb != '' && heureDeb !='' && arrondissement!='Tous'){
                     // alert('category est vide');
                     return (feature.properties.date== convertDate(dateDeb) &&
                     feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                     feature.properties.cp.substr(3,2) == arrondissement);
-                  }
+                  }//prix et cat
+
+                  if(dateDeb != '' && heureDeb !='' && price!='Tous'){
+                    // alert('category est vide');
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
+                    feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
+                  }//prix et cat
+
                   if (dateDeb != '' && arrondissement !='Tous' && category!='Tous'){
+
+                  return (feature.properties.date== convertDate(dateDeb) &&
+                  feature.properties.cp.substr(3,2)==arrondissement &&
+                  feature.properties.category == category);
+                }//
+
+                    if (dateDeb != '' && category !='Tous' && price!='Tous'){
+
+                    // alert('heure est vide');
+                    return (feature.properties.date== convertDate(dateDeb) &&
+                    feature.properties.category == category &&
+                    feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
+                  }//
+
+                  if (dateDeb != '' && arrondissement !='Tous' && price!='Tous'){
 
                   // alert('heure est vide');
                   return (feature.properties.date== convertDate(dateDeb) &&
                   feature.properties.cp.substr(3,2)==arrondissement &&
-                  feature.properties.category == category);
-                  }
+                  feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit');
+                }//
+
+
+
                   if (heureDeb != '' && arrondissement !='Tous' && category!='Tous'){
                     // alert('date est vide');
                   return (feature.properties.hour.substr(0,5)==convertHour(heureDeb) &&
                   feature.properties.cp.substr(3,2)==arrondissement &&
                   feature.properties.category == category);
                   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   if (dateDeb !='' && heureDeb != ''){
                     // alert('arrondissement et category sont vide');
                     return (feature.properties.date== convertDate(dateDeb) &&
