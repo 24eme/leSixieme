@@ -30,7 +30,7 @@ function ConvertIntoDay(date) {
 	return tab[0]
 }
 function ConvertIntoMonth(date){
-	const tab2 = date.split('/'); 
+	const tab2 = date.split('/');
 	switch (tab2[1]) {
 		case '01':
 		  return 'Jan'
@@ -111,6 +111,7 @@ var initList = function (){
 						+ '<div class="event-plus-wrapper">'
 						+ '<span class="event-address">' + list[i]['address'] + '</span>'
 						+ '<a href="' + list[i]['url'] + '">Plus de détails</a>'
+						+ '<button type="button" onclick="drawItinary(' + userLocation.lat + '","' + userLocation.lng + '","' + latlng.lat + '","' + latlng.lng + '")">Itineraire</button>'
 						+ '</div>'
 						+'</div></li>'
 						);

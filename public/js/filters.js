@@ -51,7 +51,7 @@ const travelTimes = [300, 900, 1800];
 const sources = [{ id: 0, lat: center[0], lng: center[1] }];
 
 sources.forEach(source => {
-    L.marker([source.lat, source.lng]).addTo(map)
+    //L.marker([source.lat, source.lng]).addTo(map)
 });
 
 const polygonOverlayLayer = new tgm.leaflet.TgmLeafletPolygonOverlay({ strokeWidth: 20 });
