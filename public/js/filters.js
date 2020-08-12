@@ -306,6 +306,17 @@ document.getElementById("km").addEventListener('change',function(event) {
             var marker = L.marker(latlng, {
                   icon: icon,
                   zIndexOffset:1000
+            }).on('click', function() {
+              document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
+            }).on('click', function() {
+              document.getElementById(this.feature.properties.id).scrollIntoView({
+                    block: 'center',
+                    behavior: 'smooth',
+                    inline: 'nearest'
+                  });;
+                                  //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
+
+            document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
             });
             // .on('click', function() {
             //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
@@ -427,6 +438,15 @@ var initialMap=function(){
                 var marker = L.marker(latlng, {
                       icon: icon,
                       zIndexOffset:1000
+                }).on('click', function() {
+                  document.getElementById(this.feature.properties.id).scrollIntoView({
+                    		block: 'center',
+                    		behavior: 'smooth',
+                    		inline: 'nearest'
+                    	});;
+                                      //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
+
+                document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
                 });
                 // on('click', function() {
                 //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
@@ -743,11 +763,20 @@ var updateMap =function(){
                 var marker = L.marker(latlng, {
                       icon: icon,
                       zIndexOffset:1000
-                })
-                // .on('click', function() {
+                })..on('click', function() {
+                  document.getElementById(this.feature.properties.id).scrollIntoView({
+                    		block: 'center',
+                    		behavior: 'smooth',
+                    		inline: 'nearest'
+                    	});;
+                                      //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
+
+                document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
+                });
+
                 //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
-                //   })
-                  ;
+                //   });
+
                   map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
