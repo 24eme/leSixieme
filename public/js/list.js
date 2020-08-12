@@ -22,6 +22,62 @@ var events = $.getJSON('js/eventsGeoJson.json');
 //
 // 	})
 // }
+
+var day,month  = 0
+function ConvertIntoDay(date) {
+	const tab = date.split('/')
+
+	return tab[0]
+}
+function ConvertIntoMonth(date){
+	const tab2 = date.split('/');
+	console.log(tab2[1])
+	switch (tab2[1]) {
+		case '01':
+		  return 'Jan'
+			break;
+		case '02':
+		  return 'Fév'
+			break;
+		case '03':
+			return 'Mars'
+			break;
+		case '04':
+			return 'Avril'
+			break;
+		case '05':
+			return 'Mai'
+			break;
+		case '06':
+			return 'Juin'
+			break;
+		case '07':
+			return 'Juil'
+			break;
+		case '08':
+			return 'Août'
+			break;
+		case '09':
+			return 'Sept'
+			break;
+		case '10':
+			return 'Oct'
+			break;
+		case '11':
+		 	return 'Nov'
+			break;
+		case '12':
+			return 'Déc'
+			break;
+		case undefined:
+			return 'Mul'
+			break;
+		default:
+			return 'Mul'
+			break;
+	}
+
+}
 var initList = function (){
 	events.then(function(data){
 		list=[];
@@ -32,7 +88,7 @@ var initList = function (){
 			for (var i in list){
 						$ul.append(
 						 '<li class="event-item"><div class="event-wrapper">'
-						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ new Date(list[i]['date']).getYear()+'</p><p>JUIN</p></span></div>'
+						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
 						+ '<div class="event-img-wrapper"><img src="'
 						+ list[i]['image'] +'"alt="event_img"></div>'
 
