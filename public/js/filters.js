@@ -307,8 +307,6 @@ document.getElementById("km").addEventListener('change',function(event) {
                   icon: icon,
                   zIndexOffset:1000
             }).on('click', function() {
-              document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
-            }).on('click', function() {
               document.getElementById(this.feature.properties.id).scrollIntoView({
                     block: 'center',
                     behavior: 'smooth',
@@ -316,7 +314,7 @@ document.getElementById("km").addEventListener('change',function(event) {
                   });;
                                   //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
 
-            document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
+            document.getElementById(this.feature.properties.id).style.backgroundColor = 'blue';
             });
             // .on('click', function() {
             //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
@@ -338,7 +336,7 @@ document.getElementById("km").addEventListener('change',function(event) {
  function openMarker(id){
   markersTab.forEach(function(marker) {
     if (marker._id == id){
-      marker.fireEvent('click');
+      // marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
     }
   })
@@ -446,7 +444,7 @@ var initialMap=function(){
                     	});;
                                       //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
 
-                document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
+                document.getElementById(this.feature.properties.id).style.backgroundColor = 'blue';
                 });
                 // on('click', function() {
                 //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
@@ -771,7 +769,7 @@ var updateMap =function(){
                     	});;
                                       //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
 
-                document.getElementById(this.feature.properties.id).style.backgroundColor = 'red';
+                document.getElementById(this.feature.properties.id).style.backgroundColor = 'blue';
                 });
 
                 //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
