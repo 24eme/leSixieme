@@ -247,14 +247,14 @@ display: none;
 }
 .event-plus-wrapper > a,button{
   visibility: hidden;
-  display: none;
+  display: none !important;
 }
 .event-wrapper:hover .event-plus-wrapper{
   height: 100px !important;
   color:black;
 }
 .event-wrapper:hover .event-plus-wrapper > a,button{
-  display: block;
+  display: block !important;
   visibility: visible;
 }
 
