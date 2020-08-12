@@ -71,11 +71,14 @@
         // Coordinates to center the map
         const center = [48.853, 2.333];
 
-        // define the map
+        var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
+        });
         var map = L.map('map', {
-            layers: [tileLayer],
-            scrollWheelZoom: false
-        }).setView(center, 12);
+            center: [48.853, 2.333],
+            zoom: 9,
+            layers: mapboxTiles
+        });
 
         // set the attribution
         const attributionText = `__targomo_attribution__`

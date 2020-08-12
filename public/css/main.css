@@ -36,7 +36,7 @@ input{
 label{
   font-size: 17px;
   font-weight: bold;
-  color:#bebfd3;
+  color: #FFF;
   margin-left: 10px;
 }
 select,option{
@@ -71,8 +71,56 @@ button:active{
   height: 100%;
   width: 70%;
 }
+.icon-alt{
+  width: 30px;
+  height: 30px;
+}
+.legend{
+  position: absolute;
+  bottom: -50px;
+  left: 23%;
+  z-index: 1000
+}
+.legend .container{
 
-
+  width: 100px;
+  display: inline-block;
+}
+#five-label{
+    color: white;
+  background-color: rgba(193, 39, 45,0.7);
+}
+#fifteen-label{
+    color: white;
+  background-color: rgba(140, 198, 63,0.7);
+}
+#thirty-label{
+    color: white;
+  background-color: rgba(0, 104, 55,0.7);
+}
+#selectionBar{
+  position: absolute;
+  width: auto;
+  right: 30%;
+  margin-top: 10px;
+  margin-right: 10px;
+  z-index: 1000;
+}
+.btn-routing i,.btn-routing img {
+  vertical-align:top;
+  font-size: 2em;
+  margin-top: 10px;
+  color:black !important;
+}
+.btn-routing {
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #E8E8E8;
+  display: inline-block;
+}
 .leaflet-routing-container{
   height: 20px;
   width: 20px;
@@ -203,6 +251,25 @@ display: none;
 }
 .event-wrapper:hover .event-plus-wrapper > a{
   visibility: visible;
+}
+
+
+
+
+.button {
+    /* font-family: sans-serif;
+    text-transform: uppercase;
+    color: #666; */
+    cursor: pointer;
+    /* padding: 10px 10px 8px 10px;
+    display: inline-block;
+    font-size: 14px; */
+}
+.button:hover {
+    background-color: #EEE;
+}
+.button.active {
+    color: #50B0B5;
 }
 /*
 .event-wrapper > div{

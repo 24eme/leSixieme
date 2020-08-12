@@ -8,12 +8,11 @@ var userLocation = [48.853, 2.333];
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
 });
-// var mapboxTiles = L.tileLayer('', {
-// 	attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>',
-// 	minZoom: 0,
-// 	maxZoom: 20,
-// 	ext: 'png'
-// });
+var map = L.map('map', {
+    center: [48.853, 2.333],
+    zoom: 9,
+    layers: mapboxTiles
+});
 
 var mylocation = L.icon({
     iconUrl: 'img/markers/round.png',
@@ -21,12 +20,6 @@ var mylocation = L.icon({
 });
 
 var myCoordonnees;
-
-var map = L.map('map', {
-    center: [48.853, 2.333],
-    zoom: 9,
-    layers: mapboxTiles
-});
 
 var eiffelTower = L.icon({
     iconUrl: 'img/eiffelTower.png',
@@ -48,6 +41,44 @@ var cathedrale = L.icon({
     iconUrl: 'img/cathedrale.png',
     iconSize: [50, 50],
 });
+
+const client = new tgm.TargomoClient('france', 'TKT7GDUDYYFW3BOCGQ8G336934266');
+const pBar = new mipb({ fg: "#FF8319", style: { zIndex: 500 } });
+const center = [48.853, 2.333];
+const attributionText = 'Routing by Targomo'
+map.attributionControl.addAttribution(attributionText);
+const travelTimes = [300, 900, 1800];
+const sources = [{ id: 0, lat: center[0], lng: center[1] }];
+
+sources.forEach(source => {
+    L.marker([source.lat, source.lng]).addTo(map)
+});
+
+const polygonOverlayLayer = new tgm.leaflet.TgmLeafletPolygonOverlay({ strokeWidth: 20 });
+polygonOverlayLayer.addTo(map);
+
+async function setData(mode) {
+    pBar.show();
+    const selector = `btn-${mode}`;
+    document.getElementsByClassName('active')[0].classList.remove('active');
+    document.getElementById(selector).classList.add('active');
+
+    const options = {
+        travelType: mode,
+        travelEdgeWeights: travelTimes,
+        maxEdgeWeight: 1800,
+        edgeWeight: 'time',
+        transitMaxTransfers: mode === 'transit' ? 5 : null,
+        serializer: 'json'
+    };
+    const polygons = await client.polygons.fetch(sources, options);
+    polygonOverlayLayer.setData(polygons);
+    pBar.hide();
+    const bounds = polygons.getMaxBounds();
+    map.fitBounds(new L.latLngBounds(bounds.northEast, bounds.southWest));
+}
+
+setData('bike');
 
 
 L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
@@ -309,6 +340,7 @@ document.getElementById("km").addEventListener('change',function(event) {
       // alert(marker);
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      drawItinary(userLocation.lat,userLocation.lng,marker._latlng.lat,marker._latlng.lng)
       // alert('hello1');
       // console.log(marker);
 
