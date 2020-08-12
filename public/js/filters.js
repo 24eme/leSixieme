@@ -535,10 +535,13 @@ var updateMap =function(){
                     return initialMap();
                   }
 
-                  if (price !='Tous'){
+                  if (price !='Tous' &&  price!='Gratuit'){
                     return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
                   }
 
+                  if(price =='Gratuit'){
+                    return feature.properties.price=='Gratuit';
+                  }
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){
                     // alert('rien' est vide');
                     // alert(arrondissement);
