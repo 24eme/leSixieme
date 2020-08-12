@@ -1,3 +1,4 @@
+
 var events = $.getJSON('js/eventsGeoJson.json');
 
 // var initList = function (){
@@ -22,6 +23,7 @@ var events = $.getJSON('js/eventsGeoJson.json');
 //
 // 	})
 // }
+
 
 var day,month  = 0
 function ConvertIntoDay(date) {
@@ -111,7 +113,7 @@ var initList = function (){
 						+ '<div class="event-plus-wrapper">'
 						+ '<span class="event-address">' + list[i]['address'] + '</span>'
 						+ '<a href="' + list[i]['url'] + '">Plus de détails</a>'
-						+ '<button type="button" onclick="drawItinary(' + userLocation.lat + '","' + userLocation.lng + '","' + latlng.lat + '","' + latlng.lng + '")">Itineraire</button>'
+						+ '<button type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itineraire</button>'
 						+ '</div>'
 						+'</div></li>'
 						);
