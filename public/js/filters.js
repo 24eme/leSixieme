@@ -469,17 +469,17 @@ var updateMap =function(){
           });
           var culturelIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'red',
+          markerColor: 'blue',
           icon: 'comments'
           });
           var festivalIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'black',
+          markerColor: 'blue',
           icon: 'glass'
           });
           var loisirsIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'green',
+          markerColor: 'blue',
           icon: 'coffee'
           });
           var othersIcon = L.AwesomeMarkers.icon({
