@@ -133,6 +133,7 @@ var updateList = function(){
 	    heureDeb=document.getElementById('heureDeb').value;
 	    category=document.getElementById('category').value;
 	    arrondissement=document.getElementById('arrondissement').value;
+			prix=document.getElementById('price').value;
 	    function convertDate(date){ //2020-03-01
            var year= date.substr(0, 4);
            var month=date.substr(5,2);
@@ -193,6 +194,47 @@ var updateList = function(){
     			done=true;
 				list.forEach(function(item, index, array){
 					if(item.cp.substr(3,2)!=arrondissement){
+						done=false;
+						list.splice(index,1);
+					}
+				})
+			}
+		}
+		function pr(price){
+			// if (price=='Gratuit'){
+			//   return 'ratui';
+			// }
+			if (price=='Moins de 10€'){
+				return 10;
+			}
+			if (price=='Moins de 50€'){
+				return 50;
+			}
+			if (price=='Moins de 100€'){
+				return 100;
+			}
+		}
+		if (price == 'Gratuit' ){
+			done=false;
+				while(done==false){
+					done=true;
+					//feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'
+				list.forEach(function(item, index, array){
+					if(item.price!='Gratuit'){
+						done=false;
+						list.splice(index,1);
+					}
+				})
+			}
+		}
+		if(price != 'Tous' && price != 'Gratuit'){
+			done=false;
+				while(done==false){
+					done=true;
+					//feature.properties.price.substr(1,5)<pr(price)||feature.properties.price=='Gratuit'
+				list.forEach(function(item, index, array){
+					// alert(typeof(item.price.substr(1,5)));
+					if(parseInt(item.price.substr(1,5))>pr(price)){
 						done=false;
 						list.splice(index,1);
 					}
