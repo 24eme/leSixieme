@@ -127,8 +127,8 @@ var initList = function (){
 var updateList = function(){
 	events.then(function(data){
 		list=[];
-	    document.getElementById('ct').innerHTML="";
-	    $ul = $('#ct');
+	    document.getElementById('nav_events').innerHTML="";
+	    $ul = $('#nav_events');
 	    dateDeb=document.getElementById('dateDeb').value;
 	    heureDeb=document.getElementById('heureDeb').value;
 	    category=document.getElementById('category').value;
@@ -203,14 +203,34 @@ var updateList = function(){
 
 		for (var i in list){
 	      	$ul.append(
-	        '<li onclick=""><div class="event_wrapper">'
-	        + '<img class="event_img" src="'
-            + list[i]['image'] + '" alt="event_img">'
-	        + '<a class="event_date" href="#" onclick="openMarker('+list[i]['id']+');">'
-            + list[i]['title'] + '</a>'
-	        + '<h2>' + list[i]['price'] + '</h2>'
-	        + '<p>'+list[i]['cp']
-	        +'</div></li>'
+						'<li class="event-item"><div class="event-wrapper">'
+					 + '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
+					 + '<div class="event-img-wrapper"><img src="'
+					 + list[i]['image'] +'"alt="event_img"></div>'
+
+					 + '<div class="event-info-wrapper">'
+						 + '<span class="event-title"><a class="" href="#" onclick="openMarker('+list[i]['id']+');">'
+						 + list[i]['title'] + '</a></span>'
+						 + '<span class="event-cp">'
+						 + list[i]['cp'] + '</span>'
+						 + '<span class="event-time">'
+						 + list[i]['hour'] + '</span>'
+						 + '<span class="event-price">'
+						 + list[i]['price'] + '</span>'
+					 + '</div>'
+
+					 + '<div class="social-icon-wrapper">'
+					 + '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
+					 + '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
+					 + '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
+					 + '</div>'
+
+					 + '<div class="event-plus-wrapper">'
+					 + '<span class="event-address">' + list[i]['address'] + '</span>'
+					 + '<a href="' + list[i]['url'] + '">Plus de détails</a>'
+					 + '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itineraire</button>'
+					 + '</div>'
+					 +'</div></li>'
 	        );
 	    }
 	})
@@ -220,7 +240,7 @@ var updateList = function(){
 document.getElementById('km').addEventListener('change',function(event) {
 	events.then(function(data) {
 		document.getElementById('ct').innerHTML="";
-		$ul = $('#ct');
+		$ul = $('#nav_events');
 		list=[];
 		listkm=[];
 		km=document.getElementById('km').value;
