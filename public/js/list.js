@@ -113,7 +113,7 @@ var initList = function (){
 						+ '<div class="event-plus-wrapper">'
 						+ '<span class="event-address">' + list[i]['address'] + '</span>'
 						+ '<a href="' + list[i]['url'] + '">Plus de détails</a>'
-						+ '<button type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itineraire</button>'
+						+ '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itineraire</button>'
 						+ '</div>'
 						+'</div></li>'
 						);
