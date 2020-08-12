@@ -3,6 +3,7 @@ body,html{
   height: 100%;
   padding: 0;
   margin: 0;
+  font-size: 10px;
   scroll-behavior: smooth;
   background-color:#cfccd0;
 }
@@ -108,7 +109,7 @@ button:active{
 }
 .btn-routing i,.btn-routing img {
   vertical-align:top;
-  font-size: 2em;
+  font-size: 2.5em;
   margin-top: 10px;
   color:black !important;
 }

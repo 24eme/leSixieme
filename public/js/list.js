@@ -30,8 +30,7 @@ function ConvertIntoDay(date) {
 	return tab[0]
 }
 function ConvertIntoMonth(date){
-	const tab2 = date.split('/');
-	console.log(tab2[1])
+	const tab2 = date.split('/'); 
 	switch (tab2[1]) {
 		case '01':
 		  return 'Jan'

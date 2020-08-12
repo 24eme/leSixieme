@@ -181,16 +181,6 @@ var kmTabs = function(){
 }
 
 
-function openMarker(id){
- markersTab.forEach(function(marker) {
-   if (marker._id == id){
-     // marker.fireEvent('click');
-     map.setView([marker._latlng.lat, marker._latlng.lng], 40);
-
-   }
- })
-};
-
 function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
    rControl.hide()
    map.removeControl(rControl);
@@ -337,12 +327,10 @@ document.getElementById("km").addEventListener('change',function(event) {
  function openMarker(id){
   markersTab.forEach(function(marker) {
     if (marker._id == id){
-      // alert(marker);
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
       drawItinary(userLocation.lat,userLocation.lng,marker._latlng.lat,marker._latlng.lng)
-      // alert('hello1');
-      // console.log(marker);
+
 
     }
   })
