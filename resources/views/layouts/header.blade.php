@@ -10,31 +10,40 @@
     <form class="form-inline my-2 my-lg-0">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
         <label>Date Debut:</label>
-        <input type="date" class="form-control"  id="dateDeb"value="date de début">
+        <input class='i'type="date" class="form-control"  id="dateDeb"value="date de début">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
     <form class="form-inline my-2 my-lg-0">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <label>Heure Debut:</label>
-      <input type="time" class="form-control"  id="heureDeb"value="heure de début">
+      <input class='i'type="time" class="form-control"  id="heureDeb"value="heure de début">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
     <form class="form-inline my-2 my-lg-0 ">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <label>Catégorie:</label>
-      <select name="category" class="form-control" id="category" placeholder='Tous'>
+      <select class='i' name="category" class="form-control" id="category" placeholder='Tous'>
             <option value="Tous">Tous</option>
             <option value="Loisirs">Loisirs</option>
             <option value="Festival">Festival</option>
             <option value="Culturel">Culturel</option>
 
       </select>
+
+      <label>Prix Maximum</label>
+      <select class='i' name="price" id="price" placeholder='Tous'>
+            <option value="Tous">Tous</option>
+            <option value="Gratuit">Gratuit</option>
+            <option value="Moins de 10€"> Moins de 10€</option>
+            <option value="Moins de 50€">Moins de 50€</option>
+            <option value="Moins de 100€">Moins de 100€</option>
+      </select>
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
     <form class="form-inline my-2 my-lg-0 col-xs-12">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <label>Arrondissement:</label>
-      <select name="arrondissement" class="form-control" id="arrondissement">
+      <select class='i' name="arrondissement" class="form-control" id="arrondissement">
            <option value="Tous">Tous</option>
            <option value="01">01</option>
            <option value="02">02</option>
@@ -59,10 +68,10 @@
        </select>
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-4">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-         <button id='validate-filter' class='btn bg-success' type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
-         <button id='reinitialiser'class='btn bg-primary' type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
+         <button id='validate-filter' class='btn i'  type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
+         <button id='reinitialiser'class='btn i'  type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
 
@@ -70,7 +79,7 @@
     <form class="form-inline my-2 my-lg-0">
 
       <label id='rayonkm'> Rayon Km:</label>
-      <select name="km" class="form-control"  id="km">
+      <select class='i'name="km" class="form-control"  id="km">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
