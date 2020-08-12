@@ -763,7 +763,7 @@ var updateMap =function(){
                 var marker = L.marker(latlng, {
                       icon: icon,
                       zIndexOffset:1000
-                })..on('click', function() {
+                }).on('click', function() {
                   document.getElementById(this.feature.properties.id).scrollIntoView({
                     		block: 'center',
                     		behavior: 'smooth',
