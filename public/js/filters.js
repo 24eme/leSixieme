@@ -1,5 +1,7 @@
 var clusters = L.markerClusterGroup();
 var markers = [];
+
+var temp=null;
 // var nearest = 600000;
 // var nearestP = null;
 var rControl = 0;
@@ -313,8 +315,12 @@ document.getElementById("km").addEventListener('change',function(event) {
                     inline: 'nearest'
                   });;
                                   //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
-
+            if(temp!=null){
+              document.getElementById(temp).style.border = 'none';
+            }
             document.getElementById(this.feature.properties.id).style.border = 'solid';
+            temp=this.feature.properties.id;
+            // document.getElementById(this.feature.properties.id).style.border = 'solid';
             });
             // .on('click', function() {
             //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
@@ -443,8 +449,18 @@ var initialMap=function(){
                     		inline: 'nearest'
                     	});;
                                       //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
-
+                // if (temp!='null'){
+                //   document.getElementById(temp).style.backgroundColor = 'red';
+                // }
+                // document.getElementById(this.feature.properties.id).style.border = 'solid';
+                // temp=this.feature.properties.id;
+                if(temp!=null){
+                  document.getElementById(temp).style.border = 'none';
+                }
                 document.getElementById(this.feature.properties.id).style.border = 'solid';
+                temp=this.feature.properties.id;
+
+
                 });
                 // on('click', function() {
                 //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
@@ -474,7 +490,6 @@ var initialMap=function(){
       markersTab = [];
 
 }
-
 
 var updateMap =function(){
       events.then(function(data) {
@@ -768,9 +783,17 @@ var updateMap =function(){
                     		inline: 'nearest'
                     	});;
                                       //scroll to element document.getElementById(this.feature.properties.id) dans la liste ul
-              
-                document.getElementById(this.feature.properties.id).style.border = 'solid';
-
+              //   if (temp!='null'){
+              //
+              //   document.getElementById(temp).style.backgroundColor = 'red';
+              // }
+              //   document.getElementById(this.feature.properties.id).style.border = 'solid';
+              //   temp=this.feature.properties.id;
+              if(temp!=null){
+                document.getElementById(temp).style.border = 'none';
+              }
+              document.getElementById(this.feature.properties.id).style.border = 'solid';
+              temp=this.feature.properties.id;
                 });
 
                 //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
