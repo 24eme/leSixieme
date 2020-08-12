@@ -1,36 +1,126 @@
 var events = $.getJSON('js/eventsGeoJson.json');
 
-//fonction pour convertir une date :  01/02/2020 --> 01 Février 2020
-function convertExpliciteDate(date){
-	var tabMonth={"01":Janvier,"02":Février,"03":Mars,"04":Avril,"05":Mai,"06":Juin,"07":Juillet,"08":Aout,
-	"09":Septembre,"10":Octobre,"11":Novembre,"12":Décembre};
-	var month=tabMonth[date.substr(3,2)];
-	return date.substr(0,2)+' '+month+' '+date.substr(6,4);
+// var initList = function (){
+// 	events.then(function(data){
+// 		list=[];
+// 		$ul = $('#ct');
+// 		for (var i in data['features']){
+// 	        list.push(data['features'][i]['properties']);
+// 	    }
+// 	    for (var i in list){
+//             $ul.append(
+//              '<li onclick=""><div class="event_wrapper">'
+//             + '<img class="event_img" src="'
+//             + list[i]['image'] + '" alt="event_img">'
+//             + '<a class="event_date" href="#" onclick="openMarker('+list[i]['id']+');">'
+//             + list[i]['title'] + '</a>'
+//             + '<h2>' + list[i]['price'] + '</h2>'
+//             + '<p>'+list[i]['cp']
+//             +'</div></li>'
+//             );
+//         }
+//
+// 	})
+// }
+
+var day,month  = 0
+function ConvertIntoDay(date) {
+	const tab = date.split('/')
+
+	return tab[0]
 }
+function ConvertIntoMonth(date){
+	const tab2 = date.split('/');
+	console.log(tab2[1])
+	switch (tab2[1]) {
+		case '01':
+		  return 'Jan'
+			break;
+		case '02':
+		  return 'Fév'
+			break;
+		case '03':
+			return 'Mars'
+			break;
+		case '04':
+			return 'Avril'
+			break;
+		case '05':
+			return 'Mai'
+			break;
+		case '06':
+			return 'Juin'
+			break;
+		case '07':
+			return 'Juil'
+			break;
+		case '08':
+			return 'Août'
+			break;
+		case '09':
+			return 'Sept'
+			break;
+		case '10':
+			return 'Oct'
+			break;
+		case '11':
+		 	return 'Nov'
+			break;
+		case '12':
+			return 'Déc'
+			break;
+		case undefined:
+			return 'Mul'
+			break;
+		default:
+			return 'Mul'
+			break;
+	}
 
-
-var initList= function (){
+}
+var initList = function (){
 	events.then(function(data){
 		list=[];
-		$ul = $('#ct');
+		$ul = $('#nav_events');
 		for (var i in data['features']){
 	        list.push(data['features'][i]['properties']);
 	    }
-	    for (var i in list){
-            $ul.append(
-             '<li onclick=""><div class="event_wrapper">'
-            + '<img class="event_img" src="'
-            + list[i]['image'] + '" alt="event_img">'
-            + '<a class="event_date" href="#" onclick="openMarker('+list[i]['id']+');">'
-            + list[i]['title'] + '</a>'
-            + '<h2>' + list[i]['price'] + '</h2>'
-            + '<p>'+list[i]['cp']
-            +'</div></li>'
-            );
-        }
+			for (var i in list){
+						$ul.append(
+						 '<li class="event-item"><div class="event-wrapper">'
+						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
+						+ '<div class="event-img-wrapper"><img src="'
+						+ list[i]['image'] +'"alt="event_img"></div>'
+
+						+ '<div class="event-info-wrapper">'
+							+ '<span class="event-title"><a class="" href="#" onclick="openMarker('+list[i]['id']+');">'
+							+ list[i]['title'] + '</a></span>'
+							+ '<span class="event-cp">'
+							+ list[i]['cp'] + '</span>'
+							+ '<span class="event-time">'
+							+ list[i]['hour'] + '</span>'
+							+ '<span class="event-price">'
+							+ list[i]['price'] + '</span>'
+						+ '</div>'
+
+						+ '<div class="social-icon-wrapper">'
+						+ '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
+						+ '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
+						+ '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
+						+ '</div>'
+
+						+ '<div class="event-plus-wrapper">'
+						+ '<span class="event-address">' + list[i]['address'] + '</span>'
+						+ '<a href="' + list[i]['url'] + '">Plus de détails</a>'
+						+ '</div>'
+						+'</div></li>'
+						);
+				}
 
 	})
 }
+
+
 
 var updateList = function(){
 	events.then(function(data){
@@ -156,7 +246,7 @@ document.getElementById('km').addEventListener('change',function(event) {
 	        +'</div></li>'
 	        );
 	    }
-	    
+
 	});
 });
 
@@ -164,7 +254,31 @@ document.getElementById('km').addEventListener('change',function(event) {
 function filter_list(){
 	updateList();
 }
-
+//
+// var restaurants = $.getJSON('js/restaurants.geojson');
+//
+// var restaurantAround = function (){
+// 	restaurants.then(function(data){
+// 		liste=[];
+// 		$nav = $('#nav_restaurants');
+// 		for (var i in data['features']){
+// 	        liste.push(data['features'][i]['properties']);
+// 	    }
+// 	    for (var i in liste){
+//             $nav.append(
+//              '<li onclick=""><div class="event_wrapper">'
+//             + '<img class="event_img" src="'
+//             + liste[i]['image'] + '" alt="event_img">'
+//             + '<a class="event_date" href="#" onclick="openMarker('+liste[i]['id']+');">Site web'
+//             + liste[i]['title'] + '</a>'
+//             + '<h2>' + liste[i]['price'] + '</h2>'
+//             + '<p>'+liste[i]['code']
+//             +'</div></li>'
+//             );
+//         }
+//
+// 	})
+// }
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
 	document.getElementById('ct').innerHTML="";
   	initList();

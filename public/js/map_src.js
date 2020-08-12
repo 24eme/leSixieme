@@ -4,6 +4,7 @@
 //         layer.setIcon(markerInfo).addTo(map);
 //     };
 // };
+
 var tab1km = [];
 var tabMarkersRemoved = [];
 var tab2km = [];
@@ -407,7 +408,7 @@ function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationl
     console.log(userLocationlng);
       console.log(destinationlat);
         console.log(destinationlng);
-//  map.removeControl(rControl);
+  map.removeControl(rControl);
 
    rControl = L.Routing.control({
       createMarker: function() { return null; },

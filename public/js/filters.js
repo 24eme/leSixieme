@@ -6,14 +6,13 @@ var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
+    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
 });
-// var mapboxTiles = L.tileLayer('', {
-// 	attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>',
-// 	minZoom: 0,
-// 	maxZoom: 20,
-// 	ext: 'png'
-// });
+var map = L.map('map', {
+    center: [48.853, 2.333],
+    zoom: 9,
+    layers: mapboxTiles
+});
 
 var mylocation = L.icon({
     iconUrl: 'img/markers/round.png',
@@ -21,12 +20,6 @@ var mylocation = L.icon({
 });
 
 var myCoordonnees;
-
-var map = L.map('map', {
-    center: [48.853, 2.333],
-    zoom: 9,
-    layers: mapboxTiles
-});
 
 var eiffelTower = L.icon({
     iconUrl: 'img/eiffelTower.png',
@@ -49,6 +42,44 @@ var cathedrale = L.icon({
     iconSize: [50, 50],
 });
 
+const client = new tgm.TargomoClient('france', 'TKT7GDUDYYFW3BOCGQ8G336934266');
+const pBar = new mipb({ fg: "#FF8319", style: { zIndex: 500 } });
+const center = [48.853, 2.333];
+const attributionText = 'Routing by Targomo'
+map.attributionControl.addAttribution(attributionText);
+const travelTimes = [300, 900, 1800];
+const sources = [{ id: 0, lat: center[0], lng: center[1] }];
+
+sources.forEach(source => {
+    L.marker([source.lat, source.lng]).addTo(map)
+});
+
+const polygonOverlayLayer = new tgm.leaflet.TgmLeafletPolygonOverlay({ strokeWidth: 20 });
+polygonOverlayLayer.addTo(map);
+
+async function setData(mode) {
+    pBar.show();
+    const selector = `btn-${mode}`;
+    document.getElementsByClassName('active')[0].classList.remove('active');
+    document.getElementById(selector).classList.add('active');
+
+    const options = {
+        travelType: mode,
+        travelEdgeWeights: travelTimes,
+        maxEdgeWeight: 1800,
+        edgeWeight: 'time',
+        transitMaxTransfers: mode === 'transit' ? 5 : null,
+        serializer: 'json'
+    };
+    const polygons = await client.polygons.fetch(sources, options);
+    polygonOverlayLayer.setData(polygons);
+    pBar.hide();
+    const bounds = polygons.getMaxBounds();
+    map.fitBounds(new L.latLngBounds(bounds.northEast, bounds.southWest));
+}
+
+setData('bike');
+
 
 L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
 L.marker([48.8738,2.295],{icon:arcDeTriomphe}).addTo(map);
@@ -60,11 +91,8 @@ map.locate({setView: true, maxZoom: 40});
 
 function onLocationFound(e) {
     var radius = e.accuracy;
-    userLocation = e.latlng;
-    L.marker(e.latlng,{icon:mylocation}).addTo(map);
-    // map.fitBounds(mylocation.getBounds());
-    // map.setView(userLocation,400);
-    // map.setView(40);
+        userLocation = e.latlng;
+    L.marker(e.latlng,{icon:mylocation,zIndexOffset:1000}).addTo(map);
     drawData(e.latlng);
     myCoordonnees=e.latlng;
     map.setView(e.latlng, 15);
@@ -156,7 +184,7 @@ var kmTabs = function(){
 function openMarker(id){
  markersTab.forEach(function(marker) {
    if (marker._id == id){
-     marker.fireEvent('click');
+     // marker.fireEvent('click');
      map.setView([marker._latlng.lat, marker._latlng.lng], 40);
 
    }
@@ -164,7 +192,7 @@ function openMarker(id){
 };
 
 function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationlng){
-   rControl.hide();
+   rControl.hide()
    map.removeControl(rControl);
    rControl = L.Routing.control({
       createMarker: function() { return null; },
@@ -193,17 +221,17 @@ document.getElementById("km").addEventListener('change',function(event) {
       });
       var culturelIcon = L.AwesomeMarkers.icon({
       prefix: 'fa',
-      markerColor: 'red',
+      markerColor: 'blue',
       icon: 'comments'
       });
       var festivalIcon = L.AwesomeMarkers.icon({
       prefix: 'fa',
-      markerColor: 'black',
+      markerColor: 'blue',
       icon: 'glass'
       });
       var loisirsIcon = L.AwesomeMarkers.icon({
       prefix: 'fa',
-      markerColor: 'green',
+      markerColor: 'blue',
       icon: 'coffee'
       });
       var othersIcon = L.AwesomeMarkers.icon({
@@ -286,11 +314,13 @@ document.getElementById("km").addEventListener('change',function(event) {
               icon=othersIcon;
             }
             var marker = L.marker(latlng, {
-                  icon: icon
-            }).on('click', function() {
-               this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
-              });
-              map.removeControl(rControl);
+                  icon: icon,
+                  zIndexOffset:1000
+            });
+            // .on('click', function() {
+            //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
+            //   });
+              // map.removeControl(rControl);
               marker._id = feature.properties.id;
               markersTab.push(marker);
               // markersLayer.addLayer(marker);
@@ -310,6 +340,7 @@ document.getElementById("km").addEventListener('change',function(event) {
       // alert(marker);
       marker.fireEvent('click');
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
+      drawItinary(userLocation.lat,userLocation.lng,marker._latlng.lat,marker._latlng.lng)
       // alert('hello1');
       // console.log(marker);
 
@@ -362,17 +393,17 @@ var initialMap=function(){
           map.setView([48.853, 2.333],12);
           var culturelIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'red',
+          markerColor: 'blue',
           icon: 'comments'
           });
           var festivalIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'black',
+          markerColor: 'blue',
           icon: 'glass'
           });
           var loisirsIcon = L.AwesomeMarkers.icon({
           prefix: 'fa',
-          markerColor: 'green',
+          markerColor: 'blue',
           icon: 'coffee'
           });
           var othersIcon = L.AwesomeMarkers.icon({
@@ -409,10 +440,12 @@ var initialMap=function(){
                   icon=othersIcon;
                 }
                 var marker = L.marker(latlng, {
-                      icon: icon
-                }).on('click', function() {
-                   this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
-                  });
+                      icon: icon,
+                      zIndexOffset:1000
+                });
+                // on('click', function() {
+                //    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
+                //   });
                   // map.removeControl(rControl);
                   marker._id = feature.properties.id;
                   markersTab.push(marker);
@@ -615,7 +648,8 @@ var updateMap =function(){
                   icon=othersIcon;
                 }
                 var marker = L.marker(latlng, {
-                      icon: icon
+                      icon: icon,
+                      zIndexOffset:1000
                 }).on('click', function() {
                    this.bindPopup(feature.properties.title+ "<hr>"+feature.properties.date+ "<hr>"+feature.properties.hour+ "<hr>"+feature.properties.price + "<hr>"+feature.properties.address + "<hr>"+"<a href="+feature.properties.url+ "><img width='350px' height='100px' src="+feature.properties.image+"></a>"+ "<hr>" +"<a href="+feature.properties.url+ ">\ud83d\ude33Plus de détails</a>"+"<button type='button' onclick='drawItinary("+userLocation.lat+","+userLocation.lng+","+latlng.lat+","+latlng.lng+")'>Itineraire</button>");
                   });

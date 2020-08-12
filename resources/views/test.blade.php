@@ -2,10 +2,13 @@
 <html>
 
 <head>
+    <!--  Include leaflet javascript and css -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js" crossorigin=""></script>
     <!--  Include targomo leaflet full build -->
     <script src="https://releases.targomo.com/leaflet/latest-full.min.js"></script>
+    <!--  Include micro progress bar  -->
+    <script src="https://targomo.com/developers/scripts/mipb.min.js"></script>
     <style>
         body,
         html {
@@ -13,148 +16,120 @@
             width: 100%;
             height: 100%;
         }
-
         #map {
             width: 100%;
             height: 100%;
+
+        }
+        .button-group {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 1000;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+            background-color: rgba(255, 255, 255, 1);
+        }
+        .button {
+            font-family: sans-serif;
+            text-transform: uppercase;
+            color: #666;
+            cursor: pointer;
+            padding: 10px 10px 8px 10px;
+            display: inline-block;
+            font-size: 14px;
+        }
+        .button:hover {
+            background-color: #EEE;
+        }
+        .button.active {
+            color: #50B0B5;
         }
     </style>
 </head>
 
-
 <body>
     <!--  where the map will live  -->
     <div id="map"></div>
+    <div id="selectionBar" class="button-group">
+        <div id="btn-walk" onclick="setData('walk')" class="button">walk</div>
+        <div id="btn-bike" onclick="setData('bike')" class="button active">bike</div>
+        <div id="btn-car" onclick="setData('car')" class="button">car</div>
+        <div id="btn-transit" onclick="setData('transit')" class="button">transit</div>
+    </div>
+
     <script>
         // create targomo client
-        const client = new tgm.TargomoClient('northamerica', '__targomo_key_here__');
+        const client = new tgm.TargomoClient('france', 'TKT7GDUDYYFW3BOCGQ8G336934266');
+        // set the progress bar
+        const pBar = new mipb({ fg: "#FF8319", style: { zIndex: 500 } });
+        // define the basemap
+        const tilesUrl = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+        const tileLayer = L.tileLayer(tilesUrl, {
+            tileSize: 512, zoomOffset: -1,
+            minZoom: 1, crossOrigin: true
+        });
+        // Coordinates to center the map
+        const center = [48.853, 2.333];
 
-        // Create a Leaflet map with basemap, set the center of the map to Portland, Oregon.
-        const tilesUrl = 'https://api.maptiler.com/maps/positron/{z}/{x}/{y}@2x.png?key=__your_maptiler_api_key__';
-        const tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">24ème</a>'
+        var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
         });
         var map = L.map('map', {
-            layers: [tileLayer],
-            scrollWheelZoom: false
-        }).setView([45.494435, -122.651968], 13);
+            center: [48.853, 2.333],
+            zoom: 9,
+            layers: mapboxTiles
+        });
 
         // set the attribution
         const attributionText = `__targomo_attribution__`
         map.attributionControl.addAttribution(attributionText);
 
-        // Define source and target locations which are passed into the Targomo route service.
-        let targets = [
-            { id: 1, lat: 45.514286, lng: -122.641754 },
-            { id: 2, lat: 45.478429, lng: -122.617893 }
-        ];
-        let source = { id: 0, lat: 45.497804, lng: -122.676429 };
+        // polygons time rings
+        const travelTimes = [300, 900, 1800];
 
-        // create a target marker icon to be able to distinguish source and target markers
+        // define the starting point
+        const sources = [{ id: 0, lat: center[0], lng: center[1] }];
 
+        // Add markers for the sources on the map.
+        sources.forEach(source => {
+            L.marker([source.lat, source.lng]).addTo(map)
+        });
 
-        // create a draggable source and two draggable target markers, add them to the map
-        const sourceMarker = L.marker([source.lat, source.lng], { draggable: true }).addTo(map);
-        const targetMarker1 = L.marker([targets[0].lat, targets[0].lng], { draggable: true }).addTo(map);
-        const targetMarker2 = L.marker([targets[1].lat, targets[1].lng], { draggable: true }).addTo(map);
+        // define the polygon overlay
+        const polygonOverlayLayer = new tgm.leaflet.TgmLeafletPolygonOverlay({ strokeWidth: 20 });
+        polygonOverlayLayer.addTo(map);
 
-        // Everytime a marker is dragged, update the location and request a new route.
-        sourceMarker.on("dragend", markerDragged(source.id));
-        targetMarker1.on("dragend", markerDragged(targets[0].id));
-        targetMarker2.on("dragend", markerDragged(targets[1].id));
-        function markerDragged(id) {
-            return (e) => {
-                const position = e.target.getLatLng();
-                if (id === source.id) {
-                    source = { id: source.id, lat: position.lat, lng: position.lng };
-                } else {
-                    targets = targets.map(target => target.id === id ? { id: id, lat: position.lat, lng: position.lng } : target);
-                }
-                refreshRoutes();
-            }
+        async function setData(mode) {
+            // show progress bar
+            pBar.show();
+            const selector = `btn-${mode}`;
+            document.getElementsByClassName('active')[0].classList.remove('active');
+            document.getElementById(selector).classList.add('active');
+
+            // you need to define some options for the polygon service
+            const options = {
+                travelType: mode,
+                travelEdgeWeights: travelTimes,
+                maxEdgeWeight: 1800,
+                edgeWeight: 'time',
+                transitMaxTransfers: mode === 'transit' ? 5 : null,
+                serializer: 'json'
+            };
+
+            // get the polygons
+            const polygons = await client.polygons.fetch(sources, options);
+            // add polygons to overlay
+            polygonOverlayLayer.setData(polygons);
+            // hide progress bar
+            pBar.hide();
+            // calculate bounding box for polygons
+            const bounds = polygons.getMaxBounds();
+            // zoom to the polygon bounds
+            map.fitBounds(new L.latLngBounds(bounds.northEast, bounds.southWest));
         }
 
-
-        // The travel options used to determine which routes should be searched for
-        const options = {
-            travelType: 'transit',
-            maxEdgeWeight: 3600,
-            edgeWeight: 'time',
-            pathSerializer: 'compact',
-            transitFrameDate: 20190219,
-            transitFrameTime: 36000,
-            transitFrameDuration: 3600,
-            transitMaxTransfers: 5
-        };
-
-        // This array is to keep track of all the leaflet layers which should be removed from the map each time new routes are fetched.
-        let leafletLayers = [];
-
-        // Requesting routs from the Targomo API.
-        function refreshRoutes() {
-            client.routes.fetch([source], targets, options).then(result => {
-
-                // Remove all old layers
-                leafletLayers.forEach(layer => {
-                    map.removeLayer(layer);
-                });
-                leafletLayers = [];
-
-                // Go through the result, draw a dotted line for all parts of the route which are walked,
-                // draw a solid line for the parts of the route which are traveled with transit
-                // and finally draw circles for each transfer.
-                let circlePoints = [];
-                result.forEach((route) => {
-                    route.routeSegments.forEach(segment => {
-                        const leafletPoints = segment.points.map(point => new L.LatLng(point.lat, point.lng));
-                        if (segment.type === "WALK") {
-                            drawDottedLine(leafletPoints);
-                        } else if (segment.type === "TRANSIT") {
-                            drawSolidLine(leafletPoints);
-                        } else if (segment.type === "TRANSFER") {
-                            circlePoints = circlePoints.concat(leafletPoints);
-                        }
-                    })
-                });
-                // The circles are drawn after the lines so that they appear on top of the lines.
-                drawCircles(circlePoints);
-            });
-        }
-
-        function drawDottedLine(leafletPoints) {
-            const line = new L.Polyline(leafletPoints, {
-                color: '#3F51B5',
-                weight: 5,
-                opacity: 1,
-                smoothFactor: 1,
-                dashArray: '5, 10'
-            });
-            line.addTo(map);
-            leafletLayers.push(line);
-        }
-        function drawSolidLine(leafletPoints) {
-            const line = new L.Polyline(leafletPoints, {
-                color: '#FF5722',
-                weight: 5,
-                opacity: 1,
-                smoothFactor: 1
-            });
-            line.addTo(map);
-            leafletLayers.push(line);
-        }
-        function drawCircles(leafletPoints) {
-            leafletPoints.forEach(point => {
-                const circle = L.circle(point, {
-                    radius: 1,
-                    weight: 15,
-                    color: '#8BC34A'
-                });
-                circle.addTo(map);
-                leafletLayers.push(circle);
-            });
-        }
-
-        // Request routes once immediately on page load.
-        refreshRoutes();
+        setData('bike');
     </script>
 </body>
+
+</html>

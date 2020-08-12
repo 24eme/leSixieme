@@ -20,3 +20,6 @@
     <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/main.css">
     <script src="{{asset('js/script.js')}}"></script>
+    <script src="https://releases.targomo.com/leaflet/latest-full.min.js"></script>
+    <!--  Include micro progress bar  -->
+    <script src="https://targomo.com/developers/scripts/mipb.min.js"></script>
