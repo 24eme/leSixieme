@@ -78,7 +78,7 @@ button:active{
 }
 .legend{
   position: absolute;
-  bottom: -50px;
+  bottom: 10px;
   left: 23%;
   z-index: 1000
 }
