@@ -89,9 +89,12 @@ var initList = function (){
 	    }
 			for (var i in list){
 						$ul.append(
-						"<li id="
+						// "<li id="
+						// +list[i]['id']
+						// +'"'
+						"<li id="+"'"
 						+list[i]['id']
-						+'"'
+						+'\''
 						+'class="event-item"><div class="event-wrapper">'
 						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
 						+ '<div class="event-img-wrapper"><img src="'
@@ -249,9 +252,9 @@ var updateList = function(){
 
 		for (var i in list){
 	      	$ul.append(
-						"<li id="
+						"<li id="+"'"
 						+list[i]['id']
-						+'"'
+						+'\"'
 						+'class="event-item"><div class="event-wrapper">'
 					 + '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
 					 + '<div class="event-img-wrapper"><img src="'
