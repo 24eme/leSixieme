@@ -33,13 +33,15 @@ input{
   border:1px solid #E8E8E8;
   background-color: inherit;
   color:white;
+  /* font-size: 10px; */
 }
 label{
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
   color: #FFF;
   margin-left: 10px;
 }
+
 select,option{
   background-color: rgba(240,240,240,0.5);
   border:none;
@@ -325,6 +327,9 @@ background-color: rgba(167, 210, 250, 0.6);
 background-color: rgba(167, 210, 250, 0.6);
 }
 
+.i{
+  font-size: 15px;
+}
 
 
 @media screen and (max-width: 640px){
