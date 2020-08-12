@@ -1,37 +1,41 @@
 <header>
-<nav class="navbar navbar-expand-lg navbar-dark ">
+<nav class="navbar navbar-expand-lg navbar-dark m-auto">
+
   <a class="navbar-brand" href="#">Le6ème</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <button class="navbar-toggler d-xl-none d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
     <form class="form-inline my-2 my-lg-0">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
         <label>Date Debut:</label>
-        <input class='i'type="date" class="form-control"  id="dateDeb"value="date de début">
+        <input  type="date" class="form-control i"  id="dateDeb"value="date de début">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
+
     <form class="form-inline my-2 my-lg-0">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <label>Heure Debut:</label>
-      <input class='i'type="time" class="form-control"  id="heureDeb"value="heure de début">
+      <input type="time" class="form-control i"  id="heureDeb"value="heure de début">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
+
     <form class="form-inline my-2 my-lg-0 ">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <label>Catégorie:</label>
-      <select class='i' name="category" class="form-control" id="category" placeholder='Tous'>
+      <select  name="category" class="form-control i" id="category" placeholder='Tous'>
             <option value="Tous">Tous</option>
             <option value="Loisirs">Loisirs</option>
             <option value="Festival">Festival</option>
             <option value="Culturel">Culturel</option>
 
       </select>
-
+    </form>
+     <form class="form-inline my-2 my-lg-0">
       <label>Prix Maximum</label>
-      <select class='i' name="price" id="price" placeholder='Tous'>
+      <select name="price" class="form-control i" id="price" placeholder='Tous'>
             <option value="Tous">Tous</option>
             <option value="Gratuit">Gratuit</option>
             <option value="Moins de 10€"> Moins de 10€</option>
@@ -43,7 +47,7 @@
     <form class="form-inline my-2 my-lg-0 col-xs-12">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <label>Arrondissement:</label>
-      <select class='i' name="arrondissement" class="form-control" id="arrondissement">
+      <select  name="arrondissement" class="form-control i" id="arrondissement">
            <option value="Tous">Tous</option>
            <option value="01">01</option>
            <option value="02">02</option>
@@ -79,7 +83,7 @@
     <form class="form-inline my-2 my-lg-0">
 
       <label id='rayonkm'> Rayon Km:</label>
-      <select class='i'name="km" class="form-control"  id="km">
+      <select name="km" class="form-control i"  id="km">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
