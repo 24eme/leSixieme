@@ -49,8 +49,8 @@ var cathedrale = L.icon({
 const client = new tgm.TargomoClient('france', 'TKT7GDUDYYFW3BOCGQ8G336934266');
 const pBar = new mipb({ fg: "#FF8319", style: { zIndex: 500 } });
 const center = [48.853, 2.333];
-// const attributionText = 'Routing by Targomo'
-// map.attributionControl.addAttribution(attributionText);
+const attributionText = 'Routing by Targomo'
+map.attributionControl.addAttribution(attributionText);
 const travelTimes = [300, 900, 1800];
 const sources = [{ id: 0, lat: center[0], lng: center[1] }];
 
@@ -962,7 +962,7 @@ function getAllMarkers() {      //Ne récupére que les ids des  évenements or 
     map.removeLayer(geoJSONLayer);
     var allMarkersObjArray = [];
     var allMarkersGeoJsonArray = [];
-    $.each(map._layers, function (ml) {
+    $.each(map._layers, function (ml){
         if (map._layers[ml].feature) {
             allMarkersObjArray.push(this)
             allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON().properties.id))
