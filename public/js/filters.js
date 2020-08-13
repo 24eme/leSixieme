@@ -1,5 +1,6 @@
 var clusters = L.markerClusterGroup();
 var markers = [];
+initmap=false;
 
 var temp=null;
 // var nearest = 600000;
@@ -8,7 +9,11 @@ var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+<<<<<<< HEAD
     attribution: '<a href="" target="_blank">OpenStreetMap - 24ème</a>'
+=======
+    attribution: '<a  href="http://www.mapbox.com/about/maps/" target="_blank">mapbox</a> <a href="https://www.24eme.fr/" target="_blank">24ème</a> <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'
+>>>>>>> 27cf5298a08eecb8493e23f50690b0f7a5f35c55
 });
 var map = L.map('map', {
     center: [48.8738,2.295],
@@ -355,17 +360,54 @@ document.getElementById("km").addEventListener('change',function(event) {
       clusters.addLayer(rayonkm);
   });
 });
-
+ var temp=null;
  function openMarker(id){
+  //var temp=null;
   markersTab.forEach(function(marker) {
     if (marker._id == id){
       // marker.fireEvent('click');
+      if(temp!=null){
+        document.getElementById(temp).style.border = 'none';
+      }
+      document.getElementById(marker._id).style.border = 'solid';
+      temp=marker._id;
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
     }
   })
 };
 
-
+function list_km(km){
+  if (km==1){
+    tab1km=tab1km.splice();
+    kmTabs();
+    return tab1km;
+  }
+  if (km==2){
+    tab2km=tab2km.splice();
+    kmTabs();
+    return tab2km;
+  }
+  if (km==3){
+    tab3km=tab3km.splice();
+    kmTabs();
+    return tab3km;
+  }
+  if (km==4){
+    tab4km=tab4km.splice();
+    kmTabs();
+    return tab4km;
+  }
+  if (km==5){
+    tab5km=tab5km.splice();
+    kmTabs();
+    return tab5km;
+  }
+  if (km==6){
+    tab6km=tab6km.splice();
+    kmTabs();
+    return tab6km;
+  }
+}
 
 var initialMap=function(){
 
@@ -476,11 +518,18 @@ var initialMap=function(){
           // map.removeLayer(initialisation);
       });
 
+<<<<<<< HEAD
+=======
+      if(initmap==false){
+
+>>>>>>> 27cf5298a08eecb8493e23f50690b0f7a5f35c55
       arrondissement_map.then(function (data_ar){
         geoJSONLayer = L.geoJson(data_ar, {
                 style: style,
                 onEachFeature: onEachFeature
             }).addTo(map);
+
+
 
 
             legend = L.control({position: 'bottomleft'});
@@ -500,6 +549,8 @@ var initialMap=function(){
             };
 
         legend.addTo(map);
+
+
 
         // var info = L.control();
 
@@ -567,6 +618,9 @@ var initialMap=function(){
                 //info.update();
             }
       });
+      }
+
+      initmap=true;
 
       markersTab = [];
 
@@ -647,12 +701,11 @@ var updateMap =function(){
                   //Tout les element sont manquants
                   if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous' && price=='Tous'){
                     // alert('tout est vide');
+
+
                     return initialMap();
                   }
 
-                  // if (price !='Tous'){
-                  //   return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
-                  // }
 
                   //Un élément est manquant
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){

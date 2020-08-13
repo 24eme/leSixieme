@@ -71,10 +71,10 @@ function ConvertIntoMonth(date){
 			return 'Déc'
 			break;
 		case undefined:
-			return 'Mul'
+			return ''
 			break;
 		default:
-			return 'Mul'
+			return ''
 			break;
 	}
 
@@ -91,7 +91,7 @@ var initList = function (){
 						 '<li class="event-item"><div'
 						 + ' id='+"'"+list[i]['id']+'\''
 						 +'class="event-wrapper">'
-						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
+						+ '<div class="event-date-wrapper"><div class="event-date"><p>'+ ConvertIntoDay(list[i]['date'])+'<br/>'+ ConvertIntoMonth(list[i]['date']) + '</p></div></div>'
 						+ '<div class="event-img-wrapper"><img src="'
 						+ list[i]['image'] +'"alt="event_img"></div>'
 
@@ -115,7 +115,7 @@ var initList = function (){
 						+ '<div class="event-plus-wrapper">'
 						+ '<span class="event-address">' + list[i]['address'] + '</span>'
 						+ '<a href="' + list[i]['url'] + '">Plus de détails</a>'
-						+ '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itineraire</button>'
+						+ '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itinéraire</button>'
 						+ '</div>'
 						+'</div></li>'
 						);
@@ -129,6 +129,7 @@ var initList = function (){
 var updateList = function(){
 	events.then(function(data){
 		list=[];
+		temp=null;
 	    document.getElementById('nav_events').innerHTML="";
 	    $ul = $('#nav_events');
 	    dateDeb=document.getElementById('dateDeb').value;
@@ -274,7 +275,7 @@ var updateList = function(){
 					 + '<div class="event-plus-wrapper">'
 					 + '<span class="event-address">' + list[i]['address'] + '</span>'
 					 + '<a href="' + list[i]['url'] + '">Plus de détails</a>'
-					 + '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itineraire</button>'
+					 + '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itinéraire</button>'
 					 + '</div>'
 					 +'</div></li>'
 	        );
@@ -285,8 +286,9 @@ var updateList = function(){
 
 document.getElementById('km').addEventListener('change',function(event) {
 	events.then(function(data) {
-		document.getElementById('ct').innerHTML="";
+		document.getElementById('nav_events').innerHTML="";
 		$ul = $('#nav_events');
+		temp=null;
 		list=[];
 		listkm=[];
 		km=document.getElementById('km').value;
@@ -304,14 +306,36 @@ document.getElementById('km').addEventListener('change',function(event) {
 
 	    for (var i in listkm){
 	      	$ul.append(
-	        '<li onclick=""><div class="event_wrapper">'
-	        + '<img class="event_img" src="'
-            + listkm[i]['image'] + '" alt="event_img">'
-	        + '<a class="event_date" href="#" onclick="openMarker('+listkm[i]['id']+');">'
-            + listkm[i]['title'] + '</a>'
-	        + '<h2>' + listkm[i]['price'] + '</h2>'
-	        + '<p>'+listkm[i]['cp']
-	        +'</div></li>'
+	        '<li class="event-item"><div'
+						+ ' id='+"'"+list[i]['id']+'\''
+						+'class="event-wrapper">'
+					 + '<div  class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
+					 + '<div class="event-img-wrapper"><img src="'
+					 + list[i]['image'] +'"alt="event_img"></div>'
+
+					 + '<div class="event-info-wrapper">'
+						 + '<span class="event-title"><a class="" href="#" onclick="openMarker('+list[i]['id']+');">'
+						 + list[i]['title'] + '</a></span>'
+						 + '<span class="event-cp">'
+						 + list[i]['cp'] + '</span>'
+						 + '<span class="event-time">'
+						 + list[i]['hour'] + '</span>'
+						 + '<span class="event-price">'
+						 + list[i]['price'] + '</span>'
+					 + '</div>'
+
+					 + '<div class="social-icon-wrapper">'
+					 + '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
+					 + '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
+					 + '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
+					 + '</div>'
+
+					 + '<div class="event-plus-wrapper">'
+					 + '<span class="event-address">' + list[i]['address'] + '</span>'
+					 + '<a href="' + list[i]['url'] + '">Plus de détails</a>'
+					 + '<button class="btn" type="button" onclick="drawItinary(' + userLocation[0] + ',' + userLocation[1] + ',' + list[i]['coordinates'][1] + ',' + list[i]['coordinates'][0] + ')">Itinéraire</button>'
+					 + '</div>'
+					 +'</div></li>'
 	        );
 	    }
 
@@ -348,7 +372,7 @@ function filter_list(){
 // 	})
 // }
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
-	document.getElementById('ct').innerHTML="";
+	document.getElementById('nav_events').innerHTML="";
   	initList();
 });
 
