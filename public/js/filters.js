@@ -8,7 +8,7 @@ var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">OpenStreetMap - 24ème</a>'
+    attribution: '<a href="" target="_blank">OpenStreetMap - 24ème</a>'
 });
 var map = L.map('map', {
     center: [48.8738,2.295],
@@ -48,8 +48,8 @@ var cathedrale = L.icon({
 const client = new tgm.TargomoClient('france', 'TKT7GDUDYYFW3BOCGQ8G336934266');
 const pBar = new mipb({ fg: "#FF8319", style: { zIndex: 500 } });
 const center = [48.853, 2.333];
-const attributionText = 'Routing by Targomo'
-map.attributionControl.addAttribution(attributionText);
+// const attributionText = 'Routing by Targomo'
+// map.attributionControl.addAttribution(attributionText);
 const travelTimes = [300, 900, 1800];
 const sources = [{ id: 0, lat: center[0], lng: center[1] }];
 
@@ -475,9 +475,9 @@ var initialMap=function(){
           // alert('heelo');
           // map.removeLayer(initialisation);
       });
-      
+
       arrondissement_map.then(function (data_ar){
-        geoJSONLayer = L.geoJson(data_ar, { 
+        geoJSONLayer = L.geoJson(data_ar, {
                 style: style,
                 onEachFeature: onEachFeature
             }).addTo(map);
@@ -493,8 +493,7 @@ var initialMap=function(){
                 div.innerHTML += '<h6>Flux de personnes en millions de personnes par jour (calculé à partir des données RATP)</h6>';
                 for (var i = 0; i < grades.length; i++) {
                     div.innerHTML +=
-                        '<i style="background:'+getColor((grades[i] + 1) * 1000)+'"></i><br/>'
-                        +grades[i] + (grades[i + 1] ? 'K-' + grades[i + 1] + 'K <br>' : '+');
+                        '<div class="legend-affluence"><i style="background:'+getColor((grades[i] + 1) * 1000)+'"></i><span>'+ grades[i] + (grades[i + 1] ? 'K-' + grades[i + 1] + 'K </span></div>' : '+');
                 }
 
                 return div;
