@@ -362,7 +362,6 @@ document.getElementById("km").addEventListener('change',function(event) {
   markersTab.forEach(function(marker) {
     if (marker._id == id){
       // marker.fireEvent('click');
-      alert(temp);
       if(temp!=null){
         document.getElementById(temp).style.border = 'none';
       }
