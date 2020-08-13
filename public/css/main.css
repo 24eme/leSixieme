@@ -8,7 +8,18 @@ body,html{
   background-color:#cfccd0;
 }
 
+.legend .leaflet-control > div{
+  display: table-cell;
+  vertical-align: middle;
+}
+.legend-affluence{
+float: left;
+margin: 5px;
+}
 
+.legend-affluence > span{ 
+margin-left: 5px;
+}
 
 .legend {
             line-height: 18px;
