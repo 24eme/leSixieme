@@ -10,21 +10,21 @@
 
     <form class="form-inline my-2 my-lg-0">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-        <label>Date Debut:</label>
+        <label>Date de Début: </label>
         <input  type="date" class="form-control i"  id="dateDeb"value="date de début">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
 
     <form class="form-inline my-2 my-lg-0">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-      <label>Heure Debut:</label>
+      <label>Heure de Début: </label>
       <input type="time" class="form-control i"  id="heureDeb"value="heure de début">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
 
     <form class="form-inline my-2 my-lg-0 ">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-      <label>Catégorie:</label>
+      <label>Catégorie: </label>
       <select  name="category" class="form-control i custom-select h-50" id="category" placeholder='Tous'>
             <option value="Tous">Tous</option>
             <option value="Loisirs">Loisirs</option>
@@ -34,7 +34,7 @@
       </select>
     </form>
      <form class="form-inline my-2 my-lg-0">
-      <label>Prix Maximum</label>
+      <label>Prix Maximum: </label>
       <select name="price" class="form-control i custom-select h-50" id="price" placeholder='Tous'>
             <option value="Tous">Tous</option>
             <option value="Gratuit">Gratuit</option>
@@ -46,7 +46,7 @@
     </form>
     <form class="form-inline my-2 my-lg-0 mb-2">
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-      <label>Arrondissement:</label>
+      <label>Arrondissement: </label>
       <select  name="arrondissement" class="form-control i custom-select h-50 " id="arrondissement" placeholder='Tous'>
            <option value="Tous">Tous</option>
            <option value="01">01</option>
