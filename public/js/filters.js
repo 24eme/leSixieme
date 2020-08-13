@@ -355,11 +355,18 @@ document.getElementById("km").addEventListener('change',function(event) {
       clusters.addLayer(rayonkm);
   });
 });
-
+ var temp=null;
  function openMarker(id){
+  //var temp=null;
   markersTab.forEach(function(marker) {
     if (marker._id == id){
       // marker.fireEvent('click');
+      alert(temp);
+      if(temp!=null){
+        document.getElementById(temp).style.border = 'none';
+      }
+      document.getElementById(marker._id).style.border = 'solid';
+      temp=marker._id;
       map.setView([marker._latlng.lat, marker._latlng.lng], 40);
     }
   })
@@ -475,9 +482,9 @@ var initialMap=function(){
           // alert('heelo');
           // map.removeLayer(initialisation);
       });
-      
+
       arrondissement_map.then(function (data_ar){
-        geoJSONLayer = L.geoJson(data_ar, { 
+        geoJSONLayer = L.geoJson(data_ar, {
                 style: style,
                 onEachFeature: onEachFeature
             }).addTo(map);
@@ -651,9 +658,6 @@ var updateMap =function(){
                     return initialMap();
                   }
 
-                  // if (price !='Tous'){
-                  //   return (feature.properties.price.substr(1,5)<pr(price)|| feature.properties.price=='Gratuit');
-                  // }
 
                   //Un élément est manquant
                   if(dateDeb!='' && heureDeb!='' && category!='Tous' && arrondissement!='Tous'){
