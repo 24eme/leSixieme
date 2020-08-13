@@ -371,7 +371,7 @@ function filter_list(){
 // 	})
 // }
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
-	document.getElementById('ct').innerHTML="";
+	document.getElementById('nav_events').innerHTML="";
   	initList();
 });
 
