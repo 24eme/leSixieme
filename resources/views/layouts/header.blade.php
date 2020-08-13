@@ -9,21 +9,21 @@
   <div class="collapse navbar-collapse ml-xl-5" id="navbarSupportedContent">
 
     <form class="form-inline my-2 my-lg-0">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+
         <label>Date de Début: </label>
         <input  type="date" class="form-control i"  id="dateDeb"value="date de début">
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+
     </form>
 
     <form class="form-inline my-2 my-lg-0">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+
       <label>Heure de Début: </label>
       <input type="time" class="form-control i"  id="heureDeb"value="heure de début">
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+
     </form>
 
     <form class="form-inline my-2 my-lg-0 ">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+
       <label>Catégorie: </label>
       <select  name="category" class="form-control i custom-select h-50" id="category" placeholder='Tous'>
             <option value="Tous">Tous</option>
@@ -42,10 +42,10 @@
             <option value="Moins de 50€">Moins de 50€</option>
             <option value="Moins de 100€">Moins de 100€</option>
       </select>
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+
     </form>
     <form class="form-inline my-2 my-lg-0 mb-2">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+
       <label>Arrondissement: </label>
       <select  name="arrondissement" class="form-control i custom-select h-50 " id="arrondissement" placeholder='Tous'>
            <option value="Tous">Tous</option>
@@ -70,15 +70,18 @@
            <option value="19">19</option>
            <option value="20">20</option>
        </select>
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+
     </form>
     <form class="form-inline my-2 my-lg-0">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+
          <button id='validate-filter' class='btn i'  type='button' name='button' onclick="filter();filter_list()"> Filtrer</button>
-         <button id='reinitialiser'class='btn i'  type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
 
+    <form class="form-inline my-2 my-lg-0">
+
+         <button id='reinitialiser'class='btn i'  type='button' name='re-button'><i class="fas fa-redo-alt"></i></button>
+
+    </form>
 
     <form class="form-inline my-2 my-lg-0">
 
