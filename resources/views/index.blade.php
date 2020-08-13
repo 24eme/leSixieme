@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
 
+  <hr style="border:4px dashed gray; margin:0px;">
+
 <div id="selectionBar" class="button-group">
     <!-- <div id="btn-walk" onclick="setData('walk')" class=" btn-routing button"><img class="icon-alt" src="{{ asset('img/biking-icon.png') }}" alt=""></div>
     <div id="btn-bike" onclick="setData('bike')" class="btn-routing button active"><img class="icon-alt" src="{{ asset('img/walking-icon.png') }}" alt=""></div>
