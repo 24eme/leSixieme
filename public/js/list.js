@@ -129,6 +129,7 @@ var initList = function (){
 var updateList = function(){
 	events.then(function(data){
 		list=[];
+		temp=null;
 	    document.getElementById('nav_events').innerHTML="";
 	    $ul = $('#nav_events');
 	    dateDeb=document.getElementById('dateDeb').value;
