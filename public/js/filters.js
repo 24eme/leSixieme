@@ -490,7 +490,7 @@ var initialMap=function(){
                 var div = L.DomUtil.create('div', 'info legend'),
                     grades = [0, 25, 50, 100, 150, 200, 250, 400];
 
-                div.innerHTML += '<h6>En millions de personnes par jour</h6>';
+                div.innerHTML += '<h6>Flux de personnes en millions de personnes par jour (calculé à partir des données RATP)</h6>';
                 for (var i = 0; i < grades.length; i++) {
                     div.innerHTML +=
                         '<i style="background:'+getColor((grades[i] + 1) * 1000)+'"></i><br/>'
@@ -525,7 +525,7 @@ var initialMap=function(){
         opacity: 1,
         color: 'white',
         dashArray: '3',
-        fillOpacity: 0.7
+        fillOpacity: 0.5
         };
         }
 
