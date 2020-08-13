@@ -288,6 +288,7 @@ document.getElementById('km').addEventListener('change',function(event) {
 	events.then(function(data) {
 		document.getElementById('nav_events').innerHTML="";
 		$ul = $('#nav_events');
+		temp=null;
 		list=[];
 		listkm=[];
 		km=document.getElementById('km').value;
