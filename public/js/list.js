@@ -71,10 +71,10 @@ function ConvertIntoMonth(date){
 			return 'Déc'
 			break;
 		case undefined:
-			return 'Mul'
+			return ''
 			break;
 		default:
-			return 'Mul'
+			return ''
 			break;
 	}
 
@@ -91,7 +91,7 @@ var initList = function (){
 						 '<li class="event-item"><div'
 						 + ' id='+"'"+list[i]['id']+'\''
 						 +'class="event-wrapper">'
-						+ '<div class="event-date-wrapper"><span class="event-date"><p>'+ ConvertIntoDay(list[i]['date']) +'</p><p>' + ConvertIntoMonth(list[i]['date']) + '</p></span></div>'
+						+ '<div class="event-date-wrapper"><div class="event-date"><p>'+ ConvertIntoDay(list[i]['date'])+'<br/>'+ ConvertIntoMonth(list[i]['date']) + '</p></div></div>'
 						+ '<div class="event-img-wrapper"><img src="'
 						+ list[i]['image'] +'"alt="event_img"></div>'
 
