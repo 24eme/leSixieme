@@ -1,5 +1,6 @@
 var clusters = L.markerClusterGroup();
 var markers = [];
+initmap=false;
 
 var temp=null;
 // var nearest = 600000;
@@ -475,12 +476,14 @@ var initialMap=function(){
           // alert('heelo');
           // map.removeLayer(initialisation);
       });
-      
+      if(initmap==false){
       arrondissement_map.then(function (data_ar){
         geoJSONLayer = L.geoJson(data_ar, { 
                 style: style,
                 onEachFeature: onEachFeature
             }).addTo(map);
+        
+            
 
 
             legend = L.control({position: 'bottomleft'});
@@ -501,6 +504,8 @@ var initialMap=function(){
             };
 
         legend.addTo(map);
+
+        
 
         // var info = L.control();
 
@@ -568,6 +573,9 @@ var initialMap=function(){
                 //info.update();
             }
       });
+      }
+
+      initmap=true;
 
       markersTab = [];
 
@@ -648,6 +656,8 @@ var updateMap =function(){
                   //Tout les element sont manquants
                   if(dateDeb=='' && heureDeb=='' && category=='Tous' && arrondissement=='Tous' && price=='Tous'){
                     // alert('tout est vide');
+                    
+                    
                     return initialMap();
                   }
 
