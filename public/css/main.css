@@ -8,7 +8,18 @@ body,html{
   background-color:#cfccd0;
 }
 
+.legend .leaflet-control > div{
+  display: table-cell;
+  vertical-align: middle;
+}
+.legend-affluence{
+float: left;
+margin: 5px;
+}
 
+.legend-affluence > span{ 
+margin-left: 5px;
+}
 
 .legend {
             line-height: 18px;
@@ -16,7 +27,7 @@ body,html{
 	display:block;
     	width: 150PX;
         }
-            
+
 .legend i {
             width: 18px;
             height: 18px;
@@ -31,8 +42,8 @@ body,html{
             background: white;
             background: rgba(255,255,255,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            border-radius: 5px;	
-		
+            border-radius: 5px;
+
         }
 
 
@@ -72,7 +83,7 @@ label{
   font-size: 15px;
   font-weight: bold;
   color: #FFF;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 select,option{
