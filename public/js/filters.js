@@ -945,8 +945,21 @@ var updateMap =function(){
       });
 }
 
+// function getAllMarkers() {      //Ne récupére que les ids des  évenements or clusters.
+//     // clusters.remove();
+//     map.removeLayer(geoJSONLayer);
+//     tabPoints=[];
+//     var clustLayer= clusters.getLayers();
+//       // console.log(clustLayer);
+//     for (var i in clustLayer){
+//       tabPoints.push(clustLayer[i]._id);
+//     }
+//     console.log(tabPoints);
+//     // clusters.addTo(map);
+//     geoJSONLayer.addTo(map);
+// }
+
 function getAllMarkers() {      //Ne récupére que les ids des  évenements or clusters.
-    // clusters.remove();
     map.removeLayer(geoJSONLayer);
     var allMarkersObjArray = [];
     var allMarkersGeoJsonArray = [];
@@ -957,8 +970,7 @@ function getAllMarkers() {      //Ne récupére que les ids des  évenements or 
         }
     })
     console.log(allMarkersGeoJsonArray);
-    // clusters.addTo(map);
-    geoJSONLayer.addTo(map);
+     geoJSONLayer.addTo(map);
 }
 
 function filter(){
@@ -969,6 +981,7 @@ updateMap();
 document.getElementById('map').addEventListener('click',function(event){
   getAllMarkers();
 });
+
 // markersLayer.addTo(map);
 document.getElementById("reinitialiser").addEventListener('click',function(event) {
   // closeFilters();
