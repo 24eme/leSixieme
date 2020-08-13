@@ -366,7 +366,38 @@ document.getElementById("km").addEventListener('change',function(event) {
   })
 };
 
-
+function list_km(km){
+  if (km==1){
+    tab1km=tab1km.splice();
+    kmTabs();
+    return tab1km;
+  }
+  if (km==2){
+    tab2km=tab2km.splice();
+    kmTabs();
+    return tab2km;
+  }
+  if (km==3){
+    tab3km=tab3km.splice();
+    kmTabs();
+    return tab3km;
+  }
+  if (km==4){
+    tab4km=tab4km.splice();
+    kmTabs();
+    return tab4km;
+  }
+  if (km==5){
+    tab5km=tab5km.splice();
+    kmTabs();
+    return tab5km;
+  }
+  if (km==6){
+    tab6km=tab6km.splice();
+    kmTabs();
+    return tab6km;
+  }
+}
 
 var initialMap=function(){
 
