@@ -957,8 +957,8 @@ function getAllMarkers() {      //Ne récupére que les ids des  évenements or 
         }
     })
     console.log(allMarkersGeoJsonArray);
-    clusters.addTo(map);
-    // geoJSONLayer.addTo(map);
+    // clusters.addTo(map);
+    geoJSONLayer.addTo(map);
 }
 
 function filter(){
