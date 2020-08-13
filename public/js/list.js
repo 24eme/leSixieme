@@ -106,11 +106,11 @@ var initList = function (){
 							+ list[i]['price'] + '</span>'
 						+ '</div>'
 
-						+ '<div class="social-icon-wrapper">'
-						+ '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
-						+ '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
-						+ '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
-						+ '</div>'
+						// + '<div class="social-icon-wrapper">'
+						// + '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
+						// + '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
+						// + '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
+						// + '</div>'
 
 						+ '<div class="event-plus-wrapper">'
 						+ '<span class="event-address">' + list[i]['address'] + '</span>'
@@ -265,11 +265,11 @@ var updateList = function(){
 						 + list[i]['price'] + '</span>'
 					 + '</div>'
 
-					 + '<div class="social-icon-wrapper">'
-					 + '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
-					 + '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
-					 + '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
-					 + '</div>'
+					 // + '<div class="social-icon-wrapper">'
+					 // + '<span class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a></span>'
+					 // + '<span class="social-icon"><a href="#"><i class="fab fa-twitter"></i></a></span>'
+					 // + '<span class="social-icon"><a href="#"><i class="fas fa-envelope"></i></a></span>'
+					 // + '</div>'
 
 					 + '<div class="event-plus-wrapper">'
 					 + '<span class="event-address">' + list[i]['address'] + '</span>'

@@ -11,18 +11,6 @@ for (var i = 0; i < btns.length; i++) {
   });
 };
 
-var btnskm = document.getElementsByClassName("btn-km");
-for (var i = 0; i < btnskm.length; i++) {
-  btnskm[i].addEventListener("click", function() {
-  var title = document.getElementById('title_distance');
-  var currentkm = document.getElementsByClassName("active");
-  currentkm[0].className = currentkm[0].className.replace(" active", "");
-  this.className += " active";
-  if (this.value) {
-    title.innerHTML = this.value;
-  }
-  });
-};
 
 
 
