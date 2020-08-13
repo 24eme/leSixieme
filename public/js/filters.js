@@ -9,11 +9,7 @@ var rControl = 0;
 var userLocation = [48.853, 2.333];
 //initialisation de la map avec les points qui ont chaqun leur couleur en fonction de la category
 var mapboxTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-<<<<<<< HEAD
-    attribution: '<a href="" target="_blank">OpenStreetMap - 24ème</a>'
-=======
     attribution: '<a  href="http://www.mapbox.com/about/maps/" target="_blank">mapbox</a> <a href="https://www.24eme.fr/" target="_blank">24ème</a> <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'
->>>>>>> 27cf5298a08eecb8493e23f50690b0f7a5f35c55
 });
 var map = L.map('map', {
     center: [48.8738,2.295],
@@ -518,11 +514,8 @@ var initialMap=function(){
           // map.removeLayer(initialisation);
       });
 
-<<<<<<< HEAD
-=======
       if(initmap==false){
 
->>>>>>> 27cf5298a08eecb8493e23f50690b0f7a5f35c55
       arrondissement_map.then(function (data_ar){
         geoJSONLayer = L.geoJson(data_ar, {
                 style: style,
