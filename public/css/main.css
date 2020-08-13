@@ -8,6 +8,39 @@ body,html{
   background-color:#cfccd0;
 }
 
+
+
+.legend {
+            line-height: 18px;
+            color: #555;
+	display:block;
+    	width: 150PX;
+        }
+            
+.legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 0px;
+            opacity: 0.7;
+        }
+
+.info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;	
+		
+        }
+
+
+.info h5 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+
 *{
   font-family: Quicksand;
   letter-spacing: 1px;
@@ -51,6 +84,10 @@ button:active{
   background-color: white;
 }
 
+.leaflet-bottom .leaflet-control {
+    margin-bottom: 80px;
+}
+
   /* sidi quand tu fais du css tu peux le mettre en responsive !!! */
 .navbar{
   /* padding: 10px;
@@ -79,7 +116,7 @@ button:active{
   height: 30px;
 }
 .legend{
-  position: absolute;
+  position: relative;
   bottom: 10px;
   left: 23%;
   z-index: 1000
@@ -308,6 +345,7 @@ display: none;
   width: 100%;
 } */
 
+
 .marker-cluster-small {
 background-color: rgba(167, 210, 250, 0.6);
 }
@@ -336,7 +374,8 @@ background-color: rgba(167, 210, 250, 0.6);
   div#map{
     display: none;
   }
-  .legend{
+  .
+{
     display: none;
   }
   .button-group .btn-routing{

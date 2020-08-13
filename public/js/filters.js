@@ -57,31 +57,46 @@ sources.forEach(source => {
     //L.marker([source.lat, source.lng]).addTo(map)
 });
 
-const polygonOverlayLayer = new tgm.leaflet.TgmLeafletPolygonOverlay({ strokeWidth: 20 });
-polygonOverlayLayer.addTo(map);
-
-async function setData(mode) {
-    pBar.show();
-    const selector = `btn-${mode}`;
-    document.getElementsByClassName('active')[0].classList.remove('active');
-    document.getElementById(selector).classList.add('active');
-
-    const options = {
-        travelType: mode,
-        travelEdgeWeights: travelTimes,
-        maxEdgeWeight: 1800,
-        edgeWeight: 'time',
-        transitMaxTransfers: mode === 'transit' ? 5 : null,
-        serializer: 'json'
-    };
-    const polygons = await client.polygons.fetch(sources, options);
-    polygonOverlayLayer.setData(polygons);
-    pBar.hide();
-    const bounds = polygons.getMaxBounds();
-    map.fitBounds(new L.latLngBounds(bounds.northEast, bounds.southWest));
+function removeArrond(){
+  if (click==false){
+    map.removeLayer(geoJSONLayer);
+    legend.remove();
+    click=true;
+  }
+  else if(click==true){
+    map.addLayer(geoJSONLayer);
+    legend.addTo(map);
+   click=false;
+  }
 }
 
-setData('bike');
+// const polygonOverlayLayer = new tgm.leaflet.TgmLeafletPolygonOverlay({ strokeWidth: 20 });
+// polygonOverlayLayer.addTo(map);
+
+// async function setData(mode) {
+//     map.removeLayer(geoJSONLayer);
+//     //map.remove(legend);
+//     pBar.show();
+//     const selector = `btn-${mode}`;
+//     document.getElementsByClassName('active')[0].classList.remove('active');
+//     document.getElementById(selector).classList.add('active');
+
+//     const options = {
+//         travelType: mode,
+//         travelEdgeWeights: travelTimes,
+//         maxEdgeWeight: 1800,
+//         edgeWeight: 'time',
+//         transitMaxTransfers: mode === 'transit' ? 5 : null,
+//         serializer: 'json'
+//     };
+//     const polygons = await client.polygons.fetch(sources, options);
+//     polygonOverlayLayer.setData(polygons);
+//     pBar.hide();
+//     const bounds = polygons.getMaxBounds();
+//     //map.fitBounds(new L.latLngBounds(bounds.northEast, bounds.southWest));
+// }
+
+
 
 
 L.marker([48.858370,2.294481],{icon:eiffelTower}).addTo(map);
@@ -200,6 +215,7 @@ function drawItinary(userLocationlat,userLocationlng,destinationlat,destinationl
 
 
 var events = $.getJSON('js/eventsGeoJson.json');
+var arrondissement_map=  $.getJSON('js/arrondissements.geojson');
 var markersLayer = new L.LayerGroup();
 
 document.getElementById("km").addEventListener('change',function(event) {
@@ -349,42 +365,12 @@ document.getElementById("km").addEventListener('change',function(event) {
   })
 };
 
-// function list_km(km){
-//   if (km==1){
-//     tab1km=tab1km.splice();
-//     kmTabs();
-//     return tab1km;
-//   }
-//   if (km==2){
-//     tab2km=tab2km.splice();
-//     kmTabs();
-//     return tab2km;
-//   }
-//   if (km==3){
-//     tab3km=tab3km.splice();
-//     kmTabs();
-//     return tab3km;
-//   }
-//   if (km==4){
-//     tab4km=tab4km.splice();
-//     kmTabs();
-//     return tab4km;
-//   }
-//   if (km==5){
-//     tab5km=tab5km.splice();
-//     kmTabs();
-//     return tab5km;
-//   }
-//   if (km==6){
-//     tab6km=tab6km.splice();
-//     kmTabs();
-//     return tab6km;
-//   }
-// }
 
 
 var initialMap=function(){
+
       events.then(function(data) {
+          click=false;
           var temp=null;
           var events = L.geoJson(data);
           map.addLayer(clusters);
@@ -489,6 +475,100 @@ var initialMap=function(){
           // alert('heelo');
           // map.removeLayer(initialisation);
       });
+      
+      arrondissement_map.then(function (data_ar){
+        geoJSONLayer = L.geoJson(data_ar, { 
+                style: style,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+
+
+            legend = L.control({position: 'bottomleft'});
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 25, 50, 100, 150, 200, 250, 400];
+
+                div.innerHTML += '<h6>Flux de personnes en millions de personnes par jour (calculé à partir des données RATP)</h6>';
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:'+getColor((grades[i] + 1) * 1000)+'"></i><br/>'
+                        +grades[i] + (grades[i + 1] ? 'K-' + grades[i + 1] + 'K <br>' : '+');
+                }
+
+                return div;
+            };
+
+        legend.addTo(map);
+
+        // var info = L.control();
+
+        // info.onAdd = function (map) {
+        //     this._div = L.DomUtil.create('div', 'info');
+        //     this.update();
+        //     return this._div;
+        // };
+
+        // info.update = function (props) {
+        //     this._div.innerHTML = '<h5>Affluence des arrondissements - Calcul\u00e9s \u00e0 partir de la fr\u00e9quentation des stations de m\u00e9tro</h5>' +  (props ?
+        //         '<b>' + props.l_aroff +' ('+props.l_ar+')</b><br />' + props.affluence.toLocaleString()  + ' personnes/jour'
+        //         : 'Passer la souris sur un arrondissement');
+        // };
+
+        //info.addTo(map);
+
+        function style(feature) {
+        return {
+        fillColor: getColor(feature.properties.affluence),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.5
+        };
+        }
+
+        function getColor(d) {
+            return d > 400000 ? '#800026' :
+                d > 250000  ? '#BD0026' :
+                d > 200000  ? '#E31A1C' :
+                d > 150000  ? '#FC4E2A' :
+                d > 100000   ? '#FD8D3C' :
+                d > 50000   ? '#FEB24C' :
+                d > 25000   ? '#FED976' :
+                '#FFEDA0';
+        }
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight
+            });
+        }
+
+        function highlightFeature(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront(); // Permet de garantir que le pays est au-dessus des autres couches de données
+            }
+
+            //info.update(layer.feature.properties);
+        }
+
+            function resetHighlight(e) {
+                geoJSONLayer.resetStyle(e.target);
+                //info.update();
+            }
+      });
+
       markersTab = [];
 
 }
