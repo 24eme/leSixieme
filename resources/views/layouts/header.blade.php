@@ -1,14 +1,14 @@
 <header>
-<nav class="navbar navbar-expand-lg navbar-dark m-auto">
+<nav class="navbar navbar-expand-lg navbar-dark ">
 
   <a class="navbar-brand" href="#" style="font-size:20px;" >Le6ème</a>
   <button class="navbar-toggler d-xl-none d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    <span class="navbar-toggler-icon"></span>
  </button>
 
-  <div class="collapse navbar-collapse ml-xl-5" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
 
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0 ml-auto">
 
         <label>Date de Début: </label>
         <input  type="date" class="form-control i"  id="dateDeb"value="date de début">
@@ -24,7 +24,7 @@
 
     <form class="form-inline my-2 my-lg-0 ">
 
-      <label>Catégorie: </label>
+      <label >Catégorie: </label>
       <select  name="category" class="form-control i custom-select h-50" id="category" placeholder='Tous'>
             <option value="Tous">Tous</option>
             <option value="Loisirs">Loisirs</option>
@@ -44,7 +44,7 @@
       </select>
 
     </form>
-    <form class="form-inline my-2 my-lg-0 mb-2">
+    <form class="form-inline my-2 my-lg-0 ">
 
       <label>Arrondissement: </label>
       <select  name="arrondissement" class="form-control i custom-select h-50 " id="arrondissement" placeholder='Tous'>
