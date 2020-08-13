@@ -946,6 +946,8 @@ var updateMap =function(){
 }
 
 function getAllMarkers() {      //Ne récupére que les ids des  évenements or clusters.
+    // clusters.remove();
+    map.removeLayer(geoJSONLayer);
     var allMarkersObjArray = [];
     var allMarkersGeoJsonArray = [];
     $.each(map._layers, function (ml) {
@@ -954,6 +956,9 @@ function getAllMarkers() {      //Ne récupére que les ids des  évenements or 
             allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON().properties.id))
         }
     })
+    console.log(allMarkersGeoJsonArray);
+    clusters.addTo(map);
+    // geoJSONLayer.addTo(map);
 }
 
 function filter(){
