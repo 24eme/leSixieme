@@ -532,7 +532,7 @@ var initialMap=function(){
                 var div = L.DomUtil.create('div', 'info legend'),
                     grades = [0, 25, 50, 100, 150, 200, 250, 400];
 
-                div.innerHTML += '<h6>Flux de personnes en millions de personnes par jour (calculé à partir des données RATP)</h6>';
+                div.innerHTML += '<h6>Flux de personnes (calculé à partir des données RATP)</h6>';
                 for (var i = 0; i < grades.length; i++) {
                     div.innerHTML +=
                         '<div class="legend-affluence"><i style="background:'+getColor((grades[i] + 1) * 1000)+'"></i><span>'+ grades[i] + (grades[i + 1] ? 'K-' + grades[i + 1] + 'K </span></div>' : '+');
@@ -568,7 +568,7 @@ var initialMap=function(){
         opacity: 1,
         color: 'white',
         dashArray: '3',
-        fillOpacity: 0.5
+        fillOpacity: 0.3
         };
         }
 

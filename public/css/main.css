@@ -53,7 +53,7 @@ margin-left: 5px;
         }
 
 *{
-  font-family: Quicksand;
+  font-family: Quicksand,Arial;
   letter-spacing: 1px;
 }
 img{
@@ -83,8 +83,8 @@ label{
   font-size: 15px;
   font-weight: bold;
   color: #FFF;
-  margin-left: 3px;
-margin-right: 4px;
+  margin-left: 13px;
+  margin-right: 14px;
   /* margin-left: 10px; */
 }
 
